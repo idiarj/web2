@@ -1,0 +1,4 @@
+{
+    "select": "SELECT * FROM persona",
+    "where": "SELECT * FROM persona WHERE id_persona = $1"
+}
