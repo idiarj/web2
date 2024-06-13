@@ -1,5 +1,18 @@
 import  CryptManager  from '../components/CryptManager.js'
 import { instancePG } from '../data/psql-data/iPgManager.js'
+import express from 'express'
+
+const app = express()
+
+const PORT = 3000
+
+app.get('/', (req, res)=>{
+    res.send('<h1>Holi</h1>')
+})
+
+app.listen(PORT, ()=>{
+    console.log(`servidor corriendo en http://localhost:${PORT}`)
+})
 
 // const data = '16012004'
 
