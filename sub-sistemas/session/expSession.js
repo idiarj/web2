@@ -37,7 +37,7 @@ export class SessionWrapper{
             req.session.destroy(err =>{
                 if(err) console.error(err)
             })
-        return res.json({mensaje: 'tu sesion ha sido cerrada'})
+        return res.json({mensaje: 'Sesion cerrada'})
         }catch(err){
             return {err}
         }

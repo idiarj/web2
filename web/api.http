@@ -1,0 +1,38 @@
+### Ver usuarios registrados
+GET http://localhost:3000/users
+
+### Registrar usuario
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "user": "Idiarj",
+    "email": "idiar16@gmail.com",
+    "password": "16012004"
+}
+
+### Iniciar sesion
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "user": "Idiarj",
+    "password": "16012004"
+}
+
+### Ver usuarios logeados
+GET http://localhost:3000/logged
+
+### Cerrar sesion
+DELETE http://localhost:3000/logout
+
+### Ver usuario
+GET http://localhost:3000/users/Idiarj
+
+### Cambiar contrasena
+PATCH http://localhost:3000/changePassword
+Content-Type:  application/json
+
+{
+    "newPass": "16012004id"
+}
