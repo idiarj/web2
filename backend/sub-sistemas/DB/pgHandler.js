@@ -1,6 +1,6 @@
 import Pool from 'pg-pool'
 
-export default class PgHandler{
+export class PgHandler{
 
     constructor( { config, querys } ){
         this.config = config
@@ -21,7 +21,7 @@ export default class PgHandler{
     async exeQuery({key, params = []}){
         try {
             console.log(`la key es ${key}`)
-            console.log(`no me lee ${this.querys}`)
+            // console.log(`no me lee ${this.querys}`)
             const query = this.querys[key]
             
             console.log(`la query entera es ${query}`)
