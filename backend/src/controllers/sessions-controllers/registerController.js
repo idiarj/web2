@@ -12,10 +12,10 @@ export class registerController{
 
     static async registerControlPost(req, res){
         const result = await registerValidation.validateTotal(req.body)
-        console.log(result)
+        // console.log(result)
         if(result.error) return res.json({mensaje: 'Datos incorrectos', error: result.error})
         const {user, email ,password} = result.data
-        console.log(result.data)
+        // console.log(result.data)
         if(users.find(u => u.user === user)) return res.json({error: 'Usuario ya registrado'})
         // if(users.find(u => u.email === email)) return res.json({error: 'Email ya registrado'})
         const hashedPassword = await CryptManager.encriptarData({data: password})
