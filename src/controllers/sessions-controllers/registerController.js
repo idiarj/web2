@@ -1,5 +1,5 @@
 import { CryptManager } from "../../../sub-sistemas/security/CryptManager.js"
-import { instanceSess } from "../../../data/iSession/iSession.js"
+import { registerValidation } from "../../../data/iValidation/iValidation.js"
 import { v4 as uuidv4 } from 'uuid'
 import users from "../../../data/json-data/users.json" assert { type: "json" }
 
@@ -11,7 +11,11 @@ import users from "../../../data/json-data/users.json" assert { type: "json" }
 export class registerController{
 
     static async registerControlPost(req, res){
-        const {user, email, password} = req.body
+        const result = await registerValidation.validateTotal(req.body)
+        console.log(result)
+        if(result.error) return res.json({mensaje: 'Datos incorrectos', error: result.error})
+        const {user, email ,password} = result.data
+        console.log(result.data)
         if(users.find(u => u.user === user)) return res.json({error: 'Usuario ya registrado'})
         // if(users.find(u => u.email === email)) return res.json({error: 'Email ya registrado'})
         const hashedPassword = await CryptManager.encriptarData({data: password})

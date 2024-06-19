@@ -1,6 +1,7 @@
-import { validateUser } from "../../../utils/validatiotest.js"
+
 import { instanceSess } from "../../../data/iSession/iSession.js"
 import users from "../../../data/json-data/users.json" assert { type: "json" }
+import { loginValidation } from "../../../data/iValidation/iValidation.js"
 
 export class loginController {
 
@@ -11,20 +12,21 @@ export class loginController {
      *
      */
     static async loginControlPost(req, res){
-        const {user, password}= req.body
-        console.log(`user: ${user}, password: ${password}`)
-
-        if(!user || !password) return res.json({error: 'Por favor ingrese usuario y contraseña'})
-        const valid = await validateUser(user, password);
-        // console.log('valid es dentro del loginController', valid)
-        if(!valid) return res.json({error: 'Usuario o contraseña incorrectos'});
-        console.log(instanceSess.verifySession(req))
-        if(instanceSess.verifySession(req)) return res.json({mensaje: 'ya tienes una sesion iniciada, por favor haz logout para iniciar una nueva session'});
+        const result = await loginValidation.validateTotal(req.body)
+        if(instanceSess.verifySession(req)) return res.json({mensaje: `Ya hay una sesion iniciada con el usuario ${req.session.user}`}  )
+        if(result.error) return res.json({mensaje: 'Datos incorrectos', error: result.error})
+        const {user, password} = result.data
+        const userFound = users.find(u => u.user === user)
+        if(userFound){
+            instanceSess.createSession(req)
+            return res.json({mensaje: `Usuario ${user} logeado`})
+        }else{
+            return res.statusCode(422).json({mensaje: 'Datos incorrectos'})
+        }
         
-        instanceSess.createSession(req)
-        console.log(req.session.id)
-        return res.json({mensaje: `Sesion iniciada, bienvenido ${req.session.user}`})  
-}
+        
+        
+    }
 
     static async loginControlGet(req, res){
         if(instanceSess.verifySession(req)) return res.json({metodo: req.method, mensaje: `Bienvenido ${req.session.user}`})
