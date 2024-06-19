@@ -4,7 +4,7 @@ import z from "zod"
 
 
 export const userRegisterSchema = z.object({
-        user: z.string({
+        username: z.string({
             required_error: 'El campo user es requerido',
             message: 'El usuario debe ser un string'
         }).min(3).max(15),

@@ -6,9 +6,9 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "user": "Idiarj",
-    "email": "idiar16@gmail.com",
-    "password": "16012004"
+    "username": "Burgosz",
+    "email": "JoseBurgos@gmail.com",
+    "password": "Jose2003"
 }
 
 ### Iniciar sesion

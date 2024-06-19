@@ -14,14 +14,20 @@ export class registerController{
         const result = await registerValidation.validateTotal(req.body)
         // console.log(result)
         if(result.error) return res.json({mensaje: 'Datos incorrectos', error: result.error})
-        const {user, email ,password} = result.data
+        const {username, email ,password} = result.data
         // console.log(result.data)
-        if(users.find(u => u.user === user)) return res.json({error: 'Usuario ya registrado'})
+        if(users.find((u) => {
+            console.log(u, u.username, username)
+            u.username === username
+        })) {
+
+            return res.json({error: 'Usuario ya registrado', usuario_encontrado: u})
+        }
         // if(users.find(u => u.email === email)) return res.json({error: 'Email ya registrado'})
         const hashedPassword = await CryptManager.encriptarData({data: password})
         const newUser = {
             id: uuidv4(), 
-            user, 
+            username, 
             email, 
             password: hashedPassword
         }
