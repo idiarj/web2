@@ -17,21 +17,21 @@ Content-Type: application/json
 
 {
     "user": "Idiarj",
-    "password": "16012004"
+    "password": "16012004id"
 }
 
 ### Ver usuarios logeados
-GET http://localhost:3000/logged
+GET http://localhost:3000/login
 
 ### Cerrar sesion
-DELETE http://localhost:3000/logout
+POST http://localhost:3000/logout
 
 ### Ver usuario
 GET http://localhost:3000/users/Idiarj
 
 ### Cambiar contrasena
 PATCH http://localhost:3000/changePassword
-Content-Type:  application/json
+Content-Type: application/json
 
 {
     "newPass": "16012004id"

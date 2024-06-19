@@ -23,9 +23,14 @@ export class CryptManager{
 
     static compareData = async ({hashedData, toCompare})=>{
         try {
+            // console.log('estoy en compareData')
+            // console.log('hashedData', hashedData)
+            // console.log('toCompare', toCompare)
             const valid = await bcrypt.compare(toCompare, hashedData);
+            // console.log('dentro del wrapper de bcryptjs', valid)
             return valid
         } catch (error) {
+            console.log(error.message)
             return {error}
         }
     }

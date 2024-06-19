@@ -7,39 +7,36 @@ export class SessionWrapper{
     }
 
     getSession(){
+
         return this.session
+
     }
 
-    createSession(req, res){
+    createSession(req){
         const {body, session} = req
-
-            for(let key in body){
+        for(let key in body){
                 session[key] = body[key]
             }
-            return session
-
+        // return session
     }
 
-    verifySession(req, res){
-
-        try{
-            if(req.session.user){
-            return res.json({mensaje: 'ya tienes una sesion iniciada'})
-        }else{
-            this.createSession(req, res)
-        }}catch(err){
-            return {err}
-        }
+    verifySession(req){
+        return req.session && req.session.user ? true : false 
     }
 
     closeSession(req, res){
         try{
-            req.session.destroy(err =>{
-                if(err) console.error(err)
+        req.session.destroy(err =>{
+                if(err) {
+                console.error(err)
+                return res.json({mensaje: 'Error al cerra la sesion'})
+                }
             })
-        return res.json({mensaje: 'Sesion cerrada'})
+        res.clearCookie('connect.sid')
         }catch(err){
+
             return {err}
+
         }
     }
 }
