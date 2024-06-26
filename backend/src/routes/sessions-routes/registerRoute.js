@@ -7,4 +7,4 @@ import { registerController } from '../../controllers/sessions-controllers/regis
 export const registerRouter = Router()
 
 registerRouter.post('/', registerController.registerControlPost)
-registerRouter.get('/', registerController.registerControlGet)
+// registerRouter.get('/', registerController.registerControlGet)

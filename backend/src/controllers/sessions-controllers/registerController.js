@@ -2,6 +2,7 @@ import { CryptManager } from "../../../sub-sistemas/security/CryptManager.js"
 import { registerValidation } from "../../../data/iValidation/iValidation.js"
 import { v4 as uuidv4 } from 'uuid'
 import users from "../../../data/json-data/users.json" assert { type: "json" }
+import { userModel } from "../../../models/userModel.js"
 
 /**
  * Controlador para registrar un usuario
@@ -11,32 +12,36 @@ import users from "../../../data/json-data/users.json" assert { type: "json" }
 export class registerController{
 
     static async registerControlPost(req, res){
-        const result = await registerValidation.validateTotal(req.body)
-        // console.log(result)
-        if(result.error) return res.json({mensaje: 'Datos incorrectos', error: result.error})
-        const {username, email ,password} = result.data
-        // console.log(result.data)
-        if(users.find((u) => {
-            console.log(u, u.username, username)
-            u.username === username
-        })) {
-
-            return res.json({error: 'Usuario ya registrado', usuario_encontrado: u})
+        // console.log(req.body)
+        const result = await registerValidation.validateTotal(req.body);
+        console.log('input validado')
+        console.log(result)
+        if(result.error) {
+            console.log('hay error en la vali')
+            return res.json({mensaje: 'Datos incorrectos', error: result.error})
         }
-        // if(users.find(u => u.email === email)) return res.json({error: 'Email ya registrado'})
-        const hashedPassword = await CryptManager.encriptarData({data: password})
-        const newUser = {
-            id: uuidv4(), 
-            username, 
-            email, 
-            password: hashedPassword
+        console.log(`yatusabe ${result.data['username']}`)
+        const userExists = await userModel.verifyUser({user: result.data['username']})
+        console.log(`el usuario existe? ${userExists}`)
+        if(userExists) {
+            return res.json({
+            error: "usuario ya existente"
+        })}
+
+        try {
+            console.log('entre en el trycatch del controller')
+            const registerResult = await userModel.registerUser(result.data);
+            // Si `registerUser` devuelve un objeto con información del éxito, puedes verificarlo aquí.
+            // Por ejemplo, si devuelve { success: true }, puedes hacer lo siguiente:
+            if(registerResult && registerResult.success) {
+                return res.json({mensaje: 'Usuario registrado exitosamente'});
+            } else {
+                // Manejar el caso en que `registerUser` no lanza un error, pero devuelve un estado de no éxito.
+                return res.json({error: 'No se pudo registrar el usuario'});
+            }
+        } catch (error) {
+            // Manejar el error si `registerUser` falla y lanza una excepción.
+            return res.json({error: 'Error al registrar el usuario', detalle: error.message});
         }
-        users.push(newUser)
-        return res.json({mensaje: 'Usuario registrado', data_registrada: newUser})
     }
-
-    static async registerControlGet(req, res){
-        return res.json({error: 'Estas usando el endpoint /register pero con el metodo GET, por favor usa el metodo POST para registrarte'})
-    }
-
 }

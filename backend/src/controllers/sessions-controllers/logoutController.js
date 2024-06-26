@@ -5,10 +5,11 @@ export class logoutController{
     static logoutControlPost(req, res){
 
         try {
-            if (!req.session || !req.session.user) {
+            if (!instanceSess.verifySession) {
                 return res.json({ mensaje: 'No hay sesion activa' });
             }
             instanceSess.closeSession(req, res);
+            return res.json({mensaje: `sesion cerrada con exito`})
             } catch (err) {
                 return res.json({ err });
             }

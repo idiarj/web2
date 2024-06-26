@@ -6,5 +6,8 @@ import querys from './querys.json' assert {type: 'json'}
 
 // const key = 'select'
 // console.log(querys[key])
+/**
+ * @instance  Instancia de la clase PgHandler.
+ */
 export const instancePG = new PgHandler({config, querys})
 

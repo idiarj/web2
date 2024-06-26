@@ -6,9 +6,11 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "username": "Burgosz",
-    "email": "JoseBurgos@gmail.com",
-    "password": "Jose2003"
+    "nombre": "Cesar",
+    "apellido": "Villalobos",
+    "username": "villalobos1803",
+    "correo": "cavc@gmail.com",
+    "password": "boliviano"
 }
 
 ### Iniciar sesion
@@ -16,8 +18,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "user": "Idiarj",
-    "password": "16012004id"
+    "username": "villalobos1803",
+    "password": "boliviano"
 }
 
 ### Ver usuarios logeados
