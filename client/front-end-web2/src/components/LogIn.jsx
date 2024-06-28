@@ -1,9 +1,13 @@
-import { useState } from 'react';
+
+import React, { useState } from 'react';
+import './login.css'; 
+import '../App.css'; 
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [auth, setAuth] = useState(false)
+  const [auth, setAuth] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -18,31 +22,46 @@ function Login() {
 
     if (response.ok) {
       const data = await response.json();
-      // Aquí puedes manejar la respuesta del servidor, por ejemplo, guardar el token de autenticación
-      setAuth(true)
+      setAuth(true);
       console.log(data);
     } else {
-      // Aquí puedes manejar los errores, por ejemplo, mostrar un mensaje de error
+      setError('Usuario y/o contraseña inválidos'); // Mensaje de error cuando las credenciales no son válidas
       console.log('Error de inicio de sesión');
     }
   };
 
   return (
-    !auth ? 
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="submit">Login</button>
-    </form>
-    : <section>
-        <h1>Bienvenido, {username}</h1>
-    </section>
+    <div className="login-container">
+      <div className="image-section">
+        <img src="/src/assets/image.jpeg" alt="Decorative" /> 
+      </div>
+      <div className="form-section">
+        <div className="company-name">
+          <h1>VIB ProjectManager</h1>
+        </div>
+        {!auth ? (
+          <>
+            <h2>Inicia sesión</h2>
+            <form onSubmit={handleSubmit} className="login-form">
+              <label>
+                Nombre de usuario:
+                <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+              </label>
+              <label>
+                Contraseña:
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+              </label>
+              <button type="submit">Iniciar sesión</button>
+              {error && <p className="error-message">{error}</p>} 
+            </form>
+          </>
+        ) : (
+          <section>
+            <h1>Bienvenido, {username}</h1>
+          </section>
+        )}
+      </div>
+    </div>
   );
 }
 
