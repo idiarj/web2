@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './login.css'; 
 import '../App.css'; 
 
@@ -25,7 +25,7 @@ function Login() {
       setAuth(true);
       console.log(data);
     } else {
-      setError('Usuario y/o contraseña inválidos'); // Mensaje de error cuando las credenciales no son válidas
+      setError('Usuario y/o contraseña inválidos');
       console.log('Error de inicio de sesión');
     }
   };
@@ -52,8 +52,9 @@ function Login() {
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
               </label>
               <button type="submit">Iniciar sesión</button>
-              {error && <p className="error-message">{error}</p>} 
+              {error && <p className="error-message">{error}</p>}
             </form>
+            <p className="register-link">¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link></p>
           </>
         ) : (
           <section>
