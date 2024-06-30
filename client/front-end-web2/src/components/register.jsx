@@ -38,14 +38,14 @@ function Register() {
         },
         body: JSON.stringify(formData),
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
+        
         console.log('Registro exitoso:', data);
         setError(''); 
       } else {
-        console.error('Error al registrar');
-        setError('Error al registrar. Inténtelo de nuevo.');
+        console.error('Error al registrar', data);
+        setError(`Error al registrar. ${data.error}`);
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);

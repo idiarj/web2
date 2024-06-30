@@ -4,6 +4,7 @@ import users from '../../../data/json-data/users.json' assert { type: "json" }
 
 
 export class changePasswordController{
+    
     static async changePasswordConroller(req, res){
         const { newPass } = req.body
         console.log(newPass)

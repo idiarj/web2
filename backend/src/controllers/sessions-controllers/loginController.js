@@ -26,8 +26,8 @@ export class loginController {
         console.log('el usuario es valido?', validUser)
         console.log('la contrasena es valida?', validPassword)
 
-        if(!validUser) return res.status(400).json({error: 'usuario inexistente'})
-        if(!validPassword) return res.status(400).json({error: 'contrasena incorrecta'})
+        if(!validUser) return res.status(400).json({error: 'Este nombre de usuario no existe.'})
+        if(!validPassword) return res.status(400).json({error: 'La contrasena es incorrecta, intente de nuevo.'})
         
         instanceSess.createSession(req)
         return res.json({mensaje: `Usuario ${username} logeado`})

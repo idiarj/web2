@@ -18,14 +18,14 @@ export class registerController{
         console.log(result)
         if(result.error) {
             console.log('hay error en la vali')
-            return res.json({mensaje: 'Datos incorrectos', error: result.error})
+            return res.json({error: 'Datos incorrectos', error: result.error})
         }
         console.log(`yatusabe ${result.data['username']}`)
         const userExists = await userModel.verifyUser({user: result.data['username']})
         console.log(`el usuario existe? ${userExists}`)
         if(userExists) {
-            return res.json({
-            error: "usuario ya existente"
+            return res.status(400).json({
+            error: "El usuario que estas intenta registrar ya existe."
         })}
 
         try {
