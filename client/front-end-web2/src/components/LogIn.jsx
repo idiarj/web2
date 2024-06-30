@@ -6,11 +6,18 @@ import '../App.css';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [auth, setAuth] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async event => {
     event.preventDefault();
+
+    // Validación de campos vacíos
+    if (!username || !password) {
+      setError('Por favor complete ambos campos.');
+      return;
+    }
 
     const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
@@ -21,9 +28,9 @@ function Login() {
     });
 
     if (response.ok) {
-      console.log(response)
       const data = await response.json();
       setAuth(true);
+      setError('');  // Limpiar cualquier error previo
       console.log(data);
     } else {
       setError('Usuario y/o contraseña inválidos');
@@ -50,9 +57,23 @@ function Login() {
               </label>
               <label>
                 Contraseña:
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                <div className="password-container">
+                  <input 
+                    type={showPassword ? 'text' : 'password'} 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    className="password-input"
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="password-toggle-button"
+                  >
+                    {showPassword ? '🙈' : '👁️'}
+                  </button>
+                </div>
               </label>
-              <button type="submit">Iniciar sesión</button>
+              <button type="submit" className="login-submit-button">Iniciar sesión</button>
               {error && <p className="error-message">{error}</p>}
             </form>
             <p className="register-link">¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link></p>

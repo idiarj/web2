@@ -11,6 +11,7 @@ function Register() {
     correo: '',
     password: ''
   });
+  const [error, setError] = useState('');
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -22,6 +23,12 @@ function Register() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
+    // Validación de campos vacíos
+    if (!formData.nombre || !formData.apellido || !formData.username || !formData.correo || !formData.password) {
+      setError('Por favor complete todos los campos.');
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:3000/register', {
@@ -35,14 +42,14 @@ function Register() {
       if (response.ok) {
         const data = await response.json();
         console.log('Registro exitoso:', data);
-        // Puedes redirigir al usuario a una página de inicio de sesión u otra página aquí
+        setError(''); 
       } else {
         console.error('Error al registrar');
-        // Manejo de errores
+        setError('Error al registrar. Inténtelo de nuevo.');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
-      // Manejo de errores de red u otros
+      setError('Error en la solicitud. Inténtelo de nuevo.');
     }
   };
 
@@ -78,6 +85,7 @@ function Register() {
             <input type="password" name="password" value={formData.password} onChange={handleChange} />
           </label>
           <button type="submit">Registrarse</button>
+          {error && <p className="error-message">{error}</p>}
         </form>
         <p className="login-link">¿Ya tienes una cuenta? <Link to="/logIn">Inicia sesión aquí</Link></p>
       </div>
