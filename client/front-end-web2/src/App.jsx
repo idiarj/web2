@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from "./components/logIn.jsx";
+import Login from "./components/LogIn.jsx";
 import Register from './components/register.jsx';
 
 function App() {

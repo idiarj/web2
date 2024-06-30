@@ -15,7 +15,7 @@ export class loginController {
     static async loginControlPost(req, res){
         const result = await loginValidation.validateTotal(req.body)
         if(instanceSess.verifySession(req)) return res.json({mensaje: `Ya hay una sesion iniciada con el usuario ${req.session.username}`}  )
-        if(result.error) return res.json({mensaje: 'Datos incorrectos', error: result.error})
+        if(result.error) return res.status(400).json({mensaje: 'Datos no validos', error: result.error})
         const {username, password} = result.data
         console.log(`Usuario: ${username}, Password: ${password}`)
         // const userFound = users.find(u => u.username === username && u.password === password)
@@ -26,8 +26,8 @@ export class loginController {
         console.log('el usuario es valido?', validUser)
         console.log('la contrasena es valida?', validPassword)
 
-        if(!validUser) return res.json({error: 'usuario inexistente'})
-        if(!validPassword) return res.json({error: 'contrasena incorrecta'})
+        if(!validUser) return res.status(400).json({error: 'usuario inexistente'})
+        if(!validPassword) return res.status(400).json({error: 'contrasena incorrecta'})
         
         instanceSess.createSession(req)
         return res.json({mensaje: `Usuario ${username} logeado`})

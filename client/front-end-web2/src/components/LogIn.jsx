@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css'; 
 import '../App.css'; 
@@ -21,6 +21,7 @@ function Login() {
     });
 
     if (response.ok) {
+      console.log(response)
       const data = await response.json();
       setAuth(true);
       console.log(data);
