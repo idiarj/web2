@@ -95,6 +95,7 @@ h2 {
   font-size: 1rem;
   padding: 0.009rem;
   outline: none;
+  top: 21%;
 }
 
 .password-toggle-button:focus {

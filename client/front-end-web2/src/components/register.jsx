@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './register.css'; 
 import '../App.css'; 
 
@@ -12,6 +12,7 @@ function Register() {
     password: ''
   });
   const [error, setError] = useState('');
+  const navigate = useNavigate(); 
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -24,7 +25,6 @@ function Register() {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    // Validación de campos vacíos
     if (!formData.nombre || !formData.apellido || !formData.username || !formData.correo || !formData.password) {
       setError('Por favor complete todos los campos.');
       return;
@@ -40,9 +40,9 @@ function Register() {
       });
       const data = await response.json();
       if (response.ok) {
-        
         console.log('Registro exitoso:', data);
         setError(''); 
+        navigate('/logIn'); 
       } else {
         console.error('Error al registrar', data);
         setError(`Error al registrar. ${data.error}`);

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css'; 
 import '../App.css'; 
 
@@ -9,11 +9,11 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [auth, setAuth] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();  
 
   const handleSubmit = async event => {
     event.preventDefault();
 
-    // Validación de campos vacíos
     if (!username || !password) {
       setError('Por favor complete ambos campos.');
       return;
@@ -30,8 +30,9 @@ function Login() {
     if (response.ok) {
       const data = await response.json();
       setAuth(true);
-      setError('');  // Limpiar cualquier error previo
+      setError('');
       console.log(data);
+      navigate('/dashboard');  
     } else {
       setError('Usuario y/o contraseña inválidos');
       console.log('Error de inicio de sesión');
