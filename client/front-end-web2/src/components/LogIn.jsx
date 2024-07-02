@@ -49,8 +49,8 @@ function Login() {
         <div className="company-name">
           <h1>VIB ProjectManager</h1>
         </div>
-        {!auth ? (
-          <>
+
+      
             <h2>Inicia sesión</h2>
             <form onSubmit={handleSubmit} className="login-form">
               <label>
@@ -79,12 +79,6 @@ function Login() {
               {error && <p className="error-message">{error}</p>}
             </form>
             <p className="register-link">¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link></p>
-          </>
-        ) : (
-          <section>
-            <h1>Bienvenido, {username}</h1>
-          </section>
-        )}
       </div>
     </div>
   );
