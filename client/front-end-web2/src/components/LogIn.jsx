@@ -27,14 +27,15 @@ function Login() {
       body: JSON.stringify({ username, password }),
     });
 
+    const data = await response.json();
     if (response.ok) {
-      const data = await response.json();
+      
       setAuth(true);
       setError('');
       console.log(data);
       navigate('/dashboard');  
     } else {
-      setError('Usuario y/o contraseña inválidos');
+      setError(data.error);
       console.log('Error de inicio de sesión');
     }
   };
