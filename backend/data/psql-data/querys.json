@@ -1,6 +1,6 @@
 {
     "getAllUsers": "SELECT nombre_usu as usuario FROM usuario",
-    "verifyUser": "SELECT nombre_usu FROM usuario WHERE nombre_usu = $1",
+    "verifyUser": "SELECT nombre_usu as user FROM usuario WHERE nombre_usu = $1",
     "verifyPassword": "SELECT contra_usu FROM usuario WHERE nombre_usu = $1",
     "select": "SELECT * FROM persona",
     "where": "SELECT * FROM persona WHERE nombre_per = $1",

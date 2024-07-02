@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './register.css'; 
 import '../App.css'; 
@@ -12,6 +12,26 @@ function Register() {
     password: ''
   });
   const [error, setError] = useState('');
+  const [disable, setDisable] = useState(false)
+  const [buttonText, setButtonText] = useState('Registrate');
+
+  useEffect(() => {
+    let intervalId;
+
+    if (disable) {
+      setButtonText('Registrando, por favor espera');
+      let dots = 0;
+      intervalId = setInterval(() => {
+        dots = (dots + 1) % 4;
+        const text = 'Registrando, por favor espera' + '.'.repeat(dots);
+        setButtonText(text);
+      }, 500); // Cambia el texto cada 500ms
+    } else {
+      setButtonText('Registrate');
+    }
+
+    return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta o el estado `disable` cambia
+  }, [disable]);
   const navigate = useNavigate(); 
 
   const handleChange = event => {
@@ -31,6 +51,7 @@ function Register() {
     }
 
     try {
+      setDisable(true)
       const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: {
@@ -46,8 +67,10 @@ function Register() {
       } else {
         console.error('Error al registrar', data);
         setError(`Error al registrar. ${data.error}`);
+        setDisable(false)
       }
     } catch (error) {
+      setDisable(false)
       console.error('Error en la solicitud:', error);
       setError('Error en la solicitud. Inténtelo de nuevo.');
     }
@@ -84,7 +107,7 @@ function Register() {
             Contraseña:
             <input type="password" name="password" value={formData.password} onChange={handleChange} />
           </label>
-          <button type="submit">Registrarse</button>
+          <button type="submit"  className={disable ? "disabledButton" : "enabledButton"} disabled={disable} >{buttonText}</button>
           {error && <p className="error-message">{error}</p>}
         </form>
         <p className="login-link">¿Ya tienes una cuenta? <Link to="/logIn">Inicia sesión aquí</Link></p>

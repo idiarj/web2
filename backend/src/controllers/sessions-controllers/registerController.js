@@ -25,7 +25,7 @@ export class registerController{
         console.log(`el usuario existe? ${userExists}`)
         if(userExists) {
             return res.status(400).json({
-            error: "El usuario que estas intenta registrar ya existe."
+            error: "El usuario que estas intentado registrar ya existe."
         })}
 
         try {
