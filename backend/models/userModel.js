@@ -44,6 +44,45 @@ export class userModel{
     }
 
     /**
+     * Method to find a user by their email.
+     * @param {String} email - The email of the user to find.
+     * @returns {Promise<Object|null>} - The user object if found, null otherwise.
+     */
+    static async findByEmail(email) {
+    try {
+        const query = 'SELECT * FROM users WHERE email = $1'; // Adjust the query according to your database schema
+        const result = await instancePG.exeQuery({key: 'findByEmail', params: [email]});
+        if (result && result.rows && result.rows.length > 0) {
+            return result.rows[0]; // Assuming email is unique and can only find one user
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error('Error finding user by email:', error);
+        throw error; // Rethrow the error or handle it as needed
+    }
+}
+
+    /**
+     * Saves a password reset token for a user identified by their email.
+     * @param {String} email - The email of the user to save the reset token for.
+     * @param {String} resetToken - The reset token to save.
+     * @param {Date} expirationDate - The expiration date of the reset token.
+     * @returns {Promise<Boolean>} - True if the token was saved successfully, false otherwise.
+     */
+    static async saveResetToken(email, resetToken, expirationDate) {
+        try {
+            // Assuming instancePG is your database instance and there's a prepared statement for saving the token
+            const query = 'UPDATE "public".usuario SET reset_token = $2, reset_token_expiration = $3 WHERE correo_usu = $1;';
+            await instancePG.query(query, [email, resetToken, expirationDate]);
+            return true;
+        } catch (error) {
+            console.error('Error saving reset token:', error);
+            return false;
+        }
+    }
+
+    /**
      * 
      * @param {Object} param - Objeto con el usuario y contrasena introducidas por el cliente
      * @param {String} param.username - Usuario que intenta ingresar sesion y al cual se le validara la password

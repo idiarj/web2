@@ -55,6 +55,9 @@ function Login() {
               <button type="submit">Iniciar sesión</button>
               {error && <p className="error-message">{error}</p>}
             </form>
+            <p className="forgot-password-link">
+              ¿Olvidaste tu contraseña? <Link to="/forgot-password">Recupérala aquí</Link>
+            </p>
             <p className="register-link">¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link></p>
           </>
         ) : (

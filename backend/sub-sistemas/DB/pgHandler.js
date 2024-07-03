@@ -6,7 +6,7 @@ import Pool from 'pg-pool'
 
 export class PgHandler{
 
-    constructor( { config, querys } ){
+    constructor({ config, querys }) {
         this.config = config
         this.querys = querys
         this.pool = new Pool(this.config)
@@ -36,9 +36,11 @@ export class PgHandler{
     async exeQuery({key, params = []}){
         try {
             console.log(`la key es ${key}`)
-            // console.log(`no me lee ${this.querys}`)
+            console.log(`no me lee ${this.querys}`)
             const query = this.querys[key]
-            
+            if (!query) {
+                throw new Error(`Query not found for key: ${key}`);
+            }
             console.log(`la query entera es ${query}`)
             console.log(`los parametros son ${params}`)
             const result = await this.pool.query(query, params)
@@ -50,6 +52,7 @@ export class PgHandler{
             return { error }
         }
     }
+    
 
     /**
      * Funcion asincrona para liberar una conexion a una base de datos SQL.
