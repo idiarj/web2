@@ -18,8 +18,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "username": "villalobos1803",
-    "password": "boliviano"
+    "username": "Idiarj",
+    "password": "16012004id"
 }
 
 ### Ver usuarios logeados

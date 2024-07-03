@@ -28,10 +28,8 @@ function Login() {
 
     const data = await response.json();
     if (response.ok) {
-      
-      setAuth(true);
       setError('');
-      console.log(data);
+      console.log(data.mensaje);
       navigate('/dashboard');  
     } else {
       setError(data.error);
