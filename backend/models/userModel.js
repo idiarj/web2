@@ -27,17 +27,24 @@ export class userModel{
     /**
      * Metodo estatico y asincrono para verificar un usuario existe en la base de datos.
      * @param {String} param.user - Usuario a verificar.
-     * @returns {Promise<Boolean>} - Devuelve true si el usuario existe, false si no existe.
+     * @returns {Promise<String>} - Devuelve el usuario si existe, si no devuelve undefined.
      */
     static async verifyUser({ user }){
+        console.log('------VERIFY USER-------')
         try {
-            // console.log(user)
+
             const result = await instancePG.exeQuery({key: 'verifyUser', params: [user]})
-            // console.log(result)
-            // console.log(`resultado ${result.rows}`)
-            console.log(result)
-            const userExists = result.rows.length > 0
-            return userExists
+
+            if(result.rows && result.rows.length > 0){
+
+                const [ {username} ] = result.rows
+                return username
+
+            }else{
+
+                return false
+                
+            }
         } catch (error) {
             return {error}
         }
@@ -90,15 +97,18 @@ export class userModel{
      * @returns {Promise<Boolean>} - Promesa que resuelva a un booleano, true si la contrasena es valia y false si no lo es.
      */
     static async verifyPassword({username, password}){
+        console.log('------VERIFY PASSWORD-------')
         try{
             console.log(password)
             const result = await instancePG.exeQuery({key: 'verifyPassword', params: [username]})
             console.log(result)
-            const [ {contra_usu} ] = result.rows
-            console.log(contra_usu)
-            // console.log(result.rows['contra_usu'])
-            console.log(password)
-            return result.rows.length > 0 && await CryptManager.compareData({hashedData : contra_usu, toCompare: password})
+
+            if(result.rows && result.rows.length > 0){
+                const [ {contra_usu} ] = result.rows
+                return await CryptManager.compareData({hashedData : contra_usu, toCompare: password})
+            }else{
+                return false
+            }
         }catch(error){
             console.log(error)
             return {error}

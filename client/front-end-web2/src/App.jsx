@@ -1,8 +1,6 @@
-// import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from "./components/LogIn.jsx";
 import Register from './components/register.jsx';
-import ForgotPassword from './components/forgot-password';
 
 function App() {
   return (
@@ -12,9 +10,12 @@ function App() {
         <Route path="/logIn" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './register.css'; 
 import '../App.css'; 
 
@@ -11,6 +11,28 @@ function Register() {
     correo: '',
     password: ''
   });
+  const [error, setError] = useState('');
+  const [disable, setDisable] = useState(false)
+  const [buttonText, setButtonText] = useState('Registrate');
+
+  useEffect(() => {
+    let intervalId;
+
+    if (disable) {
+      setButtonText('Registrando, por favor espera');
+      let dots = 0;
+      intervalId = setInterval(() => {
+        dots = (dots + 1) % 4;
+        const text = 'Registrando, por favor espera' + '.'.repeat(dots);
+        setButtonText(text);
+      }, 500); // Cambia el texto cada 500ms
+    } else {
+      setButtonText('Registrate');
+    }
+
+    return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta o el estado `disable` cambia
+  }, [disable]);
+  const navigate = useNavigate(); 
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -23,7 +45,13 @@ function Register() {
   const handleSubmit = async event => {
     event.preventDefault();
 
+    if (!formData.nombre || !formData.apellido || !formData.username || !formData.correo || !formData.password) {
+      setError('Por favor complete todos los campos.');
+      return;
+    }
+
     try {
+      setDisable(true)
       const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: {
@@ -31,18 +59,20 @@ function Register() {
         },
         body: JSON.stringify(formData),
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         console.log('Registro exitoso:', data);
-        // Puedes redirigir al usuario a una página de inicio de sesión u otra página aquí
+        setError(''); 
+        navigate('/logIn'); 
       } else {
-        console.error('Error al registrar');
-        // Manejo de errores
+        console.error('Error al registrar', data);
+        setError(`Error al registrar. ${data.error}`);
+        setDisable(false)
       }
     } catch (error) {
+      setDisable(false)
       console.error('Error en la solicitud:', error);
-      // Manejo de errores de red u otros
+      setError('Error en la solicitud. Inténtelo de nuevo.');
     }
   };
 
@@ -77,7 +107,8 @@ function Register() {
             Contraseña:
             <input type="password" name="password" value={formData.password} onChange={handleChange} />
           </label>
-          <button type="submit">Registrarse</button>
+          <button type="submit"  className={disable ? "disabledButton" : "enabledButton"} disabled={disable} >{buttonText}</button>
+          {error && <p className="error-message">{error}</p>}
         </form>
         <p className="login-link">¿Ya tienes una cuenta? <Link to="/logIn">Inicia sesión aquí</Link></p>
       </div>

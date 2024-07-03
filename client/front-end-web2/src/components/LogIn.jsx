@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.css'; 
 import '../App.css'; 
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [auth, setAuth] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();  
 
   const handleSubmit = async event => {
     event.preventDefault();
+
+    if (!username || !password) {
+      setError('Por favor complete ambos campos.');
+      return;
+    }
 
     const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
@@ -20,13 +26,13 @@ function Login() {
       body: JSON.stringify({ username, password }),
     });
 
+    const data = await response.json();
     if (response.ok) {
-      console.log(response)
-      const data = await response.json();
-      setAuth(true);
-      console.log(data);
+      setError('');
+      console.log(data.mensaje);
+      navigate('/dashboard');  
     } else {
-      setError('Usuario y/o contraseña inválidos');
+      setError(data.error);
       console.log('Error de inicio de sesión');
     }
   };
@@ -40,8 +46,8 @@ function Login() {
         <div className="company-name">
           <h1>VIB ProjectManager</h1>
         </div>
-        {!auth ? (
-          <>
+
+      
             <h2>Inicia sesión</h2>
             <form onSubmit={handleSubmit} className="login-form">
               <label>
@@ -50,21 +56,29 @@ function Login() {
               </label>
               <label>
                 Contraseña:
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                <div className="password-container">
+                  <input 
+                    type={showPassword ? 'text' : 'password'} 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    className="password-input"
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="password-toggle-button"
+                  >
+                    {showPassword ? '🙈' : '👁️'}
+                  </button>
+                </div>
               </label>
-              <button type="submit">Iniciar sesión</button>
+              <button type="submit" className="login-submit-button">Iniciar sesión</button>
               {error && <p className="error-message">{error}</p>}
             </form>
             <p className="forgot-password-link">
               ¿Olvidaste tu contraseña? <Link to="/forgot-password">Recupérala aquí</Link>
             </p>
             <p className="register-link">¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link></p>
-          </>
-        ) : (
-          <section>
-            <h1>Bienvenido, {username}</h1>
-          </section>
-        )}
       </div>
     </div>
   );

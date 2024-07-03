@@ -6,6 +6,12 @@ import Pool from 'pg-pool'
 
 export class PgHandler{
 
+    /**
+     * Crea una instancia de PgHandler.
+     * @param {Object} config - Configuracion para el pool de conexiones de la clase.
+     * @param {Object} querys - Objeto que contiene las consultas SQL predefinidas/
+     */
+
     constructor({ config, querys }) {
         this.config = config
         this.querys = querys
@@ -14,7 +20,7 @@ export class PgHandler{
     }
 
     /**
-     * Funcion asincrona que devuelve una conexion a una base de datos SQL.
+     * Metodo asincronico que devuelve una conexion a una base de datos SQL.
      * @returns {Promise<PoolCLient>} - Promesa que se resuelve devolviendo la conexion
      */
     async getConn(){
@@ -34,6 +40,7 @@ export class PgHandler{
      * @throws {Error} - Lanza un error si la consulta no se puede ejecutar correctamente.
      */
     async exeQuery({key, params = []}){
+
         try {
             console.log(`la key es ${key}`)
             console.log(`no me lee ${this.querys}`)
@@ -43,20 +50,23 @@ export class PgHandler{
             }
             console.log(`la query entera es ${query}`)
             console.log(`los parametros son ${params}`)
-            const result = await this.pool.query(query, params)
+            
+            const result = await client.query(query, params)
 
             return result
 
         } catch (error) {
+
             console.log(error)
             return { error }
+
         }
     }
     
 
     /**
      * Funcion asincrona para liberar una conexion a una base de datos SQL.
-     * @param {Connection} cnn - Conexion que se liberara.
+     * @param {PoolClient} cnn - Conexion que se liberara.
      * 
      */
     async releaseConn(cnn){
