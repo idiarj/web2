@@ -1,9 +1,15 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './dashboard.css'; 
 import enproceso from '../assets/enproceso.jpg'; 
 
-function Dashboard({ username }) {
+function Dashboard() {
+  const [username, setUsername] = useState()
+  const response = fetch('http://localhost:3000/home')
+                  .then(
+                    response => console.log(response)
+                      )
+                    .catch(err => console.error(err))
   return (
     <div className="dashboard-container">
       <aside className="dashboard-nav">

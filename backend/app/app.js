@@ -1,10 +1,12 @@
 // import { instancePG } from '../data/psql-data/iPgManager.js'
 // import { v4 as uuidv4 } from 'uuid'
+// import users from '../data/json-data/users.json' assert { type: "json" }
 import express from 'express'
 import cors from 'cors'
+import cors_config from '../config/cors-config.json'  assert {type: 'json'}
 import { loginRouter, registerRouter, logoutRouter, changePassRouter, homeRouter, passResetRouter, ProyectosRouter } from '../src/routes/dispatcher.js'
 import { instanceSess } from '../data/iSession/iSession.js'
-import users from '../data/json-data/users.json' assert { type: "json" }
+
 import { isAuthMiddleware } from '../src/middlewares/isAuthMiddleware.js'
 
 
@@ -13,9 +15,7 @@ const app = express()
 
 
 
-app.use(cors({
-  origin: '*' // or use '*' to allow all origins
-}));
+app.use(cors(cors_config));
 app.use(instanceSess.getSession())
 app.use(express.json())
 

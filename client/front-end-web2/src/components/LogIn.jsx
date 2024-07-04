@@ -20,6 +20,7 @@ function Login() {
 
     const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,6 +29,7 @@ function Login() {
 
     const data = await response.json();
     if (response.ok) {
+      console.log(response)
       setError('');
       console.log(data.mensaje);
       navigate('/dashboard');  
