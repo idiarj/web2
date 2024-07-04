@@ -12,18 +12,22 @@ export class SessionWrapper{
 
     }
 
-   createSession(req){
+async createSession(req){
     const {body, session} = req;
     for(let key in body){
         session[key] = body[key];
         console.log(`creare sesion con ${session[key]}`);
     }
-    session.save(err => {
-        if(err) {
-            console.error('Error al guardar la sesión:', err);
-        } else {
-            console.log('Sesión guardada con éxito');
-        }
+    return new Promise((resolve, reject) => {
+        session.save(err => {
+            if(err) {
+                console.error('Error al guardar la sesión:', err);
+                reject(err);
+            } else {
+                console.log('Sesión guardada con éxito');
+                resolve();
+            }
+        });
     });
 }
 

@@ -81,7 +81,7 @@ export class userModel{
         try {
             // Assuming instancePG is your database instance and there's a prepared statement for saving the token
             const query = 'UPDATE "public".usuario SET reset_token = $2, reset_token_expiration = $3 WHERE correo_usu = $1;';
-            await instancePG.query(query, [email, resetToken, expirationDate]);
+            await instancePG.exeQuery(query, [email, resetToken, expirationDate]);
             return true;
         } catch (error) {
             console.error('Error saving reset token:', error);
@@ -96,16 +96,16 @@ export class userModel{
      * @param {String} param.password - Password a validar 
      * @returns {Promise<Boolean>} - Promesa que resuelva a un booleano, true si la contrasena es valia y false si no lo es.
      */
-    static async verifyPassword({username, password}){
+    static async verifyPassword({username, password_user}){
         console.log('------VERIFY PASSWORD-------')
         try{
-            console.log(password)
+            console.log(password_user)
             const result = await instancePG.exeQuery({key: 'verifyPassword', params: [username]})
-            console.log(result)
+            // console.log(result)
 
             if(result.rows && result.rows.length > 0){
-                const [ {contra_usu} ] = result.rows
-                return await CryptManager.compareData({hashedData : contra_usu, toCompare: password})
+                const [ {password} ] = result.rows
+                return await CryptManager.compareData({hashedData : password, toCompare: password_user})
             }else{
                 return false
             }
