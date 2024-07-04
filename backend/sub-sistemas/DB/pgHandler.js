@@ -45,6 +45,7 @@ export class PgHandler{
             console.log(`la key es ${key}`)
             console.log(`no me lee ${this.querys}`)
             const query = this.querys[key]
+            console.log(`NO HAY QUERY`)
             if (!query) {
                 throw new Error(`Query not found for key: ${key}`);
             }

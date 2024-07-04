@@ -35,19 +35,25 @@ async createSession(req){
         return req.session && req.session.username ? true : false 
     }
 
-    closeSession(req, res){
-        try{
-        req.session.destroy(err =>{
-                if(err) {
-                console.error(err)
-                return res.json({mensaje: 'Error al cerra la sesion'})
+   async closeSession(req, res) {
+    try {
+        await new Promise((resolve, reject) => {
+            req.session.destroy(err => {
+                if (err) {
+                    console.error(err);
+                    reject(new Error('Error al cerrar la sesión'));
+                } else {
+                    resolve();
                 }
-            })
-        res.clearCookie('connect.sid')
-        }catch(err){
-
-            return {err}
-
-        }
+            });
+        });
+        res.clearCookie('connect.sid');
+        // Enviar una respuesta de éxito después de cerrar la sesión y limpiar la cookie
+        return { mensaje: 'Sesión cerrada con éxito' };
+    } catch (err) {
+        console.error(err);
+        // Return the error message instead of sending a response
+        return { mensaje: err.message };
     }
+  }
 }
