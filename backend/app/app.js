@@ -2,7 +2,7 @@
 // import { v4 as uuidv4 } from 'uuid'
 import express from 'express'
 import cors from 'cors'
-import { loginRouter, registerRouter, logoutRouter, changePassRouter, homeRouter, passResetRouter } from '../src/routes/dispatcher.js'
+import { loginRouter, registerRouter, logoutRouter, changePassRouter, homeRouter, passResetRouter, ProyectosRouter } from '../src/routes/dispatcher.js'
 import { instanceSess } from '../data/iSession/iSession.js'
 import users from '../data/json-data/users.json' assert { type: "json" }
 import { isAuthMiddleware } from '../src/middlewares/isAuthMiddleware.js'

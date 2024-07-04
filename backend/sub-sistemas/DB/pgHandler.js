@@ -40,7 +40,7 @@ export class PgHandler{
      * @throws {Error} - Lanza un error si la consulta no se puede ejecutar correctamente.
      */
     async exeQuery({key, params = []}){
-
+        const client = await this.getConn()
         try {
             console.log(`la key es ${key}`)
             console.log(`no me lee ${this.querys}`)
@@ -60,6 +60,8 @@ export class PgHandler{
             console.log(error)
             return { error }
 
+        }finally{
+            await this.releaseConn(client)
         }
     }
     

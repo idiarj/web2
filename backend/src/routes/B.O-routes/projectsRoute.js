@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { ProyectosController } from '../../controllers/B.O-controllers/projectsController'
+import { ProyectosController } from '../../controllers/B.O-controllers/projectsController.js'
 
 export const ProyectosRouter = Router()
 

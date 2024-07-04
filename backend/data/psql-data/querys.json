@@ -1,10 +1,10 @@
 {
     "getAllUsers": "SELECT nombre_usu as usuario FROM usuario",
-    "verifyUser": "SELECT nombre_usu as username FROM usuario WHERE nombre_usu = $1",
-    "verifyPassword": "SELECT contra_usu FROM usuario WHERE nombre_usu = $1",
-    "findByEmail":"SELECT * FROM usuario WHERE correo_usu = $1",
-    "select": "SELECT * FROM persona",
-    "where": "SELECT * FROM persona WHERE nombre_per = $1",
-    "insert_persona": "INSERT INTO persona (nombre_persona, apellido_persona) VALUES ($1, $2) RETURNING id_persona",
-    "insert_username": "INSERT INTO usuario (nombre_usu, correo_usu, contra_usu, id_persona) VALUES ($1, $2, $3, $4)"
+    "verifyUser": "SELECT nom_usuario as username FROM usuario WHERE nombre_usu = $1",
+    "verifyPassword": "SELECT password_usuario contraseña FROM usuario WHERE nom_usuario = $1",
+    "findByEmail":"SELECT * FROM usuario WHERE correo_usuario = $1",
+    "select_personas": "SELECT * FROM persona",
+    "getPersona": "SELECT * FROM persona WHERE nom_persona = $1",
+    "insert_persona": "INSERT INTO persona (nom_persona, ape_persona) VALUES ($1, $2) RETURNING id_persona",
+    "insert_username": "INSERT INTO usuario (nom_usuario, correo_usuario, password_usuario, id_persona) VALUES ($1, $2, $3, $4)"
 }

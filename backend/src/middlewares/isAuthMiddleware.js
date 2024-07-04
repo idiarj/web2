@@ -1,10 +1,13 @@
 import { instanceSess } from "../../data/iSession/iSession.js"
 
 export const isAuthMiddleware = (req, res, next) => {
-    if(instanceSess.verifySession) {
+    console.log(req.session)
+    console.log(instanceSess.verifySession)
+    if(instanceSess.verifySession(req, res)) {
+        console.log('hay sesion')
         next();
     } else {
         console.log('estoy en el middleware y no estas autorizado');
-        res.redirect('/login'); // Redirige al cliente a la página de inicio de sesión
+        res.json({error: 'No autorizado.'}); 
     }
 }
