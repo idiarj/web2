@@ -4,6 +4,7 @@ import { logoutRouter } from './sessions-routes/logoutRouter.js'
 import { changePassRouter } from './sessions-routes/changePassRouter.js'
 import { homeRouter } from './sessions-routes/homeRouter.js'
 import { passResetRouter } from './sessions-routes/passResetRouter.js';
+import { ProyectosRouter } from './B.O-routes/projectsRoute.js'
 
 export {
     loginRouter,
@@ -11,5 +12,6 @@ export {
     logoutRouter,
     changePassRouter,
     homeRouter,
-    passResetRouter
+    passResetRouter,
+    ProyectosRouter
 }

@@ -38,6 +38,8 @@ app.use('/changePassword', changePassRouter)
 
 app.use('/forgot-password',passResetRouter);
 
+app.use('/projects', isAuthMiddleware, ProyectosRouter)
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
     console.log(`servidor escuchando en http://localhost:${PORT}`)
