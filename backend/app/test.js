@@ -35,13 +35,7 @@ const registerUser = async (params) =>{
     const client = await getConn();
     try{
         // const cnn = await getConn()
-        client.query('BEGIN')
-        console.log(`insertando persona ${nombre} ${apellido}`)
-        const resultQ = await client.query(insertP, [nombre ,apellido])
-        const id = resultQ.rows[0].id_persona
-        console.log(`insertando usuario ${nombre_usu}`)
-        await client.query(insertU, [nombre_usu, correo, password, id])
-        client.query('COMMIT')
+        client.query()
     }catch(err){
         client.query('ROLLBACK')
         console.log(err.message)
