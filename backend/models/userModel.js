@@ -1,4 +1,4 @@
-import { instancePG } from "../data/psql-data/iPgManager.js";
+import { iPgHandler } from "../data/psql-data/iPgManager.js";
 import { CryptManager } from "../sub-sistemas/security/CryptManager.js";
 
 export class userModel{
@@ -7,7 +7,7 @@ export class userModel{
 
     static async getAllUsers(){
         try{
-        const result = await instancePG.exeQuery({key: 'select'})
+        const result = await iPgHandler.exeQuery({key: 'select'})
         return result
         }catch(error){
             return error
@@ -16,7 +16,7 @@ export class userModel{
 
     static async getFromUsername({username}){
         try{
-            const result = await instancePG.exeQuery({key: 'where', params: [username]})
+            const result = await iPgHandler.exeQuery({key: 'where', params: [username]})
             return result
         }catch(error){
             return {error}
@@ -33,19 +33,40 @@ export class userModel{
         console.log('------VERIFY USER-------')
         try {
 
-            const result = await instancePG.exeQuery({key: 'verifyUser', params: [user]})
+            const result = await iPgHandler.exeQuery({key: 'verifyUser', params: [user]})
+            // console.log(result)
 
-            if(result.rows && result.rows.length > 0){
+            if(result && result.length > 0){
 
-                const [ {username} ] = result.rows
+                const [ {username} ] = result
+                console.log(username)
                 return username
 
             }else{
-
+                console.log('usuario no valido')
                 return false
                 
             }
         } catch (error) {
+            return {error}
+        }
+    }
+
+    static async verifyPassword({username, password_user}){
+        console.log('------VERIFY PASSWORD-------')
+        try{
+            console.log(password_user)
+            const result = await iPgHandler.exeQuery({key: 'verifyPassword', params: [username]})
+            // console.log(result)
+
+            if(result && result.length > 0){
+                const [ {password} ] = result
+                return await CryptManager.compareData({hashedData : password, toCompare: password_user})
+            }else{
+                return false
+            }
+        }catch(error){
+            console.log(error)
             return {error}
         }
     }
@@ -58,7 +79,7 @@ export class userModel{
     static async findByEmail(email) {
     try {
         const query = 'SELECT * FROM users WHERE email = $1'; // Adjust the query according to your database schema
-        const result = await instancePG.exeQuery({key: 'findByEmail', params: [email]});
+        const result = await iPgHandler.exeQuery({key: 'findByEmail', params: [email]});
         if (result && result.rows && result.rows.length > 0) {
             return result.rows[0]; // Assuming email is unique and can only find one user
         } else {
@@ -79,9 +100,9 @@ export class userModel{
      */
     static async saveResetToken(email, resetToken, expirationDate) {
         try {
-            // Assuming instancePG is your database instance and there's a prepared statement for saving the token
+            // Assuming iPgHandler is your database instance and there's a prepared statement for saving the token
             const query = 'UPDATE "public".usuario SET reset_token = $2, reset_token_expiration = $3 WHERE correo_usu = $1;';
-            await instancePG.exeQuery(query, [email, resetToken, expirationDate]);
+            await iPgHandler.exeQuery(query, [email, resetToken, expirationDate]);
             return true;
         } catch (error) {
             console.error('Error saving reset token:', error);
@@ -96,24 +117,7 @@ export class userModel{
      * @param {String} param.password - Password a validar 
      * @returns {Promise<Boolean>} - Promesa que resuelva a un booleano, true si la contrasena es valia y false si no lo es.
      */
-    static async verifyPassword({username, password_user}){
-        console.log('------VERIFY PASSWORD-------')
-        try{
-            console.log(password_user)
-            const result = await instancePG.exeQuery({key: 'verifyPassword', params: [username]})
-            // console.log(result)
 
-            if(result.rows && result.rows.length > 0){
-                const [ {password} ] = result.rows
-                return await CryptManager.compareData({hashedData : password, toCompare: password_user})
-            }else{
-                return false
-            }
-        }catch(error){
-            console.log(error)
-            return {error}
-        }
-    }
     
 
 
@@ -135,25 +139,26 @@ export class userModel{
  *                               En caso de error, el objeto tendrá una propiedad `success` con
  *                               valor `false` y detalles del error en `message` y `error`.
  */
-    static async registerUser(obj){
-        const {nombre, apellido, username, correo, password} = obj;
+    static async registerUser({nombre, apellido, username, correo, password}){
         const hashedPassword = await CryptManager.encriptarData({data: password});
-        const {insert_persona, insert_username} = instancePG.querys;
-        const client = await instancePG.getConn();
+        const {insert_persona, insert_username} = iPgHandler.querys;
+        const client = await iPgHandler.beginTransaction()
+
+
 
         try {
             console.log('entre en el try de user model registeruser')
-            await client.query('BEGIN');
             console.log(`insertando la persona ${nombre} ${apellido}`);
-            const { rows: [{id_persona}] } = await client.query(insert_persona, [nombre, apellido]);
+            const [{
+                id_persona
+            }] = await iPgHandler.exeQuery({key: 'insert_persona', params: [nombre, apellido], client});
             console.log(`insertando el usuario ${username} ${correo} ${id_persona}`);
-            await client.query(insert_username, [username, correo, hashedPassword, id_persona]);
+            await iPgHandler.exeQuery({key: 'insert_username', params:[username, correo, hashedPassword, id_persona], client});
 
-            await client.query('COMMIT');
-            client.release();
+            await iPgHandler.commitTransaction(client)
             return { success: true, message: "Usuario registrado con éxito" };
         } catch (error) {
-            await client.query('ROLLBACK');
+            await iPgHandler.rollbackTransaction(client)
             console.log('error al insertar el usuario:', error);
             client.release();
             return { success: false, message: "Error al registrar el usuario", error };

@@ -1,5 +1,5 @@
 import Pool from 'pg-pool'
-import { instancePG } from '../data/psql-data/iPgManager.js'
+import { iPgHandler } from '../data/psql-data/iPgManager.js'
 import { userModel } from '../models/userModel.js'
 
 const pool = new Pool({
@@ -59,7 +59,7 @@ const user2 = {
 
 await userModel.registerUser(user2)
 
-// console.log(instancePG.querys['select'])
+// console.log(iPgHandler.querys['select'])
 
 
 // // const cnn = await getConn()

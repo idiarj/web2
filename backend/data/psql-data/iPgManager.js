@@ -9,5 +9,5 @@ import querys from './querys.json' assert {type: 'json'}
 /**
  * @instance  Instancia de la clase PgHandler.
  */
-export const instancePG = new PgHandler({config, querys})
+export const iPgHandler = new PgHandler({config, querys})
 

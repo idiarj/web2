@@ -1,4 +1,4 @@
-import { instanceSess } from "../../../data/iSession/iSession.js";
+import { SessionHandler } from "../../../data/iSession/iSession.js";
 import { CryptManager } from "../../../sub-sistemas/security/CryptManager.js";
 import users from '../../../data/json-data/users.json' assert { type: "json" }  
 
@@ -13,7 +13,7 @@ export class changePasswordController{
             // const oldPassword = users[0].password
             users[0].password = await CryptManager.encriptarData({data: newPass})
             // console.log(`old password: ${oldPassword}, new password: ${users[0].password}`)
-            instanceSess.closeSession(req, res)
+            SessionHandler.closeSession(req, res)
             return res.json({mensaje: 'Contrasena cambiada con exito, por favor inicia sesion nuevamente'})
         }catch(err){
             return res.json({error: err.message})
