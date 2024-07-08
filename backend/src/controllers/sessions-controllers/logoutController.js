@@ -1,18 +1,16 @@
-import { instanceSess } from "../../../data/iSession/iSession.js";
+import { SessionHandler } from "../../../data/iSession/iSession.js";
 
 export class logoutController{
 
-    static logoutControlPost(req, res){
-
-        try {
-            if (!instanceSess.verifySession) {
-                return res.json({ mensaje: 'No hay sesion activa' });
-            }
-            instanceSess.closeSession(req, res);
-            return res.json({mensaje: `sesion cerrada con exito`})
-            } catch (err) {
-                return res.json({ err });
-            }
-    
-            }
+    static async logoutControlPost(req, res){
+    try {
+        if (!SessionHandler.verifySession(req)) {
+            return res.json({ mensaje: 'No hay sesion activa' });
+        }
+        const result = await SessionHandler.closeSession(req);
+        return res.json(result);
+    } catch (err) {
+        return res.json({ err });
+    }
+}
 }

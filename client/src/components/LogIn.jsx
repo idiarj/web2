@@ -1,3 +1,4 @@
+import { ifetchWrapper } from '../../public/fetchWrapper.js';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.css'; 
@@ -18,13 +19,14 @@ function Login() {
       return;
     }
 
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await ifetchWrapper.fetchMethod({
+      endpoint: 'login',
+      method: 'post',
+      body: {
+        username,
+        password
       },
-      body: JSON.stringify({ username, password }),
+      credentials: 'include'
     });
 
     const data = await response.json();

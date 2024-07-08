@@ -1,3 +1,4 @@
+import { ifetchWrapper } from '../../public/fetchWrapper.js';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './register.css'; 
@@ -52,12 +53,10 @@ function Register() {
 
     try {
       setDisable(true)
-      const response = await fetch('http://localhost:3000/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      const response = await ifetchWrapper.fetchMethod({
+        endpoint: 'register',
+        method: 'post',
+        body: formData
       });
       const data = await response.json();
       if (response.ok) {

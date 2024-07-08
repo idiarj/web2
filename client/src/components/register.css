@@ -89,7 +89,7 @@ h2 {
 }
 
 .register-form input {
-  width: 94.2%; 
+  width: 94.2%; /* Ajusta el ancho de los inputs */
   padding: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem; /* Reduce el margen inferior */

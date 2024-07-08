@@ -1,5 +1,5 @@
 
-import { instanceSess } from "../../../data/iSession/iSession.js"
+import { SessionHandler } from "../../../data/iSession/iSession.js"
 // import users from "../../../data/json-data/users.json" assert { type: "json" }
 import { loginValidation } from "../../../data/iValidation/iValidation.js"
 import { userModel } from "../../../models/userModel.js"
@@ -15,7 +15,7 @@ export class loginController {
     static async loginControlPost(req, res){
         try{
             const result = await loginValidation.validateTotal(req.body)
-            if(instanceSess.verifySession(req)) return res.json({mensaje: `Ya hay una sesion iniciada con el usuario ${req.session.username}`}  )
+            if(SessionHandler.verifySession(req)) return res.json({mensaje: `Ya hay una sesion iniciada con el usuario ${req.session.username}`}  )
             if(result.error) return res.status(400).json({mensaje: 'Datos no validos', error: result.error})
             console.log(result.data)
             const {username, password} = result.data
@@ -35,7 +35,7 @@ export class loginController {
             if(!validUser) return res.status(400).json({error: 'Este nombre de usuario no existe.'})
             if(!validPassword) return res.status(400).json({error: 'La contrasena es incorrecta, intente de nuevo.'})
             
-            await instanceSess.createSession(req)
+            await SessionHandler.createSession(req)
             return res.json({mensaje: `Usuario ${username} logeado`})
         }catch(error){
             return res.status(500).json({
@@ -49,7 +49,7 @@ export class loginController {
     static async loginControlGet(req, res){
         console.log(req.session)
         console.log(req.body)
-        if(instanceSess.verifySession(req)) return res.json({metodo: req.method, mensaje: `Bienvenido ${req.session.username}`})
+        if(SessionHandler.verifySession(req)) return res.json({metodo: req.method, mensaje: `Bienvenido ${req.session.username}`})
         return res.json({mensaje: 'No hay una sesion iniciada'})
     }
 
