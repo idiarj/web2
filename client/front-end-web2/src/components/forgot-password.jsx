@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './forgot-password.css'; 
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ function ForgotPassword() {
     <div className="forgot-password-container">
       <h2>Restablecer Contraseña</h2>
       <form onSubmit={handleSubmit} className="forgot-password-form">
-        <label>
+        <label className='label'>
           Correo electrónico:
           <input
             type="email"
