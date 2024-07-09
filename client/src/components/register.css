@@ -98,3 +98,11 @@ h2 {
   border-radius: 4px;
   background-color: #fff; 
 }
+
+.login-link a {
+  text-align: center;
+  margin-top: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+
+}
