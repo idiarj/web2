@@ -1,11 +1,12 @@
 import { ifetchWrapper } from '../../public/fetchWrapper';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './dashboard.css'; 
 import enproceso from '../assets/enproceso.jpg'; 
 
 function Dashboard() {
   const [username, setUsername] = useState()
+  const navigate = useNavigate()
   // const response = fetch('http://localhost:3000/home')
   //                 .then(
   //                   response => console.log(response)
@@ -31,14 +32,19 @@ function Dashboard() {
           endpoint: 'home',
           credentials: 'include'
         });
-        const data = await response.json();
-        setUsername(data.user);
-        console.log(data)
-        console.log(data.user)
+        if(response.ok){
+          const data = await response.json();
+          setUsername(data.user);
+          console.log(data)
+          console.log(data.user)
+        }else{
+          navigate('/login')
+        }
+
       };
   
       fetchData();
-    }, [])
+    }, [navigate])
     
 
     

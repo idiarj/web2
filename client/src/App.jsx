@@ -3,6 +3,7 @@ import Login from "./components/LogIn.jsx";
 import Register from './components/register.jsx';
 import ForgotPassword from './components/forgot-password.jsx'
 import Dashboard from './components/dashboard.jsx'
+import { NotDone } from './components/not-done.jsx';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path='/profile' element={<NotDone/>}/>
+        <Route path='/settings' element={<NotDone/>}/>
+        <Route path='/projects' element={<NotDone/>}/>
       </Routes>
     </Router>
   );

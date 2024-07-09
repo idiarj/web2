@@ -10,6 +10,6 @@ export const isAuthMiddleware = (req, res, next) => {
         next();
     } else {
         console.log('estoy en el middleware y no estas autorizado');
-        res.json({error: 'No autorizado.'}); 
+        res.status(401).json({error: 'No autorizado.'}); 
     }
 }
