@@ -11,23 +11,30 @@
 }
 
 .image-section {
+  width: 100vh;
+  height: 40%;
   flex: 1;
   background-color: #fff;
 }
 
-.company-name {
-  margin-bottom: 2rem;
-  text-align: center;
+.icono-img {
+  vertical-align: middle;
+  margin-right: 10px;
+  width: 50px; 
+  height: 50px; 
 }
 
-h1 {
-  font-size: 2.5rem;
-  color: #333;
+.company-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .company-name h1 {
   font-size: 2rem;
   color: #333;
+  margin: 0; /* Elimina el margen superior e inferior */
 }
 
 .image-section img {
@@ -68,6 +75,7 @@ h2 {
   color: #333;
   background-color: #fff;
 }
+
 .password-container {
   display: flex;
   align-items: center;
@@ -101,7 +109,6 @@ h2 {
 .password-toggle-button:focus {
   outline: none; 
 }
-
 
 .login-form button[type="submit"] {
   width: 100%;

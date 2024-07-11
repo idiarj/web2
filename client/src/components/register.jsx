@@ -1,6 +1,7 @@
 import { ifetchWrapper } from '../../public/fetchWrapper.js';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import icon from '../assets/icon.jpg'; 
 import './register.css'; 
 import '../App.css'; 
 
@@ -82,7 +83,8 @@ function Register() {
       </div>
       <div className="form-section">
         <div className="company-name">
-          <h1>VIB ProjectManager</h1>
+          <img src={icon} alt="Icon" className="icono-img" />
+          <h1>ABC ProjectManager</h1>
         </div>
         <h2>Registro</h2>
         <form onSubmit={handleSubmit} className="register-form">

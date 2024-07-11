@@ -1,6 +1,7 @@
 import { ifetchWrapper } from '../../public/fetchWrapper.js';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import icon from '../assets/icon.jpg'; 
 import './login.css'; 
 import '../App.css'; 
 
@@ -57,7 +58,8 @@ function Login() {
       </div>
       <div className="form-section">
         <div className="company-name">
-          <h1>VIB ProjectManager</h1>
+        <img src={icon} alt="Icon" className="icono-img" />
+          <h1>ABC ProjectManager</h1>
         </div>
 
         <h2>Inicia sesión</h2>
