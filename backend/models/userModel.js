@@ -14,6 +14,21 @@ export class userModel{
         }
     }
 
+    static async getProfiles({user}){
+        try {
+            console.log('--------GET PROFILES------------')
+            console.log(user)
+            const result = await iPgHandler.exeQuery({key: 'see_profiles', params: [user]})
+            const profiles = result.map((element)=>{
+                return element.des_perfil
+            })
+            return profiles
+        } catch (error) {
+            console.log(error.message)
+            return {error}
+        }
+    }
+
     static async getFromUsername({username}){
         try{
             const result = await iPgHandler.exeQuery({key: 'where', params: [username]})
@@ -67,6 +82,28 @@ export class userModel{
             }
         }catch(error){
             console.log(error)
+            return {error}
+        }
+    }
+
+    static async getUsernameId({user}){
+        try{
+            const key = 'getUserId'
+            const params = [user]
+            const [{id_usuario}] = await iPgHandler.exeQuery({key, params})
+            return id_usuario
+        }catch(error){
+            return {error}
+        }
+    }
+
+    static async getPersonId({id}){
+        try{
+            const key = 'getUserId'
+            const params = [user]
+            const [{id_usuario}] = await iPgHandler.exeQuery({key, params})
+            return id_usuario
+        }catch(error){
             return {error}
         }
     }

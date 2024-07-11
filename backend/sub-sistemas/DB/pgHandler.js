@@ -37,17 +37,17 @@ export class PgHandler{
      * @param {string} options.key - La clave que referencia la consulta SQL predefinidas en el objeto querys
      * @param {Array} [options.params=[]] - Parametros con los que se ejecutaran la consulta. 
      * @param {PoolClient} [options.client=null] - Cliente opcional para ejecutar la consulta. Si no se proporciona, se obtiene uno nuevo.
-     * @returns {Promise<Object>} - Promesa que resuelve con el resultado de la consulta SQL.
+     * @returns {Promise<Array>} - Promesa que resuelve con el resultado de la consulta SQL.
      * @throws {Error} - Lanza un error si la consulta no se puede ejecutar correctamente.
      */
     async exeQuery({key, params = [], client = null}){
         const isClientProvided = client ? true : false
         client = isClientProvided ? client : await this.getConn()
-        console.log('estoy en una transaccion?', isClientProvided)
+        // console.log('estoy en una transaccion?', isClientProvided)
         // console.log(client)
         try {
             console.log(`la key es ${key}`)
-            console.log(`no me lee ${this.querys}`)
+            // console.log(`no me lee ${this.querys}`)
             const query = this.querys[key]
             if (!query) {
                 console.log(`NO HAY QUERY`)

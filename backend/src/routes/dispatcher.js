@@ -5,6 +5,7 @@ import { changePassRouter } from './sessions-routes/changePassRouter.js'
 import { homeRouter } from './sessions-routes/homeRouter.js'
 import { passResetRouter } from './sessions-routes/passResetRouter.js';
 import { ProyectosRouter } from './B.O-routes/projectsRoute.js'
+import { profilesRouter } from './sessions-routes/profilesRouter.js'
 
 export {
     loginRouter,
@@ -13,5 +14,6 @@ export {
     changePassRouter,
     homeRouter,
     passResetRouter,
-    ProyectosRouter
+    ProyectosRouter,
+    profilesRouter
 }

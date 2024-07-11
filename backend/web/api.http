@@ -19,8 +19,11 @@ Content-Type: application/json
 
 {
     "username": "Idiarj",
-    "password": "16012004id"
+    "password": "16012004"
 }
+
+### Ver perfiles del usuario logeado
+GET http://localhost:3000/profiles
 
 ### Ver usuarios logeados
 GET http://localhost:3000/login
@@ -35,6 +38,18 @@ GET http://localhost:3000/users/Idiarj
 PATCH http://localhost:3000/changePassword
 Content-Type: application/json
 
+## Recuperar Contrasena
+POST http://localhost:3000/forgot-password
+Content-Type: application/json
+
+{
+    "correo": "andresburgosj@gmail.com"
+}
+
 {
     "newPass": "16012004id"
 }
+
+
+### Ver proyectos el usuario logeado
+GET http://localhost:3000/projects 
