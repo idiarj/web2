@@ -35,7 +35,12 @@ body {
   .dashboard-nav a:hover {
     color: #007bff;
   }
-  
+  .icono-img {
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 50px; 
+    height: 50px; 
+  }
   .dashboard-content {
     flex: 1;
     padding: 40px;
@@ -49,12 +54,24 @@ body {
     color: #333;
   }
   
-  .dashboard-image {
-    margin-top: 23%;
-    margin-left: 23%;
-    max-width: 300%;
-    height: auto;
-    display: block;
-    position: center;
-  }
+
   
+.create-project-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.create-project-btn:hover {
+  background-color: #555;
+}
+
+.dashboard-image {
+  margin-top: 20px;
+  max-width: 100%;
+  height: auto;
+}

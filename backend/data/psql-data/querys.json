@@ -4,6 +4,8 @@
     "verifyPassword": "SELECT password_usuario as password FROM usuario WHERE nom_usuario = $1",
     "findByEmail":"SELECT * FROM usuario WHERE correo_usuario = $1",
     "select_personas": "SELECT * FROM persona",
+    "getProjectsByUser": "SELECT nom_proyecto project FROM proyecto pro INNER JOIN miembro m ON pro.id_proyecto = m.id_proyecto INNER JOIN persona per ON m.id_persona = per.id_persona INNER JOIN usuario u ON per.id_persona = u.id_persona WHERE nom_usuario = $1",
+    "see_profiles": "SELECT des_perfil FROM perfil pf INNER JOIN usuario_perfil up ON pf.id_perfil = up.id_perfil INNER JOIN usuario u ON up.id_usuario = u.id_usuario WHERE nom_usuario = $1 ",
     "project_info": "SELECT DISTINCT nom_persona || ' ' || ape_persona as persona, nom_usuario as nombre_usuario, des_perfil, nom_proyecto, des_estado FROM miembro m INNER JOIN proyecto p ON m.id_proyecto = p.id_proyecto INNER JOIN estado e ON p.id_estado = e.id_estado INNER JOIN perfil pe ON m.id_perfil = pe.id_perfil INNER JOIN tipo_perfil tp ON pe.id_tipo_perfil = tp.id_tipo_perfil INNER JOIN usuario_perfil up ON pe.id_perfil = up.id_perfil INNER JOIN usuario u ON up.id_usuario = u.id_usuario INNER JOIN persona per ON u.id_persona = per.id_persona",
     "getPersona": "SELECT * FROM persona WHERE nom_persona = $1",
     "insert_persona": "INSERT INTO persona (nom_persona, ape_persona) VALUES ($1, $2) RETURNING id_persona",
