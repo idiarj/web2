@@ -14,7 +14,7 @@ export class ProyectosController{
             const user = req.session.username
             const projects = await Proyectos.getProjetcsByUser({user})
             return res.status(200).json({
-                proyectos: `Los proyectos el usuario ${user} son ${projects}`
+                proyectos: `Los proyectos el usuario ${user} son ${projects.join(', ')}`
             })
         }catch(error){
 
