@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './forgot-password.css'; 
+import './forgot-password.css';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setMessage('');
+    setError('');
     try {
       const response = await fetch('http://localhost:3000/forgot-password', {
         method: 'POST',
@@ -21,10 +24,11 @@ function ForgotPassword() {
         const data = await response.json();
         setMessage('Por favor, revisa tu correo electrónico para el enlace de restablecimiento de contraseña.');
       } else {
-        setMessage('Error al solicitar el restablecimiento de contraseña.');
+        const errorData = await response.json();
+        setError(errorData.message || 'Algo salió mal. Por favor, intenta de nuevo más tarde.');
       }
     } catch (error) {
-      setMessage('Error al enviar la solicitud.');
+      setError('No se pudo conectar al servidor. Por favor, verifica tu conexión a internet y vuelve a intentarlo.');
     }
   };
 
@@ -47,6 +51,7 @@ function ForgotPassword() {
       <p className="back-to-login">
         <Link to="/login">Volver al inicio de sesión</Link>
       </p>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }

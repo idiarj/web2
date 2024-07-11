@@ -12,9 +12,6 @@ import { isAuthMiddleware } from '../src/middlewares/isAuthMiddleware.js'
 
 const app = express()
 
-
-
-
 app.use(cors(cors_config));
 app.use(SessionHandler.getSession())
 app.use(express.json())
@@ -36,7 +33,7 @@ app.use('/logout', logoutRouter)
 
 app.use('/changePassword', changePassRouter)
 
-app.use('/',passResetRouter);
+app.use('/forgot-password',passResetRouter);
 
 app.use('/projects', isAuthMiddleware, ProyectosRouter)
 
