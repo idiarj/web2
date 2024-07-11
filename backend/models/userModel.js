@@ -86,6 +86,28 @@ export class userModel{
         }
     }
 
+    static async getUsernameId({user}){
+        try{
+            const key = 'getUserId'
+            const params = [user]
+            const [{id_usuario}] = await iPgHandler.exeQuery({key, params})
+            return id_usuario
+        }catch(error){
+            return {error}
+        }
+    }
+
+    static async getPersonId({id}){
+        try{
+            const key = 'getUserId'
+            const params = [user]
+            const [{id_usuario}] = await iPgHandler.exeQuery({key, params})
+            return id_usuario
+        }catch(error){
+            return {error}
+        }
+    }
+
     /**
      * Method to find a user by their email.
      * @param {String} email - The email of the user to find.

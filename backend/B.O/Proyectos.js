@@ -16,4 +16,16 @@ export class Proyectos{
             return {error}
         }
     }
+
+    static async deleteProject({project}){
+        try {
+            const key = 'deleteProject'
+            const params = [project]
+            const resultSet = await iPgHandler.exeQuery({key, params})
+            return resultSet
+        } catch (error) {
+            return {error}
+        }
+    }
+    
 }
