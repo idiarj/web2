@@ -5,7 +5,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, I
 import { Autocomplete } from '@mui/lab';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import './dashboard.css';
-import icon from '../assets/icon.jpg'; 
+import icon from '../assets/icon.jpg';
 
 function Dashboard() {
   const [username, setUsername] = useState();
@@ -15,11 +15,8 @@ function Dashboard() {
   const [users, setUsers] = useState([]); 
   const [roles, setRoles] = useState([]); 
   const [savedProjectName, setSavedProjectName] = useState(''); 
+  const [savedProjects, setSavedProjects] = useState([]); // lo agregue para poder almacenar proyectos guardados (Burgos)
   const navigate = useNavigate();
-  console.log(projectName)
-  console.log(members)
-  console.log(roles)
-  console.log(savedProjectName)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,16 +64,6 @@ function Dashboard() {
     fetchResourcesAndRoles();
   }, []);
 
-  async function handleLogout() {
-    const response = await ifetchWrapper.fetchMethod({
-      endpoint: 'logout',
-      method: 'post',
-      credentials: 'include',
-    });
-    const data = await response.json();
-    navigate('/login');
-  }
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -105,9 +92,21 @@ function Dashboard() {
   };
 
   const handleSaveProject = () => {
-    setSavedProjectName(projectName); // Actualiza el estado con el nombre del proyecto guardado
+    // esto es para agregar el proyecto actual al arreglo de proyectos guardados
+    setSavedProjects([...savedProjects, projectName]);
+    setProjectName('');
     handleClose();
   };
+
+  async function handleLogout() {
+    const response = await ifetchWrapper.fetchMethod({
+      endpoint: 'logout',
+      method: 'post',
+      credentials: 'include',
+    });
+    const data = await response.json();
+    navigate('/login');
+  }
 
   return (
     <div className="dashboard-container">
@@ -197,11 +196,11 @@ function Dashboard() {
             </Button>
           </DialogActions>
         </Dialog>
-        {savedProjectName && (
-          <div className="saved-project">
-            <h2>Nombre del Proyecto Guardado: {savedProjectName}</h2>
+        {savedProjects.map((project, index) => (
+          <div key={index} className="saved-project">
+            <h2>Nombre del Proyecto Guardado: {project}</h2>
           </div>
-        )}
+        ))}
       </main>
     </div>
   );
