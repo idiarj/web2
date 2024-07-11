@@ -47,7 +47,7 @@ function Register() {
   const handleSubmit = async event => {
     event.preventDefault();
 
-    if (!formData.nombre || !formData.apellido || !formData.username || !formData.correo || !formData.password) {
+    if (!formData.nombre || !formData.apellido || !formData.username || !formData.correo || !formData.password || formData.cedula) {
       setError('Por favor complete todos los campos.');
       return;
     }
@@ -78,9 +78,6 @@ function Register() {
 
   return (
     <div className="register-container">
-      <div className="image-section">
-        <img src="/src/assets/register.jpg" alt="Decorative" /> 
-      </div>
       <div className="form-section">
         <div className="company-name">
           <img src={icon} alt="Icon" className="icono-img" />
@@ -95,6 +92,10 @@ function Register() {
           <label>
             Apellido:
             <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
+          </label>
+          <label>
+          Cedula de identiddad:
+            <input type="int" name="cedula" value={formData.cedula} onChange={handleChange} />
           </label>
           <label>
             Nombre de usuario:

@@ -53,9 +53,6 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="image-section">
-        <img src="/src/assets/image.jpeg" alt="Decorative" /> 
-      </div>
       <div className="form-section">
         <div className="company-name">
         <img src={icon} alt="Icon" className="icono-img" />

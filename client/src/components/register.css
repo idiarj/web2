@@ -4,18 +4,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f7f7f7;
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  max-width: 800px;
+  overflow-x: hidden;
+  max-width: 100%;
   margin: 0 auto;
   padding: 2rem;
-}
-
-.image-section {
-  flex: 1;
-  background-color: #fff;
 }
 
 .icono-img {
@@ -36,12 +31,6 @@
   font-size: 2rem;
   color: #333;
   margin: 0; /* Elimina el margen superior e inferior */
-}
-
-.image-section img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
 }
 
 .form-section {
@@ -97,7 +86,7 @@ h2 {
 .disabledButton {
   border: none;
   color: white;
-  background-color: #afafaf;
+  background-color:white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;

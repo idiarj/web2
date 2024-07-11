@@ -152,7 +152,7 @@ function Dashboard() {
                     <TableCell>
                       <Autocomplete
                         options={users}
-                        getOptionLabel={(option) => option} // Ajusta según la estructura de tus datos
+                        getOptionLabel={(option) => option} 
                         value={member.recurso}
                         onChange={(event, newValue) => handleMemberChange(index, 'recurso', newValue)}
                         renderInput={(params) => <TextField {...params} label="Recurso" />}
@@ -197,8 +197,10 @@ function Dashboard() {
           </DialogActions>
         </Dialog>
         {savedProjects.map((project, index) => (
+          <div className="proyecto" >
           <div key={index} className="saved-project">
-            <h2>Nombre del Proyecto Guardado: {project}</h2>
+            <h2>{project}</h2>
+          </div>
           </div>
         ))}
       </main>

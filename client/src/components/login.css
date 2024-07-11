@@ -4,17 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f7f7f7;
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
+  overflow-x: hidden;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
 
-.image-section {
-  width: 100vh;
-  height: 40%;
-  flex: 1;
-  background-color: #fff;
 }
 
 .icono-img {
@@ -34,14 +31,9 @@
 .company-name h1 {
   font-size: 2rem;
   color: #333;
-  margin: 0; /* Elimina el margen superior e inferior */
+  margin: 0;
 }
 
-.image-section img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
 
 .form-section {
   flex: 1;

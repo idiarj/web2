@@ -75,3 +75,15 @@ body {
   max-width: 100%;
   height: auto;
 }
+
+
+  
+    .proyecto {
+      border: #000;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      padding: 10px;
+      width: 20%;
+      height: 10%;
+    }
+
+  
