@@ -16,6 +16,10 @@ function Dashboard() {
   const [roles, setRoles] = useState([]); 
   const [savedProjectName, setSavedProjectName] = useState(''); 
   const navigate = useNavigate();
+  console.log(projectName)
+  console.log(members)
+  console.log(roles)
+  console.log(savedProjectName)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -156,6 +160,7 @@ function Dashboard() {
                       />
                     </TableCell>
                     <TableCell>
+                      {/* {'hpli'} */}
                       <Select
                         value={member.rol}
                         onChange={(e) => handleMemberChange(index, 'rol', e.target.value)}
@@ -163,7 +168,7 @@ function Dashboard() {
                       >
                         {roles.map((rol) => (
                           <MenuItem key={rol} value={rol}>
-                            {rol}
+                            {`holi ${rol}`}
                           </MenuItem>
                         ))}
                       </Select>
