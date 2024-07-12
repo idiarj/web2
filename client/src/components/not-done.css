@@ -1,6 +1,6 @@
 .notDoneDiv{
     border-radius: 10px;
-    background-color: rgb(51, 20, 226);
+    background-color: rgb(253, 253, 253);
     display: grid;
     place-items: center; /* Centra los elementos dentro del grid */
     height: 200px;
