@@ -19,8 +19,12 @@ export class registerController{
         //Si hay errores en la validaciones terminara la ejecucion de la funcion 
         //y devolvera error en la consola del browser
         if(result.error) {
+            // console.log(result)
+            // console.log(result.success)
+            // console.log(result.error.issues)
 
-            return res.json({error: 'Datos incorrectos', error: result.error})
+            const [{message}] = result.error.issues
+            return res.status(406).json({error: 'Datos incorrectos', error: message})
 
         }
 

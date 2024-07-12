@@ -9,7 +9,7 @@ function Register() {
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
-    cedula: 0,
+    cedula: '',
     username: '',
     correo: '',
     password: ''
@@ -39,16 +39,29 @@ function Register() {
 
   const handleChange = event => {
     const { name, value } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    console.log(name, value)
+    if (name === 'cedula') {
+      console.log(typeof name)
+      // Asegura que solo se ingresen números
+      const onlyNums = parseInt(value)
+      console.log(onlyNums)
+      console.log(typeof onlyNums)
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: onlyNums
+      }));
+    } else {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async event => {
     event.preventDefault();
 
-    if (!formData.nombre || !formData.apellido || !formData.username || !formData.correo || !formData.password || formData.cedula) {
+    if (!formData.nombre || !formData.apellido || !formData.username || !formData.correo || !formData.password || !formData.cedula) {
       setError('Por favor complete todos los campos.');
       return;
     }
@@ -96,7 +109,7 @@ function Register() {
           </label>
           <label>
           Cedula de identiddad:
-            <input type="int" name="cedula" value={formData.cedula} onChange={handleChange} />
+            <input type="number" name="cedula" value={formData.cedula} onChange={handleChange} />
           </label>
           <label>
             Nombre de usuario:
