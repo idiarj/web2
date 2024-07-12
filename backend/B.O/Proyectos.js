@@ -3,7 +3,7 @@ import { userModel } from "../models/userModel.js";
 
 export class Proyectos{
 
-    static async getProjetcsByUser({user}){
+    static async getProjectsByUser({user}){
         try {
             const key = 'getProjectsByUser'
             const params = [user]
@@ -40,6 +40,20 @@ export class Proyectos{
             await iPgHandler.commitTransaction(client)
         } catch (error) {
             await iPgHandler.rollbackTransaction(client)
+        }
+    }
+
+    static async getMembers({project}){
+        try {
+            const key = 'getMembers'
+            const params = [project]
+            const resultSet = await iPgHandler.exeQuery({key, params})
+            const members = resultSet.map((e)=>{
+                return e.member
+            })
+            return members
+        } catch (error) {
+            return {error}
         }
     }
     

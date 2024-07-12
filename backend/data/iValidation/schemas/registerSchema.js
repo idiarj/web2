@@ -12,6 +12,14 @@ export const userRegisterSchema = z.object({
         required_error: 'El campo user es requerido',
         message: 'El usuario debe ser un string'
     }).min(3).max(15),
+    cedula: z.number({
+        required_error: 'El campo cedula es requerido',
+        message: 'El campo cedula debe ser un numero'
+    }).positive({
+        message: 'La cedula debe ser un numero positivo'
+    }).int({
+        message: 'La cedula debe ser un numero entero'
+    }).min(1000000).max(99999999),
     username: z.string({
             required_error: 'El campo user es requerido',
             message: 'El usuario debe ser un string'

@@ -176,9 +176,9 @@ export class userModel{
  *                               En caso de error, el objeto tendrá una propiedad `success` con
  *                               valor `false` y detalles del error en `message` y `error`.
  */
-    static async registerUser({nombre, apellido, username, correo, password}){
+    static async registerUser({nombre, apellido, cedula, username, correo, password}){ 
+
         const hashedPassword = await CryptManager.encriptarData({data: password});
-        const {insert_persona, insert_username} = iPgHandler.querys;
         const client = await iPgHandler.beginTransaction()
 
 
@@ -188,7 +188,7 @@ export class userModel{
             console.log(`insertando la persona ${nombre} ${apellido}`);
             const [{
                 id_persona
-            }] = await iPgHandler.exeQuery({key: 'insert_persona', params: [nombre, apellido], client});
+            }] = await iPgHandler.exeQuery({key: 'insert_persona', params: [nombre, apellido, cedula], client});
             console.log(`insertando el usuario ${username} ${correo} ${id_persona}`);
             await iPgHandler.exeQuery({key: 'insert_username', params:[username, correo, hashedPassword, id_persona], client});
 

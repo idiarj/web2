@@ -9,6 +9,7 @@ function Register() {
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
+    cedula: 0,
     username: '',
     correo: '',
     password: ''

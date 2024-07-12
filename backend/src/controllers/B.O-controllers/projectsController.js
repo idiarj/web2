@@ -40,6 +40,21 @@ export class ProyectosController{
         
         }
 
+        static async verMiembrosProyecto(req, res){
+            try{
+                if(!(SessionHandler.verifySession(req))) return res.status(401).json({
+                    error: 'No hay sesion para ver los miembros de un proyecto.'
+                })
+                const {id} = req.body
+                const members = await Proyectos.getMembers({id})
+                return res.status(200).json({
+                    miembros: `Los miembros del proyecto con id ${id} son ${members.join(', ')}`
+                })
+            }catch(error){
+
+            }
+        }
+
     }
 
 
