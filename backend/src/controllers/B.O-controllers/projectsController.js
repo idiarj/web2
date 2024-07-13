@@ -4,18 +4,22 @@ import { projectValidation } from "../../../data/iValidation/iValidation.js";
 
 export class ProyectosController{
     static async crearProyecto(req, res){
-        const result = await projectValidation.validate(req.body)
-        if(!result.success) return res.status(400).json({
+        const result = await projectValidation.validateTotal(req.body)
+        if(!result.success){
+            console.log('error en las validaciones')
+            return res.status(400).json({
             mensaje: 'Error en las validaciones al crear el proyecto',
             error: result.error.issues
-        })
+        })}
         const {projectName, members, objective, startDate, endDate, state} = req.body
         try {
-            const response = await Proyectos.createProject({projectName, members, objective, startDate, endDate, state})
+            const owner = req.session.id_usuario
+            console.log(owner)
+            const response = await Proyectos.createProject({owner, projectName, members, objective, startDate, endDate, state})
             if(!response.succes) return res.status(400).json({ error: response.message})
             return res.status(200).json({ mensaje: response.message})
         } catch (error) {
-            
+            return {error}
         }
 
     }

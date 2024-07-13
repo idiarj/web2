@@ -4,11 +4,11 @@ export const projectSchema = z.object({
     projectName: z.string({
         required_error: 'El campo nombre es requerido.',
         message: 'El nombre debe ser un string.'
-    }).min(2,
+    }).min(5,
         {
             message: `El nombre debe tener almenos 3 caracteres.`
         }
-    ).max(15,
+    ).max(40,
         {
             message: `El nombre no puede tener mas de 15 caracteres.`
         }
@@ -27,7 +27,7 @@ export const projectSchema = z.object({
     ),
     members: z.array(z.object({
         cedula: z.number().positive().int(),
-        perfiles: z.array(z.string())
+        profiles: z.array(z.string())
     })).optional(),
     startDate: z.string({
         required_error: 'El campo fecha_inicio es requerido',
@@ -37,7 +37,7 @@ export const projectSchema = z.object({
         required_error: 'El campo fecha_fin es requerido',
         message: 'La fecha de fin debe ser un string.'
     }),
-    estado: z.string({
+    state: z.string({
         required_error: 'El campo estado es requerido',
         message: 'El estado debe ser un string.'
     })

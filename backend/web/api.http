@@ -54,13 +54,27 @@ Content-Type: application/json
 ### Ver proyectos el usuario logeado
 GET http://localhost:3000/projects 
 
+### Home
+GET http://localhost:3000/home
+
 ### Crear un proyecto
 POST http://localhost:3000/projects/crearProyecto
 Content-Type: application/json
 
+
 {
     "projectName": "Sistema de Gestion Central de Proyectos",
     "objective": "Proyecto de la materia Web 2",
+    "members": [
+        {
+            "cedula": 30106795,
+            "profiles": ["Desarrollador"]
+        },
+        {
+            "cedula": 30819654,
+            "profiles": ["Desarrollador"]   
+        }
+    ],
     "startDate": "2024-05-07",
     "endDate": "2024-07-28",
     "state": "Creado"

@@ -1,5 +1,5 @@
 {
-    "getUser": "SELECT id_usuario as id, nom_usuario as user, correo_usuario as correo FROM usuario",
+    "getUser": "SELECT id_usuario, nom_usuario as username, correo_usuario as correo FROM usuario WHERE nom_usuario = $1",
     "getAllUsers": "SELECT nombre_usu as usuario FROM usuario",
     "verifyUser": "SELECT nom_usuario as username FROM usuario WHERE nom_usuario = $1",
     "verifyPassword": "SELECT password_usuario as password FROM usuario WHERE nom_usuario = $1",

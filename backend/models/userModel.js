@@ -16,6 +16,7 @@ export class userModel{
 
     static async getUser({username}){
         try{
+            console.log(username)
             const user = await iPgHandler.exeQuery({key: 'getUser', params: [username]})
             return user
         }catch(error){
