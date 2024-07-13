@@ -14,6 +14,15 @@ export class userModel{
         }
     }
 
+    static async getUser({username}){
+        try{
+            const user = await iPgHandler.exeQuery({key: 'getUser', params: [username]})
+            return user
+        }catch(error){
+            return {error}
+        }
+    }
+
     static async getProfiles({user}){
         try {
             console.log('--------GET PROFILES------------')
@@ -31,7 +40,7 @@ export class userModel{
 
     static async getFromUsername({username}){
         try{
-            const result = await iPgHandler.exeQuery({key: 'where', params: [username]})
+            const result = await iPgHandler.exeQuery({key: 'getUser', params: [username]})
             return result
         }catch(error){
             return {error}

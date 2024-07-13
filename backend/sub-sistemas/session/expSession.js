@@ -12,10 +12,10 @@ export class SessionWrapper{
 
     }
 
-async createSession(req){
-    const {body, session} = req;
+async createSession({req, user}){
+    const {session} = req;
     for(let key in body){
-        session[key] = body[key];
+        session[key] = user[key];
         console.log(`creare sesion con ${session[key]}`);
     }
     return new Promise((resolve, reject) => {

@@ -1,4 +1,5 @@
 {
+    "getUser": "SELECT id_usuario as id, nom_usuario as user, correo_usuario as correo FROM usuario",
     "getAllUsers": "SELECT nombre_usu as usuario FROM usuario",
     "verifyUser": "SELECT nom_usuario as username FROM usuario WHERE nom_usuario = $1",
     "verifyPassword": "SELECT password_usuario as password FROM usuario WHERE nom_usuario = $1",
@@ -12,7 +13,12 @@
     "insert_username": "INSERT INTO usuario (nom_usuario, correo_usuario, password_usuario, id_persona) VALUES ($1, $2, $3, $4)",
     "getUserId": "SELECT id_usuario FROM usuario WHERE nom_usuario = $1",
     "getPersonId": "SELECT id_persona FROM persona WHERE nom_persona = $1",
-    "creaTEProject": "INSERT INTO proyecto (id_estado, nom_proyecto) VALUES (6, $1) RETURNING id_proyecto",
-    "insert_member": "INSERT INTO miembro (id_persona, id_perfil, id_proyecto)",
-    "getMembers": ""
+    "creaTeProject": "INSERT INTO proyecto (id_estado, nom_proyecto) VALUES (6, $1) RETURNING id_proyecto",
+    "getMembers": "",
+    "getStateId": "SELECT id_estado FROM estado WHERE des_estado = $1",
+    "insert_objective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2)",
+    "addOwner": "INSERT INTO miembro (id_proyecto, id_persona, id_perfil) VALUES ($1, $2, 1)",
+    "getEstados": "SELECT des_estado FROM estado",
+    "getProfileId": "SELECT id_perfil FROM perfil WHERE des_perfil = $1",
+    "addMember": "INSERT INTO miembro (id_proyecto, id_persona, id_perfil) VALUES ($1, $2, $3)"
 }

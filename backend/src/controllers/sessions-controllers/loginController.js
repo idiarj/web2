@@ -34,8 +34,8 @@ export class loginController {
             })
             if(!validUser) return res.status(400).json({error: 'Este nombre de usuario no existe.'})
             if(!validPassword) return res.status(400).json({error: 'La contrasena es incorrecta, intente de nuevo.'})
-            
-            await SessionHandler.createSession(req)
+            const user = await userModel.getUser({user: username})
+            await SessionHandler.createSession({req, user})
             return res.json({mensaje: `Usuario ${username} logeado`})
         }catch(error){
             return res.status(500).json({

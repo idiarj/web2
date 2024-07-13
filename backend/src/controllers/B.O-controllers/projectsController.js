@@ -1,8 +1,22 @@
 import { SessionHandler } from "../../../data/iSession/iSession.js";
 import { Proyectos } from "../../../B.O/Proyectos.js";
+import { projectValidation } from "../../../data/iValidation/iValidation.js";
 
 export class ProyectosController{
     static async crearProyecto(req, res){
+        const result = await projectValidation.validate(req.body)
+        if(!result.success) return res.status(400).json({
+            mensaje: 'Error en las validaciones al crear el proyecto',
+            error: result.error.issues
+        })
+        const {projectName, members, objective, startDate, endDate, state} = req.body
+        try {
+            const response = await Proyectos.createProject({projectName, members, objective, startDate, endDate, state})
+            if(!response.succes) return res.status(400).json({ error: response.message})
+            return res.status(200).json({ mensaje: response.message})
+        } catch (error) {
+            
+        }
 
     }
 
@@ -45,7 +59,7 @@ export class ProyectosController{
                 if(!(SessionHandler.verifySession(req))) return res.status(401).json({
                     error: 'No hay sesion para ver los miembros de un proyecto.'
                 })
-                const {id} = req.body
+                const {projectName} = req.body
                 const members = await Proyectos.getMembers({id})
                 return res.status(200).json({
                     miembros: `Los miembros del proyecto con id ${id} son ${members.join(', ')}`
