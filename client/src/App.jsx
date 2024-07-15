@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from "./components/LogIn.jsx";
-import Register from './components/register.jsx';
-import ForgotPassword from './components/forgot-password.jsx'
-import Dashboard from './components/dashboard.jsx'
-import { NotDone } from './components/not-done.jsx';
+import Login from "./components/LogIn/LogIn.jsx";
+import Register from './components/register/register.jsx';
+import ForgotPassword from './components/forgot-password/forgot-password.jsx'
+import Dashboard from './components/dashboard/dashboard.jsx'
+import { NotDone } from './components/not-done/not-done.jsx';
 
 function App() {
   return (
