@@ -22,33 +22,6 @@ Content-Type: application/json
     "password": "16012004"
 }
 
-### Ver perfiles del usuario logeado
-GET http://localhost:3000/profiles
-
-### Ver usuarios logeados
-GET http://localhost:3000/login
-
-### Cerrar sesion
-POST http://localhost:3000/logout
-
-### Ver usuario
-GET http://localhost:3000/users/Idiarj
-
-### Cambiar contrasena
-PATCH http://localhost:3000/changePassword
-Content-Type: application/json
-
-## Recuperar Contrasena
-POST http://localhost:3000/forgot-password
-Content-Type: application/json
-
-{
-    "correo": "andresburgosj@gmail.com"
-}
-
-{
-    "newPass": "16012004id"
-}
 
 
 ### Ver proyectos el usuario logeado
@@ -71,7 +44,7 @@ Content-Type: application/json
             "profiles": ["Desarrollador"]
         },
         {
-            "cedula": 30819654,
+            "cedula": 30819565,
             "profiles": ["Desarrollador"]   
         }
     ],

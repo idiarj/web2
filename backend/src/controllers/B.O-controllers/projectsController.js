@@ -16,7 +16,7 @@ export class ProyectosController{
             const owner = req.session.id_usuario
             console.log(owner)
             const response = await Proyectos.createProject({owner, projectName, members, objective, startDate, endDate, state})
-            if(!response.succes) return res.status(400).json({ error: response.message})
+            if(!response.success) return res.status(400).json({ error: response.message})
             return res.status(200).json({ mensaje: response.message})
         } catch (error) {
             return {error}

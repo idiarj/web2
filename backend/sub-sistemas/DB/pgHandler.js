@@ -58,7 +58,7 @@ export class PgHandler{
             
             const result = await client.query(query, params)
             // console.log(result)
-
+            console.log(result.rows)
             return result.rows
 
         } catch (error) {
