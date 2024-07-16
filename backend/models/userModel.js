@@ -39,16 +39,6 @@ export class userModel{
         }
     }
 
-    static async getFromUsername({username}){
-        try{
-            const result = await iPgHandler.exeQuery({key: 'getUser', params: [username]})
-            return result
-        }catch(error){
-            return {error}
-        }
-    
-    }
-
     /**
      * Metodo estatico y asincrono para verificar un usuario existe en la base de datos.
      * @param {String} param.user - Usuario a verificar.
@@ -107,7 +97,7 @@ export class userModel{
         }
     }
 
-    static async getPersonId({id}){
+    static async getPerson({id}){
         try{
             const key = 'getUserId'
             const params = [user]
@@ -212,17 +202,3 @@ export class userModel{
         }
     }
 }
-
-// let paramsObj = {
-//     nombre_per: 'Alexandra',
-//     apellido_per: 'Rodriguez',
-//     direccion_per: 'Maracaibo'
-// }
-
-
-
-// // let asimismo = await userModel.getFromUsername({username: 'Victoria'})
-// // console.log(asimismo)
-
-// let result = await userModel.addUser(paramsObj)
-// console.log(result)

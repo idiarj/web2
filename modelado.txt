@@ -202,6 +202,7 @@ CREATE  TABLE "public".estado (
 
 CREATE  TABLE "public".modulo ( 
 	id_modulo            integer DEFAULT nextval('modulo_id_modulo_seq1'::regclass) NOT NULL  ,
+	nom_modulo           varchar  NOT NULL  ,
 	CONSTRAINT pk_modulo PRIMARY KEY ( id_modulo )
  );
 
@@ -209,6 +210,7 @@ CREATE  TABLE "public".persona (
 	id_persona           integer DEFAULT nextval('persona_id_persona_seq1'::regclass) NOT NULL  ,
 	nom_persona          varchar(50)    ,
 	ape_persona          varchar(50)    ,
+	cedu_persona         bigint  NOT NULL  ,
 	CONSTRAINT pk_persona PRIMARY KEY ( id_persona )
  );
 
@@ -216,6 +218,8 @@ CREATE  TABLE "public".proyecto (
 	id_proyecto          integer DEFAULT nextval('proyecto_id_proyecto_seq1'::regclass) NOT NULL  ,
 	id_estado            integer DEFAULT nextval('proyecto_id_estado_seq1'::regclass) NOT NULL  ,
 	nom_proyecto         varchar(50)    ,
+	fecha_inicio         date    ,
+	fecha_fin            date    ,
 	CONSTRAINT pk_proyecto PRIMARY KEY ( id_proyecto ),
 	CONSTRAINT fk_proyecto_estado FOREIGN KEY ( id_estado ) REFERENCES "public".estado( id_estado )   
  );
@@ -244,6 +248,7 @@ CREATE  TABLE "public".usuario (
 CREATE  TABLE "public".clase ( 
 	id_clase             integer DEFAULT nextval('clase_id_clase_seq1'::regclass) NOT NULL  ,
 	id_modulo            integer DEFAULT nextval('clase_id_modulo_seq1'::regclass) NOT NULL  ,
+	nom_clase            varchar    ,
 	CONSTRAINT pk_clase PRIMARY KEY ( id_clase ),
 	CONSTRAINT fk_clase_modulo FOREIGN KEY ( id_modulo ) REFERENCES "public".modulo( id_modulo )   
  );
@@ -258,6 +263,7 @@ CREATE  TABLE "public".menu (
 CREATE  TABLE "public".metodo ( 
 	id_metodo            integer DEFAULT nextval('metodo_id_metodo_seq1'::regclass) NOT NULL  ,
 	id_clase             integer DEFAULT nextval('metodo_id_clase_seq1'::regclass) NOT NULL  ,
+	nom_metodo           varchar    ,
 	CONSTRAINT pk_metodo PRIMARY KEY ( id_metodo ),
 	CONSTRAINT fk_metodo_clase FOREIGN KEY ( id_clase ) REFERENCES "public".clase( id_clase )   
  );
@@ -265,6 +271,7 @@ CREATE  TABLE "public".metodo (
 CREATE  TABLE "public".objetivo ( 
 	id_objetivo          integer DEFAULT nextval('objetivo_id_objetivo_seq1'::regclass) NOT NULL  ,
 	id_proyecto          integer DEFAULT nextval('objetivo_id_proyecto_seq1'::regclass) NOT NULL  ,
+	des_objetivo         varchar    ,
 	CONSTRAINT pk_objetivo PRIMARY KEY ( id_objetivo ),
 	CONSTRAINT fk_objetivo_proyecto FOREIGN KEY ( id_proyecto ) REFERENCES "public".proyecto( id_proyecto )   
  );
@@ -296,6 +303,7 @@ CREATE  TABLE "public".usuario_perfil (
 CREATE  TABLE "public".actividad ( 
 	id_actividad         integer DEFAULT nextval('actividad_id_actividad_seq1'::regclass) NOT NULL  ,
 	id_objetivo          integer DEFAULT nextval('actividad_id_objetivo_seq1'::regclass) NOT NULL  ,
+	des_actividad        varchar    ,
 	CONSTRAINT pk_actividad PRIMARY KEY ( id_actividad ),
 	CONSTRAINT fk_actividad_objetivo FOREIGN KEY ( id_objetivo ) REFERENCES "public".objetivo( id_objetivo )   
  );
@@ -371,4 +379,3 @@ CREATE  TABLE "public".avance (
 	CONSTRAINT pk_avance PRIMARY KEY ( id_avance ),
 	CONSTRAINT fk_avance_asignacion FOREIGN KEY ( id_asignacion ) REFERENCES "public".asignacion( id_asignacion )   
  );
-
