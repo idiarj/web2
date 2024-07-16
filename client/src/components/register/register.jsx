@@ -1,9 +1,9 @@
-import { ifetchWrapper } from '../../public/fetchWrapper.js';
+import { ifetchWrapper } from '../../../public/fetchWrapper.js';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import icon from '../assets/icon.jpg'; 
+import icon from '../../assets/icon.jpg'; 
 import './register.css'; 
-import '../App.css'; 
+import '../../App.css'; 
 
 function Register() {
   const [formData, setFormData] = useState({

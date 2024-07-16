@@ -6,11 +6,12 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "nombre": "Cesar",
-    "apellido": "Villalobos",
-    "username": "villalobos1803",
-    "correo": "cavc@gmail.com",
-    "password": "boliviano"
+    "nombre": "Idiar",
+    "apellido": "Chacin",
+    "username": "IdiArj",
+    "cedula": 30217559,
+    "correo": "idiar16@gmail.com",
+    "password": "16012004"
 }
 
 ### Iniciar sesion

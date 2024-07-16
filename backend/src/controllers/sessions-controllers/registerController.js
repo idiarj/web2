@@ -12,39 +12,35 @@ import { userModel } from "../../../models/userModel.js"
 export class registerController{
 
     static async registerControlPost(req, res){
+        console.log(`----- REGISTER CONTROLLER ----------`)
 
-        //Obtiene el resultao e las validaciones con zod
         const result = await registerValidation.validateTotal(req.body);
 
-        //Si hay errores en la validaciones terminara la ejecucion de la funcion 
-        //y devolvera error en la consola del browser
+
         if(result.error) {
-            // console.log(result)
-            // console.log(result.success)
-            // console.log(result.error.issues)
+
 
             const [{message}] = result.error.issues
-            return res.status(406).json({error: 'Datos incorrectos', error: message})
+            return res.status(406).json({error: message})
 
         }
 
-        //String con el nombre de usuario en minuscula que el cliente ingreso.
-        const username = result.data['username']
-        const userFromModelResult = await userModel.verifyUser({user: username});
-        console.log(userFromModelResult)
-
-
-        if (userFromModelResult.error) {
-            return res.status(400).json({error: 'Error al verificar el usuario', detalle: userFromModelResult.error});
+        const usernameCli = result.data['username']
+        console.log(`usernameCLi ${usernameCli}`)
+        const validUser = await userModel.verifyUser({user: usernameCli});
+        console.log('validUser es', validUser)
+        if(validUser.success){
+            const [{username}] = validUser.resultSet
+            const userFromModel = typeof username === 'string' ? username.toLowerCase() : null;
+            console.log(`userFromModel ${userFromModel}, usernameCli ${usernameCli.toLowerCase()}, son iguales? ${(userFromModel === usernameCli.toLowerCase())} `)
+            if(userFromModel === usernameCli.toLowerCase()) {
+                return res.status(400).json({
+                    error: "El usuario que estás intentando registrar ya existe."
+                });
+            }
         }
 
-        const userFromModel = typeof userFromModelResult === 'string' ? userFromModelResult.toLowerCase() : null;
-
-        if(userFromModel === username.toLowerCase()) {
-            return res.status(400).json({
-                error: "El usuario que estás intentando registrar ya existe."
-            });
-        }
+        
 
         try {
             console.log('entre en el trycatch del controller')

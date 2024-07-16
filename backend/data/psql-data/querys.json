@@ -1,7 +1,6 @@
 {
-    "getUser": "SELECT id_usuario, nom_usuario as username, correo_usuario as correo FROM usuario WHERE nom_usuario = $1",
     "getAllUsers": "SELECT nombre_usu as usuario FROM usuario",
-    "verifyUser": "SELECT nom_usuario as username FROM usuario WHERE nom_usuario = $1",
+    "verifyUser": "SELECT DISTINCT id_usuario as userId, nom_usuario AS username, correo_usuario as email FROM usuario WHERE LOWER(nom_usuario) = LOWER($1)",
     "verifyPassword": "SELECT password_usuario as password FROM usuario WHERE nom_usuario = $1",
     "findByEmail":"SELECT * FROM usuario WHERE correo_usuario = $1",
     "select_personas": "SELECT * FROM persona",
@@ -15,8 +14,7 @@
     "createProject": "INSERT INTO proyecto (nom_proyecto, id_estado, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_proyecto",
     "getMembers": "",
     "addObjective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2)",
-    "getStateId": "SELECT id_estado FROM estado WHERE des_estado = $1",
-    "insert_objective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2)",
+    "getStateId": "SELECT id_estado FROM estado WHERE des_estado = $1", 
     "addOwner": "INSERT INTO miembro (id_proyecto, id_persona, id_perfil) VALUES ($1, $2, 1)",
     "getEstados": "SELECT des_estado FROM estado",
     "getProfileId": "SELECT id_perfil FROM perfil WHERE des_perfil = $1",

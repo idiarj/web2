@@ -1,11 +1,11 @@
-import { ifetchWrapper } from '../../public/fetchWrapper';
+import { ifetchWrapper } from '../../../public/fetchWrapper.js';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem } from '@mui/material';
 import { Autocomplete } from '@mui/lab';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import './dashboard.css';
-import icon from '../assets/icon.jpg';
+import icon from '../../assets/icon.jpg';
 
 function Dashboard() {
   const [username, setUsername] = useState();
