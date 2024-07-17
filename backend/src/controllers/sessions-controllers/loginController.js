@@ -41,7 +41,7 @@ export class loginController {
             // const [user] = await userModel.getUser({username})
             // console.log(user)
             const [user] = validUser.resultSet
-            console.log(`ahora creare sesion con ${user}`)
+            console.log(`ahora creare sesion con`, user)
             await SessionHandler.createSession({req, user})
             return res.json({mensaje: `Usuario ${username} logeado`})
         }catch(error){

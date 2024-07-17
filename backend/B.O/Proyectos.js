@@ -40,32 +40,16 @@ export class Proyectos{
             console.log(`por ahora todo bien, creare ${projectName, id_proyecto} con el estado ${state} y el objetivo ${objective}`)
             console.log(`la fecha de inicio es ${startDate} y la de final es ${endDate}`)
             console.log(`cantidad de miembros: ${members.length}`)
-            // if(members.length > 0){
-            //     members.forEach(async (m) => {
-            //         console.log(m)
-            //         let [{id_persona}] = await iPgHandler.exeQuery({key: 'getPerson', params: [m.cedula], client})
-            //         m.profiles.forEach( async (p)=>{
-            //             console.log(p)
-            //             let [{id_perfil}] = await iPgHandler.exeQuery({key: 'getProfileId', params: [p]})
-            //             await iPgHandler.exeQuery({key: 'addMember', params: [id_proyecto, id_persona, id_perfil], client})
-            //         })
-            //     });
-            // }
-            if (members.length > 0) {
-                const memberPromises = members.map(async (m) => {
-                    console.log(m);
-                    const [{ id_persona }] = await iPgHandler.exeQuery({ key: 'getPerson', params: [m.cedula], client });
-    
-                    const profilePromises = m.profiles.map(async (p) => {
-                        console.log(p);
-                        const [{ id_perfil }] = await iPgHandler.exeQuery({ key: 'getProfileId', params: [p], client });
-                        await iPgHandler.exeQuery({ key: 'addMember', params: [id_proyecto, id_persona, id_perfil], client });
-                    });
-    
-                    await Promise.all(profilePromises);
+            if(members.length > 0){
+                members.forEach(async (m) => {
+                    console.log(m)
+                    let [{id_persona}] = await iPgHandler.exeQuery({key: 'getPerson', params: [m.cedula], client})
+                    m.profiles.forEach( async (p)=>{
+                        console.log(p)
+                        let [{id_perfil}] = await iPgHandler.exeQuery({key: 'getProfileId', params: [p]})
+                        await iPgHandler.exeQuery({key: 'addMember', params: [id_proyecto, id_persona, id_perfil], client})
+                    })
                 });
-    
-                await Promise.all(memberPromises);
             }
 
             await iPgHandler.commitTransaction(client)

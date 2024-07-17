@@ -41,12 +41,16 @@ Content-Type: application/json
     "objective": "Proyecto de la materia Web 2",
     "members": [
         {
-            "cedula": 30106795,
-            "profiles": ["Desarrollador"]
+            "cedula": 30217559,
+            "profiles": ["Desarrollador", "Desarrollador Back-End", "Arquitecto de Software"]
         },
         {
-            "cedula": 30819565,
-            "profiles": ["Desarrollador"]   
+            "cedula": 30106795,
+            "profiles": ["Desarrollador", "Desarrollador Front-End"]
+        },
+        {
+            "cedula": 30819564,
+            "profiles": ["Desarrollador", "Apoyo", "Desarrollador Front-End"]   
         }
     ],
     "startDate": "2024-05-07",
