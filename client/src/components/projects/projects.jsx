@@ -12,7 +12,7 @@ function Projects() {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const [members, setMembers] = useState([{ resource: '', roles: [] }]);
-  const [users, setUsers] = useState([]);
+  const [resources, setResources] = useState([]);
   const [roles, setRoles] = useState([]);
   const [savedProjects, setSavedProjects] = useState([]);
   const navigate = useNavigate();
@@ -21,23 +21,17 @@ function Projects() {
     // Fetch users and roles from the backend
     const fetchResourcesAndRoles = async () => {
       try {
-        const [usersResponse, rolesResponse] = await Promise.all([
-          ifetchWrapper.fetchMethod({
-            endpoint: 'users', // Ajusta el endpoint según tu backend
-            credentials: 'include'
-          }),
-          ifetchWrapper.fetchMethod({
-            endpoint: 'roles', // Ajusta el endpoint según tu backend
-            credentials: 'include'
-          })
-        ]);
-
-        if (usersResponse.ok && rolesResponse.ok) {
-          const usersData = await usersResponse.json();
-          const rolesData = await rolesResponse.json();
-          setUsers(usersData.users); // Ajusta según la estructura de tus datos
-          setRoles(rolesData.roles); // Ajusta según la estructura de tus datos
+        const response = await ifetchWrapper.fetchMethod({
+          endpoint: 'recursos',
+          credentials: 'include'
+        })
+        if(response.ok){
+          console.log(response)
+          const data = await response.json()
+          console.log(data)
         }
+       
+      
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -122,7 +116,7 @@ function Projects() {
                   <TableRow key={index}>
                     <TableCell>
                       <Autocomplete
-                        options={users}
+                        options={resources}
                         getOptionLabel={(option) => option}
                         value={member.resource}
                         onChange={(event, newValue) => handleMemberChange(index, newValue)}
