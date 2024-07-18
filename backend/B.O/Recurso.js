@@ -1,4 +1,4 @@
-import { iPgHandler } from "../data/psql-data/iPgManager";
+import { iPgHandler } from "../data/psql-data/iPgManager.js";
 
 export class Recurso{
     static async crearRecurso({nombre, apellido, cedula}){
@@ -20,4 +20,17 @@ export class Recurso{
             
         }
     }
+
+    static async getRecursos(){
+        try {
+            const key = 'getRecursos'
+            const recursos = await iPgHandler.exeQuery({key})
+            console.log('los recursos son', recursos)
+            return recursos
+        } catch (error) {
+            console.log(error.message)
+            return {error}
+        }
+    }
+
 }
