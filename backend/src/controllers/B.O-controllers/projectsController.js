@@ -44,10 +44,10 @@ export class ProyectosController{
             if(!(SessionHandler.verifySession(req))) return res.status(401).json({
                 error: 'No hay sesion para eliminar un proyecto.'
             })
-            const {id} = req.body
-            const deleted = await Proyectos.deleteProject({id})
+            const {projectId} = req.params
+            const deleted = await Proyectos.deleteProject({project: projectId})
             return res.status(200).json({
-                deleted: `El proyecto con id ${id} fue ${deleted ? 'eliminado' : 'no eliminado'}`
+                deleted: `El proyecto con id ${projectId} fue ${deleted ? 'eliminado' : 'no eliminado'}`
             })
         }catch(error){
 

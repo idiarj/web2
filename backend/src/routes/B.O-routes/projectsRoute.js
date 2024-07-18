@@ -4,6 +4,6 @@ import { ProyectosController } from '../../controllers/B.O-controllers/projectsC
 export const ProyectosRouter = Router()
 
 ProyectosRouter.post('/crearProyecto', ProyectosController.crearProyecto)
-ProyectosRouter.delete('/eliminarProyecto', ProyectosController.eliminarProyecto)
+ProyectosRouter.delete('/:projectId', ProyectosController.eliminarProyecto)
 ProyectosRouter.get('/:id', ProyectosController.detalleProyecto)
 ProyectosRouter.get('/', ProyectosController.verProyectos)

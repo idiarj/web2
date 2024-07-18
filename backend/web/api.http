@@ -14,14 +14,7 @@ Content-Type: application/json
     "password": "16012004"
 }
 
-### Iniciar sesion
-POST http://localhost:3000/login
-Content-Type: application/json
 
-{
-    "username": "Idiarj",
-    "password": "16012004"
-}
 
 
 
@@ -56,4 +49,16 @@ Content-Type: application/json
     "startDate": "2024-05-07",
     "endDate": "2024-07-28",
     "state": "Creado"
+}
+
+### Borrar proyecto
+DELETE http://localhost:3000/projects/2
+
+### Iniciar sesion
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "Idiarj",
+    "password": "16012004"
 }

@@ -43,7 +43,7 @@ export class PgHandler{
     async exeQuery({key, params = [], client = null}){
         const isClientProvided = client ? true : false
         client = isClientProvided ? client : await this.getConn()
-        // console.log('estoy en una transaccion?', isClientProvided)
+        console.log('estoy en una transaccion?', isClientProvided)
         // console.log(client)
         try {
             console.log(`la key es ${key}`)

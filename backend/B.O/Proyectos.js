@@ -18,12 +18,15 @@ export class Proyectos{
     }
 
     static async deleteProject({project}){
+        const client = await iPgHandler.beginTransaction()
+        console.log('el cliente es', client)
         try {
-            const key = 'deleteProject'
-            const params = [project]
-            const resultSet = await iPgHandler.exeQuery({key, params})
-            return resultSet
+            await iPgHandler.exeQuery({key: "deleteObjectiveProject", params: [project], client})
+            await iPgHandler.exeQuery({key: "deleteProyectMembers", params: [project], client})
+            await iPgHandler.exeQuery({key: "deleteProject", params: [project], client})
+            await iPgHandler.commitTransaction(client)
         } catch (error) {
+            await iPgHandler.rollbackTransaction(client)
             return {error}
         }
     }
@@ -89,4 +92,15 @@ export class Proyectos{
         }
     }
     
+    static async getProjects({userId}){
+        try {
+            const key = 'getPreInfoProjects'
+            const params = [userId]
+            const resultSet = await iPgHandler.exeQuery({key, params})
+            return resultSet
+        } catch (error) {
+            console.log(error)
+            return {error}
+        }
+    }
 }
