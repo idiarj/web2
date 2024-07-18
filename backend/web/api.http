@@ -6,11 +6,12 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "nombre": "Cesar",
-    "apellido": "Villalobos",
-    "username": "villalobos1803",
-    "correo": "cavc@gmail.com",
-    "password": "boliviano"
+    "nombre": "Idiar",
+    "apellido": "Chacin",
+    "username": "IdiArj",
+    "cedula": 30217559,
+    "correo": "idiar16@gmail.com",
+    "password": "16012004"
 }
 
 ### Iniciar sesion
@@ -22,34 +23,37 @@ Content-Type: application/json
     "password": "16012004"
 }
 
-### Ver perfiles del usuario logeado
-GET http://localhost:3000/profiles
-
-### Ver usuarios logeados
-GET http://localhost:3000/login
-
-### Cerrar sesion
-POST http://localhost:3000/logout
-
-### Ver usuario
-GET http://localhost:3000/users/Idiarj
-
-### Cambiar contrasena
-PATCH http://localhost:3000/changePassword
-Content-Type: application/json
-
-## Recuperar Contrasena
-POST http://localhost:3000/forgot-password
-Content-Type: application/json
-
-{
-    "correo": "andresburgosj@gmail.com"
-}
-
-{
-    "newPass": "16012004id"
-}
 
 
 ### Ver proyectos el usuario logeado
 GET http://localhost:3000/projects 
+
+### Home
+GET http://localhost:3000/home
+
+### Crear un proyecto
+POST http://localhost:3000/projects/crearProyecto
+Content-Type: application/json
+
+
+{
+    "projectName": "Sistema de Gestion Central de Proyectos",
+    "objective": "Proyecto de la materia Web 2",
+    "members": [
+        {
+            "cedula": 30217559,
+            "profiles": ["Desarrollador", "Desarrollador Back-End", "Arquitecto de Software"]
+        },
+        {
+            "cedula": 30106795,
+            "profiles": ["Desarrollador", "Desarrollador Front-End"]
+        },
+        {
+            "cedula": 30819564,
+            "profiles": ["Desarrollador", "Apoyo", "Desarrollador Front-End"]   
+        }
+    ],
+    "startDate": "2024-05-07",
+    "endDate": "2024-07-28",
+    "state": "Creado"
+}

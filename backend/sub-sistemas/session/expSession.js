@@ -12,23 +12,29 @@ export class SessionWrapper{
 
     }
 
-async createSession(req){
-    const {body, session} = req;
-    for(let key in body){
-        session[key] = body[key];
-        console.log(`creare sesion con ${session[key]}`);
-    }
-    return new Promise((resolve, reject) => {
-        session.save(err => {
-            if(err) {
-                console.error('Error al guardar la sesión:', err);
-                reject(err);
-            } else {
-                console.log('Sesión guardada con éxito');
-                resolve();
-            }
+async createSession({req, user}){
+    try{       
+        const {session} = req;
+        console.log(user)
+        for(let key in user){
+            session[key] = user[key];
+            console.log(`creare sesion con ${session[key]}`);
+        }
+        return new Promise((resolve, reject) => {
+            session.save(err => {
+                if(err) {
+                    console.error('Error al guardar la sesión:', err);
+                    reject(err);
+                } else {
+                    console.log('Sesión guardada con éxito');
+                    resolve();
+                }
+            });
         });
-    });
+        }catch(error){
+            console.log(error)
+            return {error}
+        }
 }
 
     verifySession(req){

@@ -1,0 +1,16 @@
+.notDoneDiv{
+    border-radius: 10px;
+    background-color: rgb(253, 253, 253);
+    display: grid;
+    place-items: center; /* Centra los elementos dentro del grid */
+    height: 200px;
+    width: 350px;
+}
+
+.notDoneButton{
+    background-color: black;
+    color: white;
+    height: 100px;
+    width: 200px;
+    /* Asegúrate de que no haya márgenes que impidan el centrado */
+}

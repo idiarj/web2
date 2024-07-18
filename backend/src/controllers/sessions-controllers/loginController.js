@@ -20,22 +20,29 @@ export class loginController {
             console.log(result.data)
             const {username, password} = result.data
             console.log(`Usuario: ${username}, Password: ${password}`)
-            // const userFound = users.find(u => u.username === username && u.password === password)
-            // console.log(userFound)
 
             const validUser = await userModel.verifyUser({user: username})
-            const validPassword = await userModel.verifyPassword({username, password_user: password})
+            console.log(validUser)
             console.log('el usuario es valido?', validUser)
+            if(!validUser.success) return res.status(400).json({error: 'Este nombre de usuario no existe.'})
+
+            const validPassword = await userModel.verifyPassword({username, password_user: password})
+
+            
             console.log('la contrasena es valida?', validPassword)
             console.log(`valid password es`)
             console.log(validPassword)
+
             if(validUser.error || validPassword.error) return res.status(400).json({
                 error: 'Hubo un error interno, disculpe. (Los desarrolladores son idiotas)'
             })
-            if(!validUser) return res.status(400).json({error: 'Este nombre de usuario no existe.'})
-            if(!validPassword) return res.status(400).json({error: 'La contrasena es incorrecta, intente de nuevo.'})
             
-            await SessionHandler.createSession(req)
+            if(!validPassword.success) return res.status(400).json({error: 'La contrasena es incorrecta, intente de nuevo.'})
+            // const [user] = await userModel.getUser({username})
+            // console.log(user)
+            const [user] = validUser.resultSet
+            console.log(`ahora creare sesion con`, user)
+            await SessionHandler.createSession({req, user})
             return res.json({mensaje: `Usuario ${username} logeado`})
         }catch(error){
             return res.status(500).json({

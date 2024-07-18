@@ -1,5 +1,11 @@
-### Probando API
+### test
 /test
 
-### test
+
+### node modules front
+client/node_modules
+
+
+### node modules back
+backend/node_modules
 

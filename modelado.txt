@@ -1,0 +1,381 @@
+CREATE SCHEMA IF NOT EXISTS "public";
+
+CREATE SEQUENCE "public".actividad_id_actividad_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".actividad_id_actividad_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".actividad_id_objetivo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".actividad_id_objetivo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".asignacion_id_actividad_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".asignacion_id_actividad_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".asignacion_id_asignacion_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".asignacion_id_asignacion_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".asignacion_id_miembro_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".asignacion_id_miembro_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".avance_id_asignacion_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".avance_id_asignacion_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".avance_id_avance_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".avance_id_avance_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".clase_id_clase_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".clase_id_clase_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".clase_id_modulo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".clase_id_modulo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".entregable_id_actividad_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".entregable_id_actividad_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".entregable_id_entregable_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".entregable_id_entregable_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".entregable_id_tipo_entregable_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".entregable_id_tipo_entregable_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".estado_id_estado_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".estado_id_estado_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".menu_id_menu_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".menu_id_menu_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".menu_id_modulo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".menu_id_modulo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_id_clase_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_id_clase_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_id_metodo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_id_metodo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_perfil_id_metodo_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_perfil_id_metodo_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_perfil_id_metodo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_perfil_id_metodo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_perfil_id_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".metodo_perfil_id_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_miembro_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_miembro_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_persona_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_persona_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_proyecto_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".miembro_id_proyecto_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_id_modulo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_id_modulo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_perfil_id_modulo_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_perfil_id_modulo_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_perfil_id_modulo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_perfil_id_modulo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_perfil_id_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".modulo_perfil_id_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".objetivo_id_objetivo_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".objetivo_id_objetivo_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".objetivo_id_proyecto_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".objetivo_id_proyecto_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_id_menu_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_id_menu_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_id_opcion_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_id_opcion_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_perfil_id_opcion_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_perfil_id_opcion_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_perfil_id_opcion_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_perfil_id_opcion_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_perfil_id_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".opcion_perfil_id_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".perfil_id_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".perfil_id_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".perfil_id_tipo_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".perfil_id_tipo_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".persona_id_persona_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".persona_id_persona_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".prelacion_actividad_id_actividad_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".prelacion_actividad_id_prelacion_actividad_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".prelacion_actividad_id_prelacion_actividad_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".proyecto_id_estado_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".proyecto_id_estado_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".proyecto_id_proyecto_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".proyecto_id_proyecto_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".tipo_entregable_id_tipo_entregable_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".tipo_entregable_id_tipo_entregable_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".tipo_perfil_id_tipo_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".tipo_perfil_id_tipo_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_id_persona_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_id_persona_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_id_usuario_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_id_usuario_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_perfil_id_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_perfil_id_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_perfil_id_usuario_perfil_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_perfil_id_usuario_perfil_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_perfil_id_usuario_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_perfil_id_usuario_seq1 AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE  TABLE "public".estado ( 
+	id_estado            integer DEFAULT nextval('estado_id_estado_seq1'::regclass) NOT NULL  ,
+	des_estado           varchar(50)    ,
+	CONSTRAINT pk_estado PRIMARY KEY ( id_estado )
+ );
+
+CREATE  TABLE "public".modulo ( 
+	id_modulo            integer DEFAULT nextval('modulo_id_modulo_seq1'::regclass) NOT NULL  ,
+	nom_modulo           varchar  NOT NULL  ,
+	CONSTRAINT pk_modulo PRIMARY KEY ( id_modulo )
+ );
+
+CREATE  TABLE "public".persona ( 
+	id_persona           integer DEFAULT nextval('persona_id_persona_seq1'::regclass) NOT NULL  ,
+	nom_persona          varchar(50)    ,
+	ape_persona          varchar(50)    ,
+	cedu_persona         bigint  NOT NULL  ,
+	CONSTRAINT pk_persona PRIMARY KEY ( id_persona )
+ );
+
+CREATE  TABLE "public".proyecto ( 
+	id_proyecto          integer DEFAULT nextval('proyecto_id_proyecto_seq1'::regclass) NOT NULL  ,
+	id_estado            integer DEFAULT nextval('proyecto_id_estado_seq1'::regclass) NOT NULL  ,
+	nom_proyecto         varchar(50)    ,
+	fecha_inicio         date    ,
+	fecha_fin            date    ,
+	CONSTRAINT pk_proyecto PRIMARY KEY ( id_proyecto ),
+	CONSTRAINT fk_proyecto_estado FOREIGN KEY ( id_estado ) REFERENCES "public".estado( id_estado )   
+ );
+
+CREATE  TABLE "public".tipo_entregable ( 
+	id_tipo_entregable   integer DEFAULT nextval('tipo_entregable_id_tipo_entregable_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_tipo_entregable PRIMARY KEY ( id_tipo_entregable )
+ );
+
+CREATE  TABLE "public".tipo_perfil ( 
+	id_tipo_perfil       integer DEFAULT nextval('tipo_perfil_id_tipo_perfil_seq1'::regclass) NOT NULL  ,
+	des_tipo_perfil      varchar    ,
+	CONSTRAINT pk_tipo_perfil PRIMARY KEY ( id_tipo_perfil )
+ );
+
+CREATE  TABLE "public".usuario ( 
+	id_usuario           integer DEFAULT nextval('usuario_id_usuario_seq1'::regclass) NOT NULL  ,
+	id_persona           integer DEFAULT nextval('usuario_id_persona_seq1'::regclass) NOT NULL  ,
+	nom_usuario          varchar(50)    ,
+	correo_usuario       varchar    ,
+	password_usuario     varchar    ,
+	CONSTRAINT pk_usuario PRIMARY KEY ( id_usuario ),
+	CONSTRAINT fk_usuario_persona FOREIGN KEY ( id_persona ) REFERENCES "public".persona( id_persona )   
+ );
+
+CREATE  TABLE "public".clase ( 
+	id_clase             integer DEFAULT nextval('clase_id_clase_seq1'::regclass) NOT NULL  ,
+	id_modulo            integer DEFAULT nextval('clase_id_modulo_seq1'::regclass) NOT NULL  ,
+	nom_clase            varchar    ,
+	CONSTRAINT pk_clase PRIMARY KEY ( id_clase ),
+	CONSTRAINT fk_clase_modulo FOREIGN KEY ( id_modulo ) REFERENCES "public".modulo( id_modulo )   
+ );
+
+CREATE  TABLE "public".menu ( 
+	id_menu              integer DEFAULT nextval('menu_id_menu_seq1'::regclass) NOT NULL  ,
+	id_modulo            integer DEFAULT nextval('menu_id_modulo_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_menu PRIMARY KEY ( id_menu ),
+	CONSTRAINT fk_menu_modulo FOREIGN KEY ( id_modulo ) REFERENCES "public".modulo( id_modulo )   
+ );
+
+CREATE  TABLE "public".metodo ( 
+	id_metodo            integer DEFAULT nextval('metodo_id_metodo_seq1'::regclass) NOT NULL  ,
+	id_clase             integer DEFAULT nextval('metodo_id_clase_seq1'::regclass) NOT NULL  ,
+	nom_metodo           varchar    ,
+	CONSTRAINT pk_metodo PRIMARY KEY ( id_metodo ),
+	CONSTRAINT fk_metodo_clase FOREIGN KEY ( id_clase ) REFERENCES "public".clase( id_clase )   
+ );
+
+CREATE  TABLE "public".objetivo ( 
+	id_objetivo          integer DEFAULT nextval('objetivo_id_objetivo_seq1'::regclass) NOT NULL  ,
+	id_proyecto          integer DEFAULT nextval('objetivo_id_proyecto_seq1'::regclass) NOT NULL  ,
+	des_objetivo         varchar    ,
+	CONSTRAINT pk_objetivo PRIMARY KEY ( id_objetivo ),
+	CONSTRAINT fk_objetivo_proyecto FOREIGN KEY ( id_proyecto ) REFERENCES "public".proyecto( id_proyecto )   
+ );
+
+CREATE  TABLE "public".opcion ( 
+	id_opcion            integer DEFAULT nextval('opcion_id_opcion_seq1'::regclass) NOT NULL  ,
+	id_menu              integer DEFAULT nextval('opcion_id_menu_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_opcion PRIMARY KEY ( id_opcion ),
+	CONSTRAINT fk_opcion_menu FOREIGN KEY ( id_menu ) REFERENCES "public".menu( id_menu )   
+ );
+
+CREATE  TABLE "public".perfil ( 
+	id_perfil            integer DEFAULT nextval('perfil_id_perfil_seq1'::regclass) NOT NULL  ,
+	des_perfil           varchar(50)    ,
+	id_tipo_perfil       integer DEFAULT nextval('perfil_id_tipo_perfil_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_perfil PRIMARY KEY ( id_perfil ),
+	CONSTRAINT fk_perfil_tipo_perfil FOREIGN KEY ( id_tipo_perfil ) REFERENCES "public".tipo_perfil( id_tipo_perfil )   
+ );
+
+CREATE  TABLE "public".usuario_perfil ( 
+	id_usuario_perfil    integer DEFAULT nextval('usuario_perfil_id_usuario_perfil_seq1'::regclass) NOT NULL  ,
+	id_usuario           integer DEFAULT nextval('usuario_perfil_id_usuario_seq1'::regclass) NOT NULL  ,
+	id_perfil            integer DEFAULT nextval('usuario_perfil_id_perfil_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_usuario_perfil PRIMARY KEY ( id_usuario_perfil ),
+	CONSTRAINT fk_usuario_perfil_perfil FOREIGN KEY ( id_perfil ) REFERENCES "public".perfil( id_perfil )   ,
+	CONSTRAINT fk_usuario_perfil_usuario FOREIGN KEY ( id_usuario ) REFERENCES "public".usuario( id_usuario )   
+ );
+
+CREATE  TABLE "public".actividad ( 
+	id_actividad         integer DEFAULT nextval('actividad_id_actividad_seq1'::regclass) NOT NULL  ,
+	id_objetivo          integer DEFAULT nextval('actividad_id_objetivo_seq1'::regclass) NOT NULL  ,
+	des_actividad        varchar    ,
+	CONSTRAINT pk_actividad PRIMARY KEY ( id_actividad ),
+	CONSTRAINT fk_actividad_objetivo FOREIGN KEY ( id_objetivo ) REFERENCES "public".objetivo( id_objetivo )   
+ );
+
+CREATE  TABLE "public".entregable ( 
+	id_entregable        integer DEFAULT nextval('entregable_id_entregable_seq1'::regclass) NOT NULL  ,
+	id_actividad         integer DEFAULT nextval('entregable_id_actividad_seq1'::regclass) NOT NULL  ,
+	id_tipo_entregable   integer DEFAULT nextval('entregable_id_tipo_entregable_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_entregable PRIMARY KEY ( id_entregable ),
+	CONSTRAINT fk_entregable_tipo_entregable FOREIGN KEY ( id_tipo_entregable ) REFERENCES "public".tipo_entregable( id_tipo_entregable )   ,
+	CONSTRAINT fk_entregable_actividad FOREIGN KEY ( id_actividad ) REFERENCES "public".actividad( id_actividad )   
+ );
+
+CREATE  TABLE "public".metodo_perfil ( 
+	id_metodo_perfil     integer DEFAULT nextval('metodo_perfil_id_metodo_perfil_seq1'::regclass) NOT NULL  ,
+	id_perfil            integer DEFAULT nextval('metodo_perfil_id_perfil_seq1'::regclass) NOT NULL  ,
+	id_metodo            integer DEFAULT nextval('metodo_perfil_id_metodo_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_metodo_perfil PRIMARY KEY ( id_metodo_perfil ),
+	CONSTRAINT fk_metodo_perfil_metodo FOREIGN KEY ( id_metodo ) REFERENCES "public".metodo( id_metodo )   ,
+	CONSTRAINT fk_metodo_perfil_perfil FOREIGN KEY ( id_perfil ) REFERENCES "public".perfil( id_perfil )   
+ );
+
+CREATE  TABLE "public".miembro ( 
+	id_miembro           integer DEFAULT nextval('miembro_id_miembro_seq1'::regclass) NOT NULL  ,
+	id_persona           integer DEFAULT nextval('miembro_id_persona_seq1'::regclass) NOT NULL  ,
+	id_perfil            integer DEFAULT nextval('miembro_id_perfil_seq1'::regclass) NOT NULL  ,
+	id_proyecto          integer DEFAULT nextval('miembro_id_proyecto_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_miembro PRIMARY KEY ( id_miembro ),
+	CONSTRAINT fk_miembro_proyecto FOREIGN KEY ( id_proyecto ) REFERENCES "public".proyecto( id_proyecto )   ,
+	CONSTRAINT fk_miembro_perfil FOREIGN KEY ( id_perfil ) REFERENCES "public".perfil( id_perfil )   ,
+	CONSTRAINT fk_miembro_persona FOREIGN KEY ( id_persona ) REFERENCES "public".persona( id_persona )   
+ );
+
+CREATE  TABLE "public".modulo_perfil ( 
+	id_modulo_perfil     integer DEFAULT nextval('modulo_perfil_id_modulo_perfil_seq1'::regclass) NOT NULL  ,
+	id_modulo            integer DEFAULT nextval('modulo_perfil_id_modulo_seq1'::regclass) NOT NULL  ,
+	id_perfil            integer DEFAULT nextval('modulo_perfil_id_perfil_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_modulo_perfil PRIMARY KEY ( id_modulo_perfil ),
+	CONSTRAINT fk_modulo_perfil_perfil FOREIGN KEY ( id_perfil ) REFERENCES "public".perfil( id_perfil )   ,
+	CONSTRAINT fk_modulo_perfil_modulo FOREIGN KEY ( id_modulo ) REFERENCES "public".modulo( id_modulo )   
+ );
+
+CREATE  TABLE "public".opcion_perfil ( 
+	id_opcion_perfil     integer DEFAULT nextval('opcion_perfil_id_opcion_perfil_seq1'::regclass) NOT NULL  ,
+	id_opcion            integer DEFAULT nextval('opcion_perfil_id_opcion_seq1'::regclass) NOT NULL  ,
+	id_perfil            integer DEFAULT nextval('opcion_perfil_id_perfil_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_opcion_perfil PRIMARY KEY ( id_opcion_perfil ),
+	CONSTRAINT fk_opcion_perfil_perfil FOREIGN KEY ( id_perfil ) REFERENCES "public".perfil( id_perfil )   ,
+	CONSTRAINT fk_opcion_perfil_opcion FOREIGN KEY ( id_opcion ) REFERENCES "public".opcion( id_opcion )   
+ );
+
+CREATE  TABLE "public".prelacion_actividad ( 
+	id_prelacion_actividad integer DEFAULT nextval('prelacion_actividad_id_prelacion_actividad_seq1'::regclass) NOT NULL  ,
+	id_actividad_prela   integer DEFAULT nextval('actividad_id_actividad_seq1'::regclass)   ,
+	id_actividad         integer DEFAULT nextval('actividad_id_actividad_seq1'::regclass)   ,
+	CONSTRAINT pk_prelacion_actividad PRIMARY KEY ( id_prelacion_actividad ),
+	CONSTRAINT fk_prelacion_actividad_actividad FOREIGN KEY ( id_actividad_prela ) REFERENCES "public".actividad( id_actividad )   ,
+	CONSTRAINT fk_prelacion_actividad_actividad_0 FOREIGN KEY ( id_actividad ) REFERENCES "public".actividad( id_actividad )   
+ );
+
+CREATE  TABLE "public".asignacion ( 
+	id_asignacion        integer DEFAULT nextval('asignacion_id_asignacion_seq1'::regclass) NOT NULL  ,
+	id_miembro           integer DEFAULT nextval('asignacion_id_miembro_seq1'::regclass) NOT NULL  ,
+	id_actividad         integer DEFAULT nextval('asignacion_id_actividad_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_asignacion PRIMARY KEY ( id_asignacion ),
+	CONSTRAINT fk_asignacion_actividad FOREIGN KEY ( id_actividad ) REFERENCES "public".actividad( id_actividad )   ,
+	CONSTRAINT fk_asignacion_miembro FOREIGN KEY ( id_miembro ) REFERENCES "public".miembro( id_miembro )   
+ );
+
+CREATE  TABLE "public".avance ( 
+	id_avance            integer DEFAULT nextval('avance_id_avance_seq1'::regclass) NOT NULL  ,
+	id_asignacion        integer DEFAULT nextval('avance_id_asignacion_seq1'::regclass) NOT NULL  ,
+	CONSTRAINT pk_avance PRIMARY KEY ( id_avance ),
+	CONSTRAINT fk_avance_asignacion FOREIGN KEY ( id_asignacion ) REFERENCES "public".asignacion( id_asignacion )   
+ );
