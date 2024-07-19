@@ -23,7 +23,7 @@ app.use(express.json())
 
 
 app.use('/home', isAuthMiddleware, homeRouter)
-app.use('/recursos', isAuthMiddleware, recursosRouter)
+app.use('/recursos', recursosRouter)
 
 app.use('/profiles', profilesRouter)
 

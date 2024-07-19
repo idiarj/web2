@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem } from '@mui/material';
-import { Autocomplete } from '@mui/lab';
+// import { Autocomplete } from '@mui/lab';
+import Autocomplete from '@mui/material/Autocomplete'; // Correct import for Autocomplete from MUI core
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import './projects.css';
 import icon from '../../assets/icon.jpg';
@@ -29,6 +30,9 @@ function Projects() {
           console.log(response)
           const data = await response.json()
           console.log(data)
+          console.log(data.recursos)
+          setResources(data.recursos)
+          console.log('los recursos son', resources)
         }
        
       
@@ -117,10 +121,11 @@ function Projects() {
                     <TableCell>
                       <Autocomplete
                         options={resources}
-                        getOptionLabel={(option) => option}
-                        value={member.resource}
-                        onChange={(event, newValue) => handleMemberChange(index, newValue)}
-                        renderInput={(params) => <TextField {...params} label="Recurso" />}
+                        getOptionLabel={(option) => option.recurso}
+                        renderInput={(params) => <TextField {...params} label="Selecciona un miembro" />}
+                        onChange={(event, newValue) => {
+                          console.log(newValue);
+                        }}
                       />
                     </TableCell>
                     <TableCell>
