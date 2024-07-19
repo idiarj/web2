@@ -19,23 +19,32 @@ function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch users and roles from the backend
     const fetchResourcesAndRoles = async () => {
       try {
-        const response = await ifetchWrapper.fetchMethod({
+        // Suponiendo que existe una función fetchRoles similar a fetchResources
+        const fetchResources = ifetchWrapper.fetchMethod({
           endpoint: 'recursos',
           credentials: 'include'
-        })
-        if(response.ok){
-          console.log(response)
-          const data = await response.json()
-          console.log(data)
-          console.log(data.recursos)
-          setResources(data.recursos)
-          console.log('los recursos son', resources)
+        });
+        const fetchRoles = ifetchWrapper.fetchMethod({
+          endpoint: 'profiles/bussines', // Asume que este es el endpoint correcto para roles
+          credentials: 'include'
+        });
+
+        const [resourcesResponse, rolesResponse] = await Promise.all([fetchResources, fetchRoles]);
+
+        if (resourcesResponse.ok && rolesResponse.ok) {
+          const resourcesData = await resourcesResponse.json();
+          const rolesData = await rolesResponse.json();
+
+          console.log('Recursos:', resourcesData.recursos);
+          console.log(rolesData)
+          console.log('Roles:', rolesData.perfiles);
+
+          // Suponiendo que tienes funciones setResources y setRoles para actualizar el estado
+          setResources(resourcesData.recursos);
+          setRoles(rolesData.perfiles);
         }
-       
-      
       } catch (error) {
         console.error('Error fetching data:', error);
       }

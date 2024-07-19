@@ -26,21 +26,6 @@ export class userModel{
         }
     }
 
-    static async getProfiles({user}){
-        try {
-            console.log('--------GET PROFILES------------')
-            console.log(user)
-            const result = await iPgHandler.exeQuery({key: 'see_profiles', params: [user]})
-            const profiles = result.map((element)=>{
-                return element.des_perfil
-            })
-            return profiles
-        } catch (error) {
-            console.log(error.message)
-            return {error}
-        }
-    }
-
         /**
          * Registra un nuevo usuario en la base de datos. Este método asume que el objeto proporcionado
          * contiene toda la información necesaria para crear un nuevo registro de usuario, incluyendo
