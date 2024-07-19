@@ -108,7 +108,7 @@ function Register() {
             <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
           </label>
           <label>
-          Cedula de identiddad:
+          Cedula de identidad:
             <input type="number" name="cedula" value={formData.cedula} onChange={handleChange} />
           </label>
           <label>
@@ -123,9 +123,9 @@ function Register() {
             Contraseña:
             <input type="password" name="password" value={formData.password} onChange={handleChange} />
           </label>
+        </form>
           <button type="submit"  className={disable ? "disabledButton" : "enabledButton"} disabled={disable} >{buttonText}</button>
           {error && <p className="error-message">{error}</p>}
-        </form>
         <p className="login-link">¿Ya tienes una cuenta? <Link to="/logIn">Inicia sesión aquí</Link></p>
       </div>
     </div>
