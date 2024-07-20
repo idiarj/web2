@@ -63,3 +63,6 @@ GET http://localhost:3000/recursos
 
 ### Ver perfiles de negocio del sistema
 GET http://localhost:3000/profiles/bussines
+
+
+### Ver proyectos de un usuario

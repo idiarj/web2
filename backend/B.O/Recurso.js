@@ -5,7 +5,7 @@ export class Recurso{
         try {
             const key = 'insert_persona'
             const params = [nombre, apellido, cedula]
-            await iPgHandler.exeQuery({key, params})
+             await iPgHandler.exeQuery({key, params})
             return {success: true, msg: 'Recurso creado con exito'}
         } catch (error) {
             console.log(error)
