@@ -25,17 +25,18 @@ export class ProyectosController{
     }
 
     static async verProyectos(req, res){
+        const user = req.session.username
         try{
             if(!(SessionHandler.verifySession(req))) return res.status(401).json({
                 error: 'No hay sesion para ver sus proyectos.'
             })
-            const user = req.session.username
-            const projects = await Proyectos.getProjetcsByUser({user})
+            
+            const projects = await Proyectos.getProjectsByUser({user})
             return res.status(200).json({
                 proyectos: `Los proyectos el usuario ${user} son ${projects.join(', ')}`
             })
         }catch(error){
-
+            return res.status(500).json({mensaje: `Error al ver los proyectos del usuario ${user}.`, detalle: error.message})
         }
     }
 

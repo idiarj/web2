@@ -1,5 +1,4 @@
 /* register.css */
-
 .register-container {
   display: flex;
   justify-content: center;
@@ -8,12 +7,12 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-x: hidden;
-  max-width: 65%;
+  max-width: 100%;
   margin: 0 auto;
   padding: 2rem;
-  flex-direction: row; /* Cambiado a row para disposición horizontal */
-  flex-wrap: wrap; /* Permite el ajuste de elementos */
-  height: auto; /* Ajustado para permitir flexibilidad en la altura */
+  flex-direction: column; /* Ajustado para disposición vertical */
+  flex-wrap: wrap;
+  height: auto;
 }
 
 .icono-img {
@@ -49,24 +48,25 @@ h2 {
   color: #333;
 }
 
-/* Ajustes en .register-form para mejorar la disposición horizontal */
 .register-form {
   display: flex;
-  flex-direction: row; /* Asegura disposición horizontal */
-  flex-wrap: wrap; /* Permite que los elementos se ajusten según el ancho disponible */
-  justify-content: center; /* Centra los elementos horizontalmente */
-  width: 100%; /* Asegura que el formulario use todo el ancho disponible */
+  flex-direction: column; 
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
 }
 
 .register-form label {
   margin-bottom: 0.5rem;
   color: #000000;
+  text-align: left;
 }
 
 .register-form input {
-  width:auto; /* Ajusta el ancho para que dos inputs quepan en una fila, considerando el padding */
+  width: 80%; /* Ajustado para ser menos angosto */
   padding: 0.5rem;
-  margin: 2rem; /* Asegura un pequeño espacio entre los inputs */
+  margin: 1rem auto; /* Mantenemos el centrado y ajuste de margen */
   border: 1px solid #ccc;
   color: #333;
   border-radius: 4px;
@@ -84,6 +84,7 @@ h2 {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+  width: 85%;
 }
 
 .enabledButton:hover {
@@ -120,3 +121,4 @@ p {
   color: red;
   margin-top: 0.5rem;
 }
+
