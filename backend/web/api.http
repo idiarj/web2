@@ -64,5 +64,12 @@ GET http://localhost:3000/recursos
 ### Ver perfiles de negocio del sistema
 GET http://localhost:3000/profiles/bussines
 
+### Crear recurso
+POST http://localhost:3000/recursos/crearRecurso
+Content-Type: application/json
 
-### Ver proyectos de un usuario
+{
+    "nombre": "Jesus",
+    "apellido": "Finol",
+    "cedula": 31169904
+}
