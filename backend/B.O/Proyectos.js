@@ -2,6 +2,56 @@ import { iPgHandler } from "../data/psql-data/iPgManager.js";
 
 export class Proyectos{
 
+    static async editProject({projectId, newProjectName, newMembers, newObjective, newStartDate, newEndDate, newState}) {
+        const client = await iPgHandler.beginTransaction()
+        try {
+            let queryParams = [];
+            let querySetParts = [];
+    
+            // Construir dinámicamente la consulta SQL
+            if (newProjectName) {
+                queryParams.push(newProjectName);
+                querySetParts.push(`nombre_proyecto = $${queryParams.length}`);
+            }
+            if (newState) {
+                const [{id_estado}] = await iPgHandler.exeQuery({key: 'getStateId', params: [newState], client});
+                queryParams.push(id_estado);
+                querySetParts.push(`id_estado = $${queryParams.length}`);
+            }
+            if (newStartDate) {
+                queryParams.push(newStartDate);
+                querySetParts.push(`fecha_inicio = $${queryParams.length}`);
+            }
+            if (newEndDate) {
+                queryParams.push(newEndDate);
+                querySetParts.push(`fecha_fin = $${queryParams.length}`);
+            }
+    
+            if (querySetParts.length > 0) {
+                queryParams.push(projectId);
+                let updateQuery = `UPDATE proyectos SET ${querySetParts.join(', ')} WHERE id_proyecto = $${queryParams.length}`;
+                await iPgHandler.exeQuery({query: updateQuery, params: queryParams, client});
+            }
+    
+            // Actualizar el objetivo del proyecto si se proporciona
+            if (newObjective) {
+                await iPgHandler.exeQuery({key: 'updateObjective', params: [projectId, newObjective], client});
+            }
+    
+            // Actualizar los miembros del proyecto si se proporciona la lista de nuevos miembros
+            if (newMembers) {
+                // Aquí deberías implementar la lógica para actualizar los miembros del proyecto
+                // Esto puede incluir eliminar los miembros actuales y agregar los nuevos
+            }
+    
+            await iPgHandler.commitTransaction(client);
+            return {success: true, message: `Proyecto actualizado con éxito`};
+        } catch (error) {
+            await iPgHandler.rollbackTransaction(client);
+            return {success: false, message: 'Error al actualizar el proyecto'};
+        }
+    }
+
     static async getProjects({userId}){
         try {
             console.log(`el user id es ${userId}`)
@@ -17,15 +67,16 @@ export class Proyectos{
 
     static async deleteProject({project}){
         const client = await iPgHandler.beginTransaction()
-        console.log('el cliente es', client)
+        // console.log('el cliente es', client)
         try {
             await iPgHandler.exeQuery({key: "deleteObjectiveProject", params: [project], client})
-            await iPgHandler.exeQuery({key: "deleteProyectMembers", params: [project], client})
+            await iPgHandler.exeQuery({key: "deleteProjectMembers", params: [project], client})
             await iPgHandler.exeQuery({key: "deleteProject", params: [project], client})
             await iPgHandler.commitTransaction(client)
+            return {success: true}
         } catch (error) {
             await iPgHandler.rollbackTransaction(client)
-            return {error}
+            return {success: false, error}
         }
     }
 

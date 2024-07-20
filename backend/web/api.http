@@ -1,6 +1,3 @@
-### Ver usuarios registrados
-GET http://localhost:3000/users
-
 ### Registrar usuario
 POST http://localhost:3000/register
 Content-Type: application/json
@@ -22,11 +19,6 @@ Content-Type: application/json
     "username": "Burgosz",
     "password": "nathaly2003"
 }
-
-
-
-### Ver proyectos el usuario logeado
-GET http://localhost:3000/projects 
 
 ### Home
 GET http://localhost:3000/home
@@ -80,3 +72,6 @@ Content-Type: application/json
 
 ### Ver proyectos del usuario logeado
 GET http://localhost:3000/projects
+
+### Eliminar un proyecto
+DELETE http://localhost:3000/projects/7
