@@ -2,17 +2,15 @@ import { iPgHandler } from "../data/psql-data/iPgManager.js";
 
 export class Proyectos{
 
-    static async getProjectsByUser({user}){
+    static async getProjects({userId}){
         try {
-            const key = 'getProjectsByUser'
-            const params = [user]
+            console.log(`el user id es ${userId}`)
+            const key = 'getPreInfoProjects'
+            const params = [userId]
             const resultSet = await iPgHandler.exeQuery({key, params})
-            const projects = resultSet.map((e)=>{
-                return e.project
-            })
-            console.log(projects)
-            return projects
+            return resultSet
         } catch (error) {
+            console.log(error)
             return {error}
         }
     }
@@ -88,19 +86,6 @@ export class Proyectos{
             })
             return states
         } catch (error) {
-            return {error}
-        }
-    }
-    
-    static async getProjects({userId}){
-        try {
-            console.log(`el user id es ${userId}`)
-            const key = 'getPreInfoProjects'
-            const params = [userId]
-            const resultSet = await iPgHandler.exeQuery({key, params})
-            return resultSet
-        } catch (error) {
-            console.log(error)
             return {error}
         }
     }
