@@ -6,6 +6,7 @@ import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import './projects.css';
 import icon from '../../assets/icon.jpg';
 import { ifetchWrapper } from '../../../public/fetchWrapper.js';
+import ProjectsPreview from '../projects_preview/projects-preview.jsx';
 
 function Projects() {
   const [open, setOpen] = useState(false);
@@ -182,15 +183,6 @@ function Projects() {
     </div>
     <TextField
       margin="dense"
-      label="Descripción del Proyecto"
-      type="text"
-      fullWidth
-      value={projectDescription}
-      onChange={handleProjectDescriptionChange}
-      className="normal-input"
-    />
-    <TextField
-      margin="dense"
       label="Objetivo del Proyecto"
       type="text"
       fullWidth
@@ -284,23 +276,18 @@ function Projects() {
   </DialogActions>
 </Dialog>
         <div>
-          <h2>Proyectos Guardados</h2>
-          {savedProjects.length === 0 ? (
-            <p>No hay proyectos guardados</p>
-          ) : (
-            <ul>
-              {savedProjects.map((project, index) => (
-                <li key={index}>
-                  <h3>{project.name}</h3>
-                  <p>{project.description}</p>
-                  <p>Objetivo: {project.objective}</p>
-                  <p>Fecha de Inicio: {project.startDate}</p>
-                  <p>Fecha de Fin: {project.endDate}</p>
-                  <p>Estado: {project.status}</p>
-                </li>
-              ))}
-            </ul>
-          )}
+          <div>
+            <h2>Proyectos Guardados</h2>
+            <div className="projects-grid">
+              {savedProjects.length === 0 ? (
+                <p>No hay proyectos guardados</p>
+              ) : (
+                savedProjects.map((project) => (
+                  <ProjectsPreview key={project.id} project={project} />
+                ))
+              )}
+            </div>
+          </div>
         </div>
       </main>
     </div>

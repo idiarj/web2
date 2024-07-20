@@ -5,7 +5,8 @@ import ForgotPassword from './components/forgot-password/forgot-password.jsx';
 import Dashboard from './components/dashboard/dashboard.jsx';
 import Projects from './components/projects/projects.jsx'; 
 import { NotDone } from './components/not-done/not-done.jsx';
-import { Testing } from './components/testing/testing.jsx'
+import { Testing } from './components/testing/testing.jsx';
+import ProjectDetail from './components/projects/ProjectDetail.jsx';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/settings' element={<NotDone/>}/>
         <Route path='/projects' element={<Projects/>}/>
         <Route path="/test" element={<Testing/>}/>
+        <Route path="/projects/:projectId" element={<ProjectDetail />} />
       </Routes>
     </Router>
   );

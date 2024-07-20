@@ -1,2 +1,52 @@
+.project-preview {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .project-preview:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+  }
+  
+  .project-preview h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .project-preview p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  
+  /* Específico para la fecha y los miembros para diferenciarlos un poco más */
+  .project-info-container, .project-details-container {
+    display: flex;
+    flex-direction: row; /* Alinea los elementos horizontalmente */
+    gap: 20px; /* Espacio entre los elementos */
+    height: 30px; /* Espacio entre el nombre y el estado */
+    margin-bottom: 10px; /* Espacio debajo del contenedor */
+    max-width: 700px; /* Ajusta el tamaño del input */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
 
+  }
+  
+  .project-preview {
+    display: flex;
+    flex-direction: column; /* Alinea los contenedores verticalmente */
+    gap: 10px; /* Espacio entre los contenedores */
+  }
+  
+  .project-preview p:last-child {
+      font-weight: bold;
+      color: #333;
+  }  
 
+  
