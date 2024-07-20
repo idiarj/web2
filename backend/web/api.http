@@ -19,8 +19,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "username": "Idiarj",
-    "password": "16012004"
+    "username": "Burgosz",
+    "password": "nathaly2003"
 }
 
 
@@ -37,25 +37,29 @@ Content-Type: application/json
 
 
 {
-    "projectName": "Sistema de Gestion Central de Proyectos",
-    "objective": "Proyecto de la materia Web 2",
+    "projectName": "Periodico Digital: El Zuliano",
+    "objective": "Proyecto Final Ing de Software II",
     "members": [
         {
             "cedula": 30217559,
             "profiles": ["Desarrollador", "Desarrollador Back-End", "Arquitecto de Software"]
         },
         {
-            "cedula": 30106795,
+            "cedula": 30819564,
             "profiles": ["Desarrollador", "Desarrollador Front-End"]
         },
         {
-            "cedula": 30819564,
-            "profiles": ["Desarrollador", "Apoyo", "Desarrollador Front-End"]   
+            "cedula": 30310333,
+            "profiles": ["Analista", "Apoyo"]   
+        },
+        {
+            "cedula": 31169904,
+            "profiles": ["Apoyo", "Documentista"]
         }
     ],
     "startDate": "2024-05-07",
-    "endDate": "2024-07-28",
-    "state": "Creado"
+    "endDate": "2024-07-22",
+    "state": "Empezado"
 }
 
 ### Ver recursos
@@ -73,3 +77,6 @@ Content-Type: application/json
     "apellido": "Finol",
     "cedula": 31169904
 }
+
+### Ver proyectos del usuario logeado
+GET http://localhost:3000/projects
