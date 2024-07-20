@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  .calendar-container {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 87vw;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+  }
+  
+  .calendar-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-form input,
+  .calendar-form button {
+    margin-bottom: 10px;
+  }
+  
+  .calendar-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .calendar-form button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .calendar-form button:hover {
+    background-color: #555;
+  }
+  
+  .calendar-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .calendar-list-item {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .calendar-list-item h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .calendar-list-item p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .date-fields {
+    display: flex;
+    gap: 10px; /* Espacio entre los inputs */
+  }
+  
+  .small-input {
+    flex: 1;
+    max-width: 150px; /* Ajusta el tamaño del input */
+  }
+  
+  .normal-input {
+    max-width: 700px;
+  }
+  
+  .estado-input {
+    max-width: 130px;
+    margin-top: 8px; /* Espacio entre el input y el botón */
+    height: 56px;
+  }
+  
+  .name-status-container {
+    display: flex;
+    gap: 10px; /* Espacio entre el nombre y el estado */
+    margin-bottom: 10px; /* Espacio debajo del contenedor */
+    max-width: 700px; /* Ajusta el tamaño del input */
+  }
+  
+  .roles-select {
+    max-width: 110px; /* Ajusta el tamaño del input */
+  }
+  
+  .members-select {
+    max-width: 300px; /* Ajusta el tamaño del input */
+  }
+  
