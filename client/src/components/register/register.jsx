@@ -123,9 +123,9 @@ function Register() {
             Contraseña:
             <input type="password" name="password" value={formData.password} onChange={handleChange} />
           </label>
-        </form>
           <button type="submit"  className={disable ? "disabledButton" : "enabledButton"} disabled={disable} >{buttonText}</button>
           {error && <p className="error-message">{error}</p>}
+          </form>
         <p className="login-link">¿Ya tienes una cuenta? <Link to="/logIn">Inicia sesión aquí</Link></p>
       </div>
     </div>
