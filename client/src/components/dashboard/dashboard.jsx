@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import icon from '../../assets/icon.jpg';
 import './dashboard.css';
 
@@ -15,6 +14,7 @@ function Dashboard() {
     <div className="dashboard-container">
       <aside className="dashboard-nav">
         <ul>
+          <li><Link to="/dashboard">Home</Link></li>
           <li><Link to="/profile">Perfil</Link></li>
           <li><Link to="/calendar">Calendario</Link></li>
           <li><Link to="/projects">Proyectos</Link></li>

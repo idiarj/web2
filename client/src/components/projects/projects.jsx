@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem } from '@mui/material';
-// import { Autocomplete } from '@mui/lab';
-import Autocomplete from '@mui/material/Autocomplete'; // Correct import for Autocomplete from MUI core
+import Autocomplete from '@mui/material/Autocomplete';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import './projects.css';
 import icon from '../../assets/icon.jpg';
-
 import { ifetchWrapper } from '../../../public/fetchWrapper.js';
 
 function Projects() {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
+  const [projectObjective, setProjectObjective] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [members, setMembers] = useState([{ resource: '', roles: [] }]);
   const [resources, setResources] = useState([]);
   const [roles, setRoles] = useState([]);
+  const [projectStatus, setProjectStatus] = useState('activo');
   const [savedProjects, setSavedProjects] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResourcesAndRoles = async () => {
       try {
-        // Suponiendo que existe una función fetchRoles similar a fetchResources
         const fetchResources = ifetchWrapper.fetchMethod({
           endpoint: 'recursos',
           credentials: 'include'
         });
         const fetchRoles = ifetchWrapper.fetchMethod({
-          endpoint: 'profiles/bussines', // Asume que este es el endpoint correcto para roles
+          endpoint: 'profiles/bussines',
           credentials: 'include'
         });
 
@@ -37,11 +39,6 @@ function Projects() {
           const resourcesData = await resourcesResponse.json();
           const rolesData = await rolesResponse.json();
 
-          console.log('Recursos:', resourcesData.recursos);
-          console.log(rolesData)
-          console.log('Roles:', rolesData.perfiles);
-
-          // Suponiendo que tienes funciones setResources y setRoles para actualizar el estado
           setResources(resourcesData.recursos);
           setRoles(rolesData.perfiles);
         }
@@ -63,6 +60,26 @@ function Projects() {
 
   const handleProjectNameChange = (event) => {
     setProjectName(event.target.value);
+  };
+
+  const handleProjectDescriptionChange = (event) => {
+    setProjectDescription(event.target.value);
+  };
+
+  const handleProjectObjectiveChange = (event) => {
+    setProjectObjective(event.target.value);
+  };
+
+  const handleStartDateChange = (event) => {
+    setStartDate(event.target.value);
+  };
+
+  const handleEndDateChange = (event) => {
+    setEndDate(event.target.value);
+  };
+
+  const handleProjectStatusChange = (event) => {
+    setProjectStatus(event.target.value);
   };
 
   const handleMemberChange = (index, newValue) => {
@@ -87,102 +104,204 @@ function Projects() {
   };
 
   const handleSaveProject = () => {
-    // Agregar lógica para guardar el proyecto
-    setSavedProjects([...savedProjects, projectName]);
+    setSavedProjects([...savedProjects, {
+      name: projectName,
+      description: projectDescription,
+      objective: projectObjective,
+      startDate,
+      endDate,
+      status: projectStatus,
+      members: members.map(member => ({
+        resourceId: member.resource.id,
+        roles: member.roles
+      }))
+    }]);
     setProjectName('');
+    setProjectDescription('');
+    setProjectObjective('');
+    setStartDate('');
+    setEndDate('');
+    setProjectStatus('activo');
+    setMembers([{ resource: '', roles: [] }]);
     handleClose();
   };
 
+  // Eliminar roles duplicados
+  const uniqueRoles = [...new Set(roles)];
+
+  async function handleLogout() {
+    navigate('/login');
+  }
+
   return (
-    
     <div className="dashboard-container">
+      <aside className="dashboard-nav">
+        <ul>
+          <li><Link to="/dashboard">Home</Link></li>
+          <li><Link to="/profile">Perfil</Link></li>
+          <li><Link to="/calendar">Calendario</Link></li>
+          <li><Link to="/projects">Proyectos</Link></li>
+          <li><Link to="/login" onClick={handleLogout}>Cerrar sesión</Link></li>
+        </ul>
+      </aside>
       <main className="dashboard-content">
         <h1>
           <img src={icon} alt="Icon" className="icono-img" />
           ABC ProjectManager
         </h1>
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+        <Button variant="contained" color="primary" onClick={handleClickOpen} className="create-project-btn">
           CREA UN NUEVO PROYECTO!
         </Button>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Crear Proyecto</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              label="Nombre del Proyecto"
-              type="text"
-              fullWidth
-              value={projectName}
-              onChange={handleProjectNameChange}
-            />
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Recurso</TableCell>
-                  <TableCell>Rol</TableCell>
-                  <TableCell align="center">Acciones</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {members.map((member, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Autocomplete
-                        options={resources}
-                        getOptionLabel={(option) => option.recurso}
-                        renderInput={(params) => <TextField {...params} label="Selecciona un miembro" />}
-                        onChange={(event, newValue) => {
-                          console.log(newValue);
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Select
-                        multiple
-                        value={member.roles}
-                        onChange={(event) => handleRoleChange(index, event)}
-                        fullWidth
-                        renderValue={(selected) => selected.join(', ')}
-                      >
-                        {roles.map((role) => (
-                          <MenuItem key={role} value={role}>
-                            {role}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </TableCell>
-                    <TableCell align="center">
-                      <IconButton onClick={() => handleRemoveMember(index)}>
-                        <RemoveCircleOutline />
-                      </IconButton>
-                      {index === members.length - 1 && (
-                        <IconButton onClick={handleAddMember}>
-                          <AddCircleOutline />
-                        </IconButton>
-                      )}
-                    </TableCell>
-                  </TableRow>
+        <Dialog open={open} onClose={handleClose} PaperProps={{ style: { width: '80%', maxWidth: '750px' } }}>
+        <DialogTitle>Crear Proyecto</DialogTitle>
+  <DialogContent>
+    <div className="name-status-container">
+      <TextField
+        autoFocus
+        margin="dense"
+        label="Nombre del Proyecto"
+        type="text"
+        fullWidth
+        value={projectName}
+        onChange={handleProjectNameChange}
+        className="normal-input"
+      />
+      <Select
+        margin="dense"
+        label="Estado del Proyecto"
+        value={projectStatus}
+        onChange={(event) => setProjectStatus(event.target.value)}
+        className="estado-input"
+        fullWidth
+      >
+        <MenuItem value="activo">Activo</MenuItem>
+        <MenuItem value="en pausa">En Pausa</MenuItem>
+        <MenuItem value="terminado">Terminado</MenuItem>
+        <MenuItem value="cancelado">Cancelado</MenuItem>
+      </Select>
+    </div>
+    <TextField
+      margin="dense"
+      label="Descripción del Proyecto"
+      type="text"
+      fullWidth
+      value={projectDescription}
+      onChange={handleProjectDescriptionChange}
+      className="normal-input"
+    />
+    <TextField
+      margin="dense"
+      label="Objetivo del Proyecto"
+      type="text"
+      fullWidth
+      value={projectObjective}
+      onChange={handleProjectObjectiveChange}
+      className="normal-input"
+    />
+    <div className="date-fields">
+      <TextField
+        margin="dense"
+        label="Fecha de Inicio"
+        type="date"
+        InputLabelProps={{ shrink: true }}
+        value={startDate}
+        onChange={handleStartDateChange}
+        className="small-input"
+      />
+      <TextField
+        margin="dense"
+        label="Fecha de Fin"
+        type="date"
+        InputLabelProps={{ shrink: true }}
+        value={endDate}
+        onChange={handleEndDateChange}
+        className="small-input"
+      />
+    </div>
+    <Table>
+      <TableHead>
+            <TableRow>
+              <TableCell>Recurso</TableCell>
+              <TableCell>Rol</TableCell>
+              <TableCell align="center">Acciones</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {members.map((member, index) => (
+              <TableRow key={index}>
+        <TableCell>
+      <Autocomplete
+        options={resources}
+        getOptionLabel={(option) => option.recurso}
+        renderInput={(params) => <TextField {...params} label="Miembros" />}
+        className='members-select'
+        onChange={(event, newValue) => handleMemberChange(index, newValue)}
+        disableCloseOnSelect />
+        </TableCell>
+            <TableCell>
+              <Select
+                multiple
+                value={member.roles}
+                onChange={(event) => handleRoleChange(index, event)}
+                fullWidth
+                renderValue={(selected) => selected.length === 0 ? "Roles" : selected.join(', ')}
+                className='roles-select'
+                displayEmpty
+                autoComplete="off"
+              >
+                <MenuItem disabled value="">
+                  Selecciona roles
+                </MenuItem>
+                {uniqueRoles.map((role) => (
+                  <MenuItem key={role} value={role}>
+                    {role}
+                  </MenuItem>
                 ))}
-              </TableBody>
-            </Table>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancelar
-            </Button>
-            <Button onClick={handleSaveProject} color="primary">
-              Guardar
-            </Button>
-          </DialogActions>
-        </Dialog>
-        {savedProjects.map((project, index) => (
-          <div className="proyecto" key={index}>
-            <div className="saved-project">
-              <h2>{project}</h2>
-            </div>
-          </div>
+              </Select>
+            </TableCell>
+            <TableCell align="center">
+              <IconButton onClick={() => handleRemoveMember(index)}>
+                <RemoveCircleOutline />
+              </IconButton>
+              {index === members.length - 1 && (
+                <IconButton onClick={handleAddMember}>
+                  <AddCircleOutline />
+                </IconButton>
+              )}
+            </TableCell>
+          </TableRow>
         ))}
+      </TableBody>
+    </Table>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleClose} color="primary">
+      Cancelar
+    </Button>
+    <Button onClick={handleSaveProject} color="primary">
+      Guardar
+    </Button>
+  </DialogActions>
+</Dialog>
+        <div>
+          <h2>Proyectos Guardados</h2>
+          {savedProjects.length === 0 ? (
+            <p>No hay proyectos guardados</p>
+          ) : (
+            <ul>
+              {savedProjects.map((project, index) => (
+                <li key={index}>
+                  <h3>{project.name}</h3>
+                  <p>{project.description}</p>
+                  <p>Objetivo: {project.objective}</p>
+                  <p>Fecha de Inicio: {project.startDate}</p>
+                  <p>Fecha de Fin: {project.endDate}</p>
+                  <p>Estado: {project.status}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </main>
     </div>
   );
