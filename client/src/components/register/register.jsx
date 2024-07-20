@@ -40,7 +40,7 @@ function Register() {
   const handleChange = event => {
     const { name, value } = event.target;
     if (name === 'cedula') {
-      const onlyNums = parseInt(value);
+      const onlyNums = isNaN(parseInt(value)) ? '' : parseInt(value);
       setFormData(prevState => ({
         ...prevState,
         [name]: onlyNums
@@ -112,7 +112,7 @@ function Register() {
           type="text"
           name="cedula"
           placeholder="Cédula"
-          value={formData.cedula}
+          value={formData.cedula === null ? '' : formData.cedula}
           onChange={handleChange}
           required
         />
