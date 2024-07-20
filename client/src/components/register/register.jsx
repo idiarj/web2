@@ -15,8 +15,9 @@ function Register() {
     password: ''
   });
   const [error, setError] = useState('');
-  const [disable, setDisable] = useState(false)
+  const [disable, setDisable] = useState(false);
   const [buttonText, setButtonText] = useState('Registrate');
+  const navigate = useNavigate();
 
   useEffect(() => {
     let intervalId;
@@ -35,17 +36,11 @@ function Register() {
 
     return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta o el estado `disable` cambia
   }, [disable]);
-  const navigate = useNavigate(); 
 
   const handleChange = event => {
     const { name, value } = event.target;
-    console.log(name, value)
     if (name === 'cedula') {
-      console.log(typeof name)
-      // Asegura que solo se ingresen números
-      const onlyNums = parseInt(value)
-      console.log(onlyNums)
-      console.log(typeof onlyNums)
+      const onlyNums = parseInt(value);
       setFormData(prevState => ({
         ...prevState,
         [name]: onlyNums
@@ -67,7 +62,7 @@ function Register() {
     }
 
     try {
-      setDisable(true)
+      setDisable(true);
       const response = await ifetchWrapper.fetchMethod({
         endpoint: 'register',
         method: 'post',
@@ -75,59 +70,83 @@ function Register() {
       });
       const data = await response.json();
       if (response.ok) {
-        console.log('Registro exitoso:', data);
-        setError(''); 
+        setError('');
         navigate('/logIn'); 
       } else {
-        console.error('Error al registrar', data);
         setError(`Error al registrar. ${data.error}`);
-        setDisable(false)
+        setDisable(false);
       }
     } catch (error) {
-      setDisable(false)
-      console.error('Error en la solicitud:', error);
       setError('Error en la solicitud. Inténtelo de nuevo.');
+      setDisable(false);
     }
   };
 
   return (
     <div className="register-container">
-      <div className="form-section">
-        <div className="company-name">
-          <img src={icon} alt="Icon" className="icono-img" />
-          <h1>ABC ProjectManager</h1>
-        </div>
-        <h2>Registro</h2>
-        <form onSubmit={handleSubmit} className="register-form">
-          <label>
-            Nombre:
-            <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} />
-          </label>
-          <label>
-            Apellido:
-            <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} />
-          </label>
-          <label>
-          Cedula de identidad:
-            <input type="number" name="cedula" value={formData.cedula} onChange={handleChange} />
-          </label>
-          <label>
-            Nombre de usuario:
-            <input type="text" name="username" value={formData.username} onChange={handleChange} />
-          </label>
-          <label>
-            Correo electrónico:
-            <input type="email" name="correo" value={formData.correo} onChange={handleChange} />
-          </label>
-          <label>
-            Contraseña:
-            <input type="password" name="password" value={formData.password} onChange={handleChange} />
-          </label>
-          <button type="submit"  className={disable ? "disabledButton" : "enabledButton"} disabled={disable} >{buttonText}</button>
-          {error && <p className="error-message">{error}</p>}
-          </form>
-        <p className="login-link">¿Ya tienes una cuenta? <Link to="/logIn">Inicia sesión aquí</Link></p>
+      <div className="register-header">
+        <img src={icon} alt="icon" className="register-icon" />
+        <h1 className="register-title">ABC ProjectManager</h1>
       </div>
+      {error && <p className="register-error">{error}</p>}
+      <form onSubmit={handleSubmit} className="register-form">
+        <div className="register-name-fields">
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="apellido"
+            placeholder="Apellido"
+            value={formData.apellido}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <input
+          type="text"
+          name="cedula"
+          placeholder="Cédula"
+          value={formData.cedula}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="username"
+          placeholder="Nombre de usuario"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="correo"
+          placeholder="Correo electrónico"
+          value={formData.correo}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit" className={disable ? "disabledButton" : "enabledButton"} disabled={disable}>
+          {buttonText}
+        </button>
+      </form>
+      <p className="register-footer">
+        ¿Ya tienes una cuenta? <Link to="/logIn">Inicia sesión aquí</Link>
+      </p>
     </div>
   );
 }

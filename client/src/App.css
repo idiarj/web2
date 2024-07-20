@@ -13,3 +13,19 @@ body {
   background-position: center;
   font-family: Arial, sans-serif; 
 }
+/* Estilos globales */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p {
+  color: black;
+}
