@@ -94,6 +94,7 @@ export class Proyectos{
     
     static async getProjects({userId}){
         try {
+            console.log(`el user id es ${userId}`)
             const key = 'getPreInfoProjects'
             const params = [userId]
             const resultSet = await iPgHandler.exeQuery({key, params})

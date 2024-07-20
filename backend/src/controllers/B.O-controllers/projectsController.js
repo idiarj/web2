@@ -31,7 +31,7 @@ export class ProyectosController{
                 error: 'No hay sesion para ver sus proyectos.'
             })
             
-            const projects = await Proyectos.getProjectsByUser({user})
+            const projects = await Proyectos.getProjects({userId: userid})
             return res.status(200).json({
                 projects
             })
