@@ -1,6 +1,3 @@
-### Ver usuarios registrados
-GET http://localhost:3000/users
-
 ### Registrar usuario
 POST http://localhost:3000/register
 Content-Type: application/json
@@ -19,14 +16,9 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "username": "Idiarj",
-    "password": "16012004"
+    "username": "Burgosz",
+    "password": "nathaly2003"
 }
-
-
-
-### Ver proyectos el usuario logeado
-GET http://localhost:3000/projects 
 
 ### Home
 GET http://localhost:3000/home
@@ -37,25 +29,29 @@ Content-Type: application/json
 
 
 {
-    "projectName": "Sistema de Gestion Central de Proyectos",
-    "objective": "Proyecto de la materia Web 2",
+    "projectName": "Periodico Digital: El Zuliano",
+    "objective": "Proyecto Final Ing de Software II",
     "members": [
         {
             "cedula": 30217559,
             "profiles": ["Desarrollador", "Desarrollador Back-End", "Arquitecto de Software"]
         },
         {
-            "cedula": 30106795,
+            "cedula": 30819564,
             "profiles": ["Desarrollador", "Desarrollador Front-End"]
         },
         {
-            "cedula": 30819564,
-            "profiles": ["Desarrollador", "Apoyo", "Desarrollador Front-End"]   
+            "cedula": 30310333,
+            "profiles": ["Analista", "Apoyo"]   
+        },
+        {
+            "cedula": 31169904,
+            "profiles": ["Apoyo", "Documentista"]
         }
     ],
     "startDate": "2024-05-07",
-    "endDate": "2024-07-28",
-    "state": "Creado"
+    "endDate": "2024-07-22",
+    "state": "Empezado"
 }
 
 ### Ver recursos
@@ -63,3 +59,23 @@ GET http://localhost:3000/recursos
 
 ### Ver perfiles de negocio del sistema
 GET http://localhost:3000/profiles/bussines
+
+### Crear recurso
+POST http://localhost:3000/recursos/crearRecurso
+Content-Type: application/json
+
+{
+    "nombre": "Jesus",
+    "apellido": "Finol",
+    "cedula": 31169904
+}
+
+### Ver proyectos del usuario logeado
+GET http://localhost:3000/projects
+
+### Eliminar un proyecto
+DELETE http://localhost:3000/projects/7
+
+
+### Eliminar un recurso
+DELETE http://localhost:3000/recursos/10

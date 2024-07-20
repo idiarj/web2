@@ -25,18 +25,18 @@ export class ProyectosController{
     }
 
     static async verProyectos(req, res){
-        const user = req.session.username
+        const {username, userid} = req.session
         try{
             if(!(SessionHandler.verifySession(req))) return res.status(401).json({
                 error: 'No hay sesion para ver sus proyectos.'
             })
             
-            const projects = await Proyectos.getProjectsByUser({user})
+            const projects = await Proyectos.getProjects({userId: userid})
             return res.status(200).json({
-                proyectos: `Los proyectos el usuario ${user} son ${projects.join(', ')}`
+                projects
             })
         }catch(error){
-            return res.status(500).json({mensaje: `Error al ver los proyectos del usuario ${user}.`, detalle: error.message})
+            return res.status(500).json({mensaje: `Error al ver los proyectos del usuario ${username}.`, detalle: error.message})
         }
     }
 
@@ -46,9 +46,10 @@ export class ProyectosController{
                 error: 'No hay sesion para eliminar un proyecto.'
             })
             const {projectId} = req.params
-            const deleted = await Proyectos.deleteProject({project: projectId})
+            const {success} = await Proyectos.deleteProject({project: projectId})
+            console.log(success)
             return res.status(200).json({
-                deleted: `El proyecto con id ${projectId} fue ${deleted ? 'eliminado' : 'no eliminado'}`
+                deleted: `El proyecto con id ${projectId} fue ${success ? 'eliminado' : 'no eliminado'}`
             })
         }catch(error){
 

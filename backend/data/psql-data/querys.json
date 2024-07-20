@@ -13,14 +13,18 @@
     "getPerson": "SELECT id_persona FROM persona WHERE cedu_persona= $1",
     "createProject": "INSERT INTO proyecto (nom_proyecto, id_estado, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_proyecto",
     "getMembers": "",
+    "delete_persona": "DELETE FROM persona WHERE id_persona = $1",
     "addObjective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2)",
     "getStateId": "SELECT id_estado FROM estado WHERE des_estado = $1", 
     "addOwner": "INSERT INTO miembro (id_proyecto, id_persona, id_perfil) VALUES ($1, $2, 1)",
     "getEstados": "SELECT des_estado FROM estado",
     "getProfileId": "SELECT id_perfil FROM perfil WHERE des_perfil = $1",
     "addMember": "INSERT INTO miembro (id_proyecto, id_persona, id_perfil) VALUES ($1, $2, $3)",
-    "pre_info_projects": "SELECT DISTINCT p.nom_proyecto AS nombre_proyecto, des_estado as estado_proyecto, obj.des_objetivo AS objetivo_proyecto, (SELECT CONCAT(prm.nom_persona, ' ', prm.ape_persona) FROM miembro m JOIN persona prm ON m.id_persona = prm.id_persona JOIN perfil per ON m.id_perfil = per.id_perfil WHERE m.id_proyecto = p.id_proyecto AND per.des_perfil = 'Project Manager' LIMIT 1) AS creador_proyecto, (SELECT COUNT(DISTINCT m2.id_persona) FROM miembro m2 WHERE m2.id_proyecto = p.id_proyecto) AS cantidad_miembros FROM proyecto p INNER JOIN estado est ON p.id_estado = est.id_estado INNER JOIN objetivo obj ON p.id_proyecto = obj.id_proyecto INNER JOIN miembro m ON p.id_proyecto = m.id_proyecto INNER JOIN persona u ON u.id_persona = m.id_persona WHERE u.id_persona = $1;",
+    "getPreInfoProjects": "SELECT DISTINCT p.nom_proyecto AS nombre_proyecto, des_estado as estado_proyecto, obj.des_objetivo AS objetivo_proyecto, (SELECT CONCAT(prm.nom_persona, ' ', prm.ape_persona) FROM miembro m JOIN persona prm ON m.id_persona = prm.id_persona JOIN perfil per ON m.id_perfil = per.id_perfil WHERE m.id_proyecto = p.id_proyecto AND per.des_perfil = 'Project Manager' LIMIT 1) AS creador_proyecto, (SELECT COUNT(DISTINCT m2.id_persona) FROM miembro m2 WHERE m2.id_proyecto = p.id_proyecto) AS cantidad_miembros FROM proyecto p INNER JOIN estado est ON p.id_estado = est.id_estado INNER JOIN objetivo obj ON p.id_proyecto = obj.id_proyecto INNER JOIN miembro m ON p.id_proyecto = m.id_proyecto INNER JOIN persona pers ON pers.id_persona = m.id_persona INNER JOIN usuario u ON pers.id_persona = u.id_persona WHERE u.id_usuario = $1;",
     "getRecursos":"SELECT nom_persona || ' ' || ape_persona as recurso, cedu_persona as cedula FROM persona",
     "getRecursosProfile": "SELECT des_perfil AS rol FROM perfil WHERE id_tipo_perfil = 2",
-    "getUsersProfile": ""
+    "getUsersProfile": "",
+    "deleteObjectiveProject": "DELETE FROM objetivo WHERE id_proyecto = $1",
+    "deleteProjectMembers": "DELETE FROM miembro WHERE id_proyecto = $1",
+    "deleteProject": "DELETE FROM proyecto WHERE id_proyecto = $1"
 }

@@ -5,7 +5,7 @@ export class Recurso{
         try {
             const key = 'insert_persona'
             const params = [nombre, apellido, cedula]
-            await iPgHandler.exeQuery({key, params})
+             await iPgHandler.exeQuery({key, params})
             return {success: true, msg: 'Recurso creado con exito'}
         } catch (error) {
             console.log(error)
@@ -15,9 +15,12 @@ export class Recurso{
 
     static async eleminarRecurso({id}){
         try {
-            const key = 'delete_person'
+            const key = 'delete_persona'
+            const params = [id]
+            await iPgHandler.exeQuery({key, params})
+            return {success: true, msg: "Recurso eliminado con exito."}
         } catch (error) {
-            
+            return {success: false, msg: "Error al eliminar el recurso"}
         }
     }
 
