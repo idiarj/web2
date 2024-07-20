@@ -15,9 +15,12 @@ export class Recurso{
 
     static async eleminarRecurso({id}){
         try {
-            const key = 'delete_person'
+            const key = 'delete_persona'
+            const params = [id]
+            await iPgHandler.exeQuery({key, params})
+            return {success: true, msg: "Recurso eliminado con exito."}
         } catch (error) {
-            
+            return {success: false, msg: "Error al eliminar el recurso"}
         }
     }
 

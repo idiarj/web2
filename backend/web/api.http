@@ -75,3 +75,7 @@ GET http://localhost:3000/projects
 
 ### Eliminar un proyecto
 DELETE http://localhost:3000/projects/7
+
+
+### Eliminar un recurso
+DELETE http://localhost:3000/recursos/10

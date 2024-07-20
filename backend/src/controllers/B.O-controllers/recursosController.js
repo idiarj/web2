@@ -29,4 +29,16 @@ export class recursoController{
             return res.status(500).json({error: 'Error al crear el recurso', detalle: error.message})
         }
     }
+
+    static async deleteRecurso(req, res){
+        try {
+            const {id} = req.params
+            console.log('el id que recibi es', id)
+            const recurso = await Recurso.eleminarRecurso({id})
+            if(!recurso.success) return res.status(500).json({error: 'Error al eliminar el recurso', detalle: recurso.msg})
+            return res.status(200).json({mensaje: recurso.msg})
+        } catch (error) {
+            return res.status(500).json({error: 'Error al eliminar el recurso', detalle: error.message})
+        }
+    }
 }

@@ -13,6 +13,7 @@
     "getPerson": "SELECT id_persona FROM persona WHERE cedu_persona= $1",
     "createProject": "INSERT INTO proyecto (nom_proyecto, id_estado, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_proyecto",
     "getMembers": "",
+    "delete_persona": "DELETE FROM persona WHERE id_persona = $1",
     "addObjective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2)",
     "getStateId": "SELECT id_estado FROM estado WHERE des_estado = $1", 
     "addOwner": "INSERT INTO miembro (id_proyecto, id_persona, id_perfil) VALUES ($1, $2, 1)",
