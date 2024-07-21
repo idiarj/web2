@@ -37,9 +37,7 @@ async createSession({req, user}){
         }
 }
 
-    verifySession(req){
-        return req.session && req.session.username ? true : false 
-    }
+    
 
    async closeSession(req, res) {
     try {
@@ -54,6 +52,7 @@ async createSession({req, user}){
             });
         });
         res.clearCookie('connect.sid');
+        console.log('sesion cerrada con exito')
         // Enviar una respuesta de éxito después de cerrar la sesión y limpiar la cookie
         return { mensaje: 'Sesión cerrada con éxito' };
     } catch (err) {
@@ -62,4 +61,8 @@ async createSession({req, user}){
         return { mensaje: err.message };
     }
   }
+
+  verifySession(req){
+    return req.session && req.session.username ? true : false 
+}
 }

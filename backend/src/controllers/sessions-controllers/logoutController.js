@@ -7,7 +7,7 @@ export class logoutController{
         if (!SessionHandler.verifySession(req)) {
             return res.json({ mensaje: 'No hay sesion activa' });
         }
-        const result = await SessionHandler.closeSession(req);
+        const result = await SessionHandler.closeSession(req, res);
         return res.json(result);
     } catch (err) {
         return res.json({ err });
