@@ -13,15 +13,14 @@ function ProjectsPreview({ project }) {
   return (
     <div className="project-preview" onClick={handleOpenProject}>
       <div className="project-info-container">
-        <h3>{project.name}</h3>
-        <p>{project.description}</p>
+        <h3>{project.nombre_proyecto}</h3>
       </div>
       <div className="project-details-container">
-        <p>Objetivo: {project.objective}</p>
-        <p>Fecha de Inicio: {project.startDate}</p>
-        <p>Fecha de Fin: {project.endDate}</p>
-        <p>Estado: {project.status}</p>
-        <p>Miembros: {project.members.length}</p>
+        <p>Objetivo: {project.objetivo_proyecto}</p>
+        {/* <p>Fecha de Inicio: {project.startDate}</p>
+        <p>Fecha de Fin: {project.endDate}</p> */}
+        <p>Estado: {project.estado_proyecto}</p>
+        <p>Miembros: {project.cantidad_miembros}</p>
       </div>
     </div>
   );

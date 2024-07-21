@@ -23,7 +23,7 @@ function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchResourcesAndRoles = async () => {
+    const fetchResourcesAndRolesAndProjects = async () => {
       try {
         const fetchResources = ifetchWrapper.fetchMethod({
           endpoint: 'recursos',
@@ -34,21 +34,29 @@ function Projects() {
           credentials: 'include'
         });
 
-        const [resourcesResponse, rolesResponse] = await Promise.all([fetchResources, fetchRoles]);
+        const fetchProjects = ifetchWrapper.fetchMethod({
+          endpoint: 'projects',
+          credentials: 'include'
+        })
 
-        if (resourcesResponse.ok && rolesResponse.ok) {
+        const [resourcesResponse, rolesResponse, projectsResponse] = await Promise.all([fetchResources, fetchRoles, fetchProjects]);
+
+        if (resourcesResponse.ok && rolesResponse.ok && projectsResponse) {
           const resourcesData = await resourcesResponse.json();
           const rolesData = await rolesResponse.json();
-
+          const projectsData = await projectsResponse.json()
+          console.log(projectsData)
           setResources(resourcesData.recursos);
           setRoles(rolesData.perfiles);
+          setSavedProjects(projectsData.projects)
+          console.log(savedProjects)
         }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchResourcesAndRoles();
+    fetchResourcesAndRolesAndProjects();
   }, []);
 
   const handleClickOpen = () => {

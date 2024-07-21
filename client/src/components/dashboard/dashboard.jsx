@@ -2,12 +2,29 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../../assets/icon.jpg';
 import './dashboard.css';
+import { ifetchWrapper } from '../../../public/fetchWrapper';
 
 function Dashboard() {
   const navigate = useNavigate();
 
-  async function handleLogout() {
-    navigate('/login');
+  async function handleLogout(){
+    try {
+      const response = await ifetchWrapper.fetchMethod({
+        endpoint: 'logout',
+        method: 'post',
+        credentials: 'include'
+      });
+      if(response.ok){
+        navigate('/login');
+        console.log(response)
+      }else{
+        console.log(response)
+        console.log('error al cerrar sesion')
+      }
+    } catch (error) {
+      
+    }
+    
   }
 
   return (
