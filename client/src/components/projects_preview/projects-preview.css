@@ -1,4 +1,4 @@
-.project-preview {
+/* .project-preview {
     border: 1px solid #e0e0e0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 20px;
@@ -23,7 +23,37 @@
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 8px;
-  }
+  } */
+
+  .project-preview {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #ffffff; /* Fondo claro */
+}
+
+.project-preview:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+    background-color: #f9f9f9; /* Cambio sutil de color de fondo al hacer hover */
+}
+
+.project-preview h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif; /* Cambio de fuente */
+}
+
+.project-preview p {
+    color: #666;
+    font-family: 'Roboto', sans-serif; /* Cambio de fuente */
+    line-height: 1.6; /* Mejora la legibilidad */
+}
   
   /* Específico para la fecha y los miembros para diferenciarlos un poco más */
   .project-info-container, .project-details-container {
