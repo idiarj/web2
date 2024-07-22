@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchWrapper } from '../../../public/fetchWrapper';
-
+import { ifetchWrapper } from '/fetchWrapper.js';
 function ProjectDetail() {
     const { projectId } = useParams();
     const navigate = useNavigate();

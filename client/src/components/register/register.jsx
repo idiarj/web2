@@ -1,4 +1,4 @@
-import { ifetchWrapper } from '../../../public/fetchWrapper.js';
+import { ifetchWrapper } from '/fetchWrapper.js';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../../assets/icon.jpg'; 
