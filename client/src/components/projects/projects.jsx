@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import './projects.css';
 import icon from '../../assets/icon.jpg';
-import { ifetchWrapper } from '../../../public/fetchWrapper.js';
+import { ifetchWrapper } from '/fetchWrapper.js';
 import ProjectsPreview from '../projects_preview/projects-preview.jsx';
 
 function Projects() {
@@ -92,11 +92,16 @@ function Projects() {
   };
 
   const handleMemberChange = (index, newValue) => {
-    const newMembers = [...members];
-    newMembers[index].resource = newValue;
-    setMembers(newMembers);
+    console.log('Selected Value:', newValue); // Agrega este console.log
+    if (newValue) {
+      const newMembers = [...members];
+      newMembers[index].resource = newValue; // Asegúrate de que `newValue` tenga la propiedad `cedula`
+      setMembers(newMembers);
+    } else {
+      console.warn('Selected value is null or undefined');
+    }
   };
-
+  
   const handleRoleChange = (index, event) => {
     const newMembers = [...members];
     newMembers[index].roles = event.target.value;
@@ -110,10 +115,9 @@ function Projects() {
   const handleRemoveMember = (index) => {
     const newMembers = members.filter((_, i) => i !== index);
     setMembers(newMembers);
-  };
 
-  const handleSaveProject = () => {
-    setSavedProjects([...savedProjects, {
+  };const handleSaveProject = () => {
+    const projectData = {
       name: projectName,
       description: projectDescription,
       objective: projectObjective,
@@ -121,19 +125,48 @@ function Projects() {
       endDate,
       status: projectStatus,
       members: members.map(member => ({
-        resourceId: member.resource.id,
+        resourceId: member.resource?.cedula || '', // Asegúrate de que resourceId esté definido
         roles: member.roles
       }))
-    }]);
-    setProjectName('');
-    setProjectDescription('');
-    setProjectObjective('');
-    setStartDate('');
-    setEndDate('');
-    setProjectStatus('activo');
-    setMembers([{ resource: '', roles: [] }]);
-    handleClose();
+    };
+  
+    console.log('Project Data Before Sending:', projectData); // Revisa los datos que se están enviando
+  
+    ifetchWrapper.fetchMethod({
+      endpoint: 'projects',
+      method: 'POST',
+      body: JSON.stringify(projectData),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json' // Asegúrate de que el encabezado esté establecido
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.text().then(text => {
+          throw new Error(`HTTP error! status: ${response.status}, response: ${text}`);
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Project saved successfully:', data);
+      setSavedProjects([...savedProjects, data]);
+      setProjectName('');
+      setProjectDescription('');
+      setProjectObjective('');
+      setStartDate('');
+      setEndDate('');
+      setProjectStatus('activo');
+      setMembers([{ resource: '', roles: [] }]);
+      handleClose();
+    })
+    .catch(error => {
+      console.error('Error saving project:', error);
+    });
   };
+  
+  
 
   // Eliminar roles duplicados
   const uniqueRoles = [...new Set(roles)];
@@ -230,13 +263,20 @@ function Projects() {
             {members.map((member, index) => (
               <TableRow key={index}>
         <TableCell>
-      <Autocomplete
-        options={resources}
-        getOptionLabel={(option) => option.recurso}
-        renderInput={(params) => <TextField {...params} label="Miembros" />}
-        className='members-select'
-        onChange={(event, newValue) => handleMemberChange(index, newValue)}
-        disableCloseOnSelect />
+        <Autocomplete
+  options={resources}
+  getOptionLabel={(option) => option.recurso}
+  renderInput={(params) => <TextField {...params} label="Miembros" />}
+  className='members-select'
+  onChange={(event, newValue) => {
+    console.log('Autocomplete New Value:', newValue); // Agrega este console.log
+    handleMemberChange(index, newValue);
+  }}
+  disableCloseOnSelect
+/>
+
+
+
         </TableCell>
             <TableCell>
               <Select

@@ -4,7 +4,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, I
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 import './calendar.css';
 import icon from '../../assets/icon.jpg';
-import { ifetchWrapper } from '../../../public/fetchWrapper.js';
+import { ifetchWrapper } from '/fetchWrapper.js';
 
 function Calendar() {
   const [open, setOpen] = useState(false);

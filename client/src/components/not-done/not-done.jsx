@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'; // Add useEffect import
 import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
-import { ifetchWrapper } from '../../../public/fetchWrapper.js';
+import { ifetchWrapper } from '/fetchWrapper.js';
 import './not-done.css'
 
 

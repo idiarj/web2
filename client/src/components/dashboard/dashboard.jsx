@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../../assets/icon.jpg';
 import './dashboard.css';
-import { ifetchWrapper } from '../../../public/fetchWrapper';
+import { ifetchWrapper } from '/fetchWrapper.js';
 
 function Dashboard() {
   const navigate = useNavigate();

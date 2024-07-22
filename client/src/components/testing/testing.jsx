@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { ifetchWrapper } from "../../../public/fetchWrapper"
-
+import { ifetchWrapper } from '/fetchWrapper.js';
 
 export function Testing(){
 
