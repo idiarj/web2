@@ -79,3 +79,6 @@ DELETE http://localhost:3000/projects/10
 
 ### Eliminar un recurso
 DELETE http://localhost:3000/recursos/10
+
+### Ver estados
+GET http://localhost:3000/status

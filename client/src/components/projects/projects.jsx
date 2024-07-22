@@ -20,10 +20,11 @@ function Projects() {
   const [roles, setRoles] = useState([]);
   const [projectStatus, setProjectStatus] = useState('activo');
   const [savedProjects, setSavedProjects] = useState([]);
+  const [states, setStates] = useState([])
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchResourcesAndRolesAndProjects = async () => {
+    const fetchResourcesAndRolesAndProjectsAndStates = async () => {
       try {
         const fetchResources = ifetchWrapper.fetchMethod({
           endpoint: 'recursos',
@@ -39,16 +40,23 @@ function Projects() {
           credentials: 'include'
         })
 
-        const [resourcesResponse, rolesResponse, projectsResponse] = await Promise.all([fetchResources, fetchRoles, fetchProjects]);
+        const fetchStates = ifetchWrapper.fetchMethod({
+          endpoint: 'status',
+          credentials: 'include'
+        })
 
-        if (resourcesResponse.ok && rolesResponse.ok && projectsResponse) {
+        const [resourcesResponse, rolesResponse, projectsResponse, statesResponse] = await Promise.all([fetchResources, fetchRoles, fetchProjects, fetchStates]);
+
+        if (resourcesResponse.ok && rolesResponse.ok && projectsResponse && statesResponse) {
           const resourcesData = await resourcesResponse.json();
           const rolesData = await rolesResponse.json();
           const projectsData = await projectsResponse.json()
+          const statesData = await statesResponse.json()
           console.log(projectsData)
           setResources(resourcesData.recursos);
           setRoles(rolesData.perfiles);
           setSavedProjects(projectsData.projects)
+          setStates(statesData.status)
           console.log(savedProjects)
         }
       } catch (error) {
@@ -56,7 +64,7 @@ function Projects() {
       }
     };
 
-    fetchResourcesAndRolesAndProjects();
+    fetchResourcesAndRolesAndProjectsAndStates();
   }, []);
 
   const handleClickOpen = () => {
@@ -116,54 +124,31 @@ function Projects() {
     const newMembers = members.filter((_, i) => i !== index);
     setMembers(newMembers);
 
-  };const handleSaveProject = () => {
+  };
+  const handleSaveProject = async () => {
     const projectData = {
-      name: projectName,
-      description: projectDescription,
+      projectName: projectName,
       objective: projectObjective,
       startDate,
       endDate,
       status: projectStatus,
       members: members.map(member => ({
-        resourceId: member.resource?.cedula || '', // Asegúrate de que resourceId esté definido
-        roles: member.roles
+        cedula: member.resource?.cedula || '', // Asegúrate de que resourceId esté definido
+        profiles: member.roles
       }))
     };
   
     console.log('Project Data Before Sending:', projectData); // Revisa los datos que se están enviando
-  
-    ifetchWrapper.fetchMethod({
+    const response = await ifetchWrapper.fetchMethod({
       endpoint: 'projects',
-      method: 'POST',
-      body: JSON.stringify(projectData),
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json' // Asegúrate de que el encabezado esté establecido
-      }
+      method: 'post',
+      body: projectData,
+      credentials: 'include'
     })
-    .then(response => {
-      if (!response.ok) {
-        return response.text().then(text => {
-          throw new Error(`HTTP error! status: ${response.status}, response: ${text}`);
-        });
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Project saved successfully:', data);
-      setSavedProjects([...savedProjects, data]);
-      setProjectName('');
-      setProjectDescription('');
-      setProjectObjective('');
-      setStartDate('');
-      setEndDate('');
-      setProjectStatus('activo');
-      setMembers([{ resource: '', roles: [] }]);
-      handleClose();
-    })
-    .catch(error => {
-      console.error('Error saving project:', error);
-    });
+    const data = await response.json()
+    if (response.ok) {
+      console.log(data)
+    }
   };
   
   
@@ -216,10 +201,15 @@ function Projects() {
         className="estado-input"
         fullWidth
       >
-        <MenuItem value="activo">Activo</MenuItem>
+        {/* <MenuItem value="activo">Activo</MenuItem>
         <MenuItem value="en pausa">En Pausa</MenuItem>
         <MenuItem value="terminado">Terminado</MenuItem>
-        <MenuItem value="cancelado">Cancelado</MenuItem>
+        <MenuItem value="cancelado">Cancelado</MenuItem> */}
+        {states.map((state) => (
+          <MenuItem key={state} value={state}>
+            {state}
+          </MenuItem>
+        ))}
       </Select>
     </div>
     <TextField
