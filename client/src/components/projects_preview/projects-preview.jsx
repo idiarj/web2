@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './projects-preview.css'
+import { useNavigate } from 'react-router-dom';
+import './projects-preview.css';
 
 function ProjectsPreview({ project }) {
+  const navigate = useNavigate();
+
   if (!project) {
     return <div className='noInfo'>No hay proyectos para mostrar</div>;
   }
 
+  const handleProjectClick = () => {
+    navigate(`/projects/${project.id_proyecto}`); // Asegúrate de que `project.id_proyecto` sea el identificador correcto del proyecto
+  };
+
   return (
-    <div className="project-preview">
+    <div className="project-preview" onClick={handleProjectClick}>
       <div className="project-info-container">
         <h3>{project.nombre_proyecto}</h3>
       </div>
@@ -24,7 +31,8 @@ function ProjectsPreview({ project }) {
 }
 
 ProjectsPreview.propTypes = {
-  projects: PropTypes.shape({
+  project: PropTypes.shape({
+    id_proyecto: PropTypes.string.isRequired, // Asegúrate de que el id_proyecto esté definido y sea requerido
     nombre_proyecto: PropTypes.string,
     objetivo_proyecto: PropTypes.string,
     estado_proyecto: PropTypes.string,
