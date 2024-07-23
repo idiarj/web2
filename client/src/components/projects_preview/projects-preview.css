@@ -1,87 +1,73 @@
-/* .project-preview {
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-  }
-  
-  .project-preview:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transform: translateY(-5px);
-  }
-  
-  .project-preview h3 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .project-preview p {
-    color: #666;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 8px;
-  } */
-
-  .project-preview {
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-    border-radius: 8px; /* Bordes redondeados */
-    background-color: #ffffff; /* Fondo claro */
+/* Estilos para el contenedor de vista previa de proyectos */
+.project-preview {
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+  border-radius: 8px;
+  background-color: #ffffff;
+  width: 300px; /* Ancho fijo */
+  height: 300px; /* Alto fijo para hacer el contenedor cuadrado */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between; /* Espacio entre los elementos */
 }
 
-.project-preview:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transform: translateY(-5px);
-    background-color: #f9f9f9; /* Cambio sutil de color de fondo al hacer hover */
+/* Estilo del contenedor de la información del proyecto */
+.project-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-
-.noInfo{
-  color: rgb(255, 0, 0);
-  background-color: black;
-}
-.project-preview h3 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-family: 'Roboto', sans-serif; /* Cambio de fuente */
+/* Estilo del encabezado del proyecto */
+.project-info-container h3 {
+  color: #333;
+  font-size: 20px;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
-.project-preview p {
-    color: #666;
-    font-family: 'Roboto', sans-serif; /* Cambio de fuente */
-    line-height: 1.6; /* Mejora la legibilidad */
+/* Estilo del contenedor de detalles del proyecto */
+.project-details-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #666;
+  font-family: 'Roboto', sans-serif;
+  justify-content: space-between;
 }
-  
-  /* Específico para la fecha y los miembros para diferenciarlos un poco más */
-  .project-info-container, .project-details-container {
-    display: flex;
-    flex-direction: row; /* Alinea los elementos horizontalmente */
-    gap: 20px; /* Espacio entre los elementos */
-    height: 30px; /* Espacio entre el nombre y el estado */
-    margin-bottom: 10px; /* Espacio debajo del contenedor */
-    max-width: 700px; /* Ajusta el tamaño del input */
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center; /* Centra los elementos verticalmente */
 
-  }
-  
-  .project-preview {
-    display: flex;
-    flex-direction: column; /* Alinea los contenedores verticalmente */
-    gap: 10px; /* Espacio entre los contenedores */
-  }
-  
-  .project-preview p:last-child {
-      font-weight: bold;
-      color: #333;
-  }  
+/* Estilo para cada párrafo en los detalles */
+.project-details-container p {
+  margin: 0;
+  font-size: 14px;
+}
 
-  
+/* Estilo para el enlace de ver detalles */
+.project-view-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+
+.project-view-link:hover {
+  color: #0056b3;
+}
+
+/* Estilo para la sección cuando no hay información del proyecto */
+.noInfo {
+  color: #ff0000;
+  background-color: #000;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}

@@ -87,4 +87,10 @@ body {
       height: 10%;
     }
 
-  
+    .dashboard-content .dashboard-image {
+      max-width: 60%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    

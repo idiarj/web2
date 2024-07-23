@@ -1,30 +1,30 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../../assets/icon.jpg';
+import projectManagerImage from '../../assets/project-manager.png'; // Nueva imagen
 import './dashboard.css';
 import { ifetchWrapper } from '/fetchWrapper.js';
 
 function Dashboard() {
   const navigate = useNavigate();
 
-  async function handleLogout(){
+  async function handleLogout() {
     try {
       const response = await ifetchWrapper.fetchMethod({
         endpoint: 'logout',
         method: 'post',
         credentials: 'include'
       });
-      if(response.ok){
+      if (response.ok) {
         navigate('/login');
-        console.log(response)
-      }else{
-        console.log(response)
-        console.log('error al cerrar sesion')
+        console.log(response);
+      } else {
+        console.log(response);
+        console.log('Error al cerrar sesión');
       }
     } catch (error) {
-      
+      console.log('Error al cerrar sesión:', error);
     }
-    
   }
 
   return (
@@ -43,7 +43,7 @@ function Dashboard() {
           <img src={icon} alt="Icon" className="icono-img" />
           ABC ProjectManager
         </h1>
-        <p>Dashboard content here...</p>
+        <img src={projectManagerImage} alt="Project Manager" className="dashboard-image" /> {/* Nueva imagen */}
       </main>
     </div>
   );
