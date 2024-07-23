@@ -35,8 +35,12 @@ export class ProyectosController{
             })
             
             const projects = await Proyectos.getProjects({userId: userid})
+            if(!projects.success) return res.status(500).json({
+                error: 'Error al ver los proyectos del usuario.',
+                detalle: projects.error
+            })
             return res.status(200).json({
-                projects
+                projects: projects.resultSet
             })
         }catch(error){
             return res.status(500).json({mensaje: `Error al ver los proyectos del usuario ${username}.`, detalle: error.message})
@@ -74,7 +78,7 @@ export class ProyectosController{
                 console.log('objetivos',objectives)
                 if(!projectInfo.success || !members.success || !objectives.success) return res.status(500).json({mensaje: 'Error interno.'})
                 return res.status(200).json({
-                    projectInfo: projectInfo.resultSet,
+                    projectInfo: projectInfo.resultSet[0],
                     members: members.resultSet,
                     objectives: objectives.resultSet
                 })

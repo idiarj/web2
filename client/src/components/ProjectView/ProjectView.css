@@ -1,3 +1,68 @@
+/* .dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-nav {
+  background-color: #f8f9fa;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.dashboard-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.objectives {
+  margin-bottom: 20px;
+}
+
+.objectives h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.member-container {
+  background-color: #7ebaeb;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.member-container h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.member-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.member-container li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.no-project-data {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+} */
+
 .project-view-container {
   padding: 20px;
   display: flex;

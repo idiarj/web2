@@ -2,32 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, TextField, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
-import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import { AddCircleOutline, ArrowBack, RemoveCircleOutline } from '@mui/icons-material';
 import './ProjectView.css'; // Usa tu archivo CSS existente
+import { ifetchWrapper } from '../../../fetchWrapper';
+import arrow from '../../assets/arrowBack.png'
 
 function ProjectView() {
   const { projectId } = useParams();
-  const [project, setProject] = useState(null);
+  const [project, setProject] = useState({});
   const [resources, setResources] = useState([]);
   const [roles, setRoles] = useState([]);
   const [activities, setActivities] = useState([]);
   const [newActivity, setNewActivity] = useState('');
+  const [objectives, setObjective] = useState('')
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchProjectData = async () => {
       try {
-        const projectResponse = await fetch(`/api/projects/${projectId}`);
-        const projectData = await projectResponse.json();
-        setProject(projectData);
-
-        const resourcesResponse = await fetch('/api/recursos');
-        const resourcesData = await resourcesResponse.json();
-        setResources(resourcesData.recursos);
-
-        const rolesResponse = await fetch('/api/profiles/bussines');
-        const rolesData = await rolesResponse.json();
-        setRoles(rolesData.perfiles);
+        console.log('holi')
+        const [projectResponse, activitiesResponse] = await Promise.all([
+          ifetchWrapper.fetchMethod({
+            endpoint: `projects/${projectId}`,
+            credentials: 'include'
+          }),
+          // ifetchWrapper.fetchMethod({
+          //   endpoint: `activities/${projectId}`,
+          // }),
+        ])
+        console.log('hola')
+        // const activitiesData = await activitiesResponse.json();
+        const {projectInfo, members, objectives} = await projectResponse.json();
+        console.log(projectResponse)
+        console.log('projectData', projectInfo);
+        console.log('membersData', members)
+        console.log('objectivesData', objectives)
+        if(projectResponse.ok){
+          setProject(projectInfo)
+          setResources(members) // Actualizado para usar la respuesta del backend
+          setObjective(objectives) // Actualizado para usar la respuesta del backend
+          console.log('project es', project)
+          console.log('resources', resources)
+          console.log('objetivos',objectives)
+        }
 
         // Aquí también puedes obtener actividades si es necesario
       } catch (error) {
@@ -79,119 +97,50 @@ function ProjectView() {
     }
   };
 
-  if (!project) {
-    return <div>Loading...</div>;
-  }
+  // if (!project) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className="dashboard-container">
-      <aside className="dashboard-nav">
-        {/* Similar a tu navegación existente */}
-      </aside>
-      <main className="dashboard-content">
-        <h1>Detalles del Proyecto</h1>
-        <TextField
-          margin="dense"
-          label="Nombre del Proyecto"
-          type="text"
-          fullWidth
-          value={project.projectName}
-          disabled
-        />
-        <TextField
-          margin="dense"
-          label="Descripción del Proyecto"
-          type="text"
-          fullWidth
-          value={project.projectDescription}
-          disabled
-        />
-        <div className="date-fields">
-          <TextField
-            margin="dense"
-            label="Fecha de Inicio"
-            type="date"
-            InputLabelProps={{ shrink: true }}
-            value={project.startDate}
-            disabled
-          />
-          <TextField
-            margin="dense"
-            label="Fecha de Fin"
-            type="date"
-            InputLabelProps={{ shrink: true }}
-            value={project.endDate}
-            disabled
-          />
-        </div>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Recurso</TableCell>
-              <TableCell>Rol</TableCell>
-              <TableCell>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {project.members.map((member, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <Autocomplete
-                    options={resources}
-                    getOptionLabel={(option) => option.recurso}
-                    renderInput={(params) => <TextField {...params} label="Recurso" />}
-                    value={member.resource}
-                    onChange={(event, newValue) => handleResourceChange(index, newValue)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Select
-                    multiple
-                    value={member.roles}
-                    onChange={(event) => handleRoleChange(index, event)}
-                    renderValue={(selected) => selected.join(', ')}
-                  >
-                    {roles.map((role, roleIndex) => (
-                      <MenuItem key={roleIndex} value={role}>
-                        {role}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </TableCell>
-                <TableCell>
-                  <IconButton onClick={() => handleRemoveMember(index)}>
-                    <RemoveCircleOutline />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <div>
-          <h2>Actividades</h2>
-          <div>
-            <TextField
-              margin="dense"
-              label="Nueva Actividad"
-              type="text"
-              value={newActivity}
-              onChange={(e) => setNewActivity(e.target.value)}
-            />
-            <Button onClick={handleAddActivity}>Agregar Actividad</Button>
-          </div>
-          <ul>
-            {activities.map((activity, index) => (
-              <li key={index}>
-                {activity}
-                <IconButton onClick={() => handleRemoveActivity(index)}>
-                  <RemoveCircleOutline />
-                </IconButton>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <Button onClick={handleSaveChanges}>Guardar Cambios</Button>
-      </main>
+      
+      {project ? (
+        <>
+          <aside className="dashboard-nav">
+          <IconButton>
+              <ArrowBack onClick={() => navigate('/projects')} /> 
+          </IconButton>
+            {/* Similar a tu navegación existente */}
+          </aside>
+          <main className="dashboard-content">
+            <h1>Detalles del Proyecto</h1>
+
+            <h2 className='project-title'>Título: {project.projectname}</h2>
+            <div className='objectives'>
+              <h3>Objetivos</h3>
+              {Array.isArray(objectives) ? (
+                objectives.map((o, index) => (
+                  <p key={index}>{o.objetivo}</p>
+                ))
+              ) : (
+                <p>No hay objetivos disponibles</p>
+              )}
+            </div>
+            <section className='member-container'>
+              <h3>Miembros</h3>
+              <ul>
+                {resources.map((member) => (
+                  <li key={member.id_persona}>
+                    {member.nombre_completo}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </main>
+        </>
+      ) : (
+        <div className="no-project-data">No hay datos del proyecto disponibles</div>
+      )}
     </div>
   );
 }
