@@ -24,7 +24,9 @@ export class ActividadesController{
 
     static async getActividades(req, res){
         try {
-            
+            const {projectId} = req.params
+            const actividades = await Actividades.verActividades({projectId})
+            return res.status(200).json(actividades)
         } catch (error) {
             
         }

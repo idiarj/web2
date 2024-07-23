@@ -32,9 +32,19 @@ export class Actividades{
     }
 
     static async verActividades({projectId}){
-        const key = 'getActivities'
-        const params = [projectId]
-        const actividades = await iPgHandler.exeQuery({key, params})
-        return actividades
+        try {
+            const key = 'getActivities'
+            const params = [projectId]
+            const resultSet = await iPgHandler.exeQuery({key, params})
+            return {
+                success: true,
+                resultSet
+                }
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            }
+        }
     }
 }

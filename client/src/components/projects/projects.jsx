@@ -46,18 +46,20 @@ function Projects() {
         })
 
         const [resourcesResponse, rolesResponse, projectsResponse, statesResponse] = await Promise.all([fetchResources, fetchRoles, fetchProjects, fetchStates]);
-
+        const resourcesData = await resourcesResponse.json();
+        const rolesData = await rolesResponse.json();
+        const projectsData = await projectsResponse.json()
+        const statesData = await statesResponse.json()
         if (resourcesResponse.ok && rolesResponse.ok && projectsResponse && statesResponse) {
-          const resourcesData = await resourcesResponse.json();
-          const rolesData = await rolesResponse.json();
-          const projectsData = await projectsResponse.json()
-          const statesData = await statesResponse.json()
+
           console.log(projectsData)
           setResources(resourcesData.recursos);
           setRoles(rolesData.perfiles);
           setSavedProjects(projectsData.projects)
           setStates(statesData.status)
           console.log(savedProjects)
+        }else{
+          console.log(resourcesData, rolesData, projectsData, statesData)
         }
       } catch (error) {
         console.error('Error fetching data:', error);
