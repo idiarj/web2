@@ -23,7 +23,10 @@ function Projects() {
   const [states, setStates] = useState([])
   const [reloadProjects, setReloadProjects] = useState(false)
   const navigate = useNavigate();
-      const fetchResourcesAndRolesAndProjectsAndStates = async () => {
+      
+
+  useEffect(() => {
+    const fetchResourcesAndRolesAndProjectsAndStates = async () => {
       try {
         const fetchResources = ifetchWrapper.fetchMethod({
           endpoint: 'recursos',
@@ -64,8 +67,6 @@ function Projects() {
         console.error('Error fetching data:', error);
       }
     }
-
-  useEffect(() => {
     fetchResourcesAndRolesAndProjectsAndStates();
   }, []);
 
@@ -325,9 +326,10 @@ function Projects() {
                 <p>No hay proyectos guardados</p>
               ) : (
                 savedProjects.map((project) => (
-                  <ProjectsPreview key={project.id} project={project} />
+                  <ProjectsPreview key={project.id_proyecto} project={project} />
                 ))
-              )}
+              )
+              }
             </div>
           </div>
         </div>
