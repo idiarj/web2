@@ -29,5 +29,6 @@
     "deleteProject": "DELETE FROM proyecto WHERE id_proyecto = $1",
     "addActivity": "INSERT INTO actividad (id_objetivo, des_actividad, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_actividad",
     "asignateResource": "INSERT INTO asignacion (id_objetivo, id_miembro) VALUES ($1, $2)",
-    "addPrelation": "INSERT INTO prelacion_actividad (id_actividad_prela, id_actividad) VALUES ($1, $2)"
+    "addPrelation": "INSERT INTO prelacion_actividad (id_actividad_prela, id_actividad) VALUES ($1, $2)",
+    "getActivities": "SELECT a.id_actividad, a.des_actividad AS actividad, o.des_objetivo AS objetivo FROM actividad a INNER JOIN objetivo o ON a.id_objetivo = o.id_objetivo WHERE id_proyecto = $1"
 }

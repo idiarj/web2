@@ -5,6 +5,7 @@ export class ActividadesController{
         try {
             const {projectId} = req.params
             const {activityName, objective, startDate, endDate, prelacion, resource} = req.body
+            console.log(req.params, req.body)
             const activity = await Actividades.crearActividad({projectId, activityName, objective, startDate, endDate, prelacion, resource})
             if(!activity.success) return res.status(500).json({error: activity.error})
             return res.status(200).json({msg: activity.msg})
@@ -22,6 +23,10 @@ export class ActividadesController{
     }
 
     static async getActividades(req, res){
-        
+        try {
+            
+        } catch (error) {
+            
+        }
     }
 }
