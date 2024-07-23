@@ -68,7 +68,8 @@ function Projects() {
       }
     }
     fetchResourcesAndRolesAndProjectsAndStates();
-  }, []);
+    setReloadProjects(false)
+  }, [reloadProjects]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -151,6 +152,7 @@ function Projects() {
     const data = await response.json()
     if (response.ok) {
       setOpen(false)
+      setReloadProjects(true)
       console.log(data)
     }
   };
