@@ -4,9 +4,11 @@ import { projectValidation } from "../../../data/iValidation/iValidation.js";
 
 export class ProyectosController{
     static async crearProyecto(req, res){
+        console.log(`el body es`, req.body)
         const result = await projectValidation.validateTotal(req.body)
         if(!result.success){
             console.log('error en las validaciones')
+            console.log(result.error.issues)
             return res.status(400).json({
             mensaje: 'Error en las validaciones al crear el proyecto',
             error: result.error.issues

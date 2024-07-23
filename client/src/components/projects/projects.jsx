@@ -131,9 +131,9 @@ function Projects() {
       objective: projectObjective,
       startDate,
       endDate,
-      status: projectStatus,
+      state: projectStatus,
       members: members.map(member => ({
-        cedula: member.resource?.cedula || '', // Asegúrate de que resourceId esté definido
+        cedula: parseInt(member.resource?.cedula) || '', // Asegúrate de que resourceId esté definido
         profiles: member.roles
       }))
     };
@@ -147,6 +147,7 @@ function Projects() {
     })
     const data = await response.json()
     if (response.ok) {
+      setOpen(false)
       console.log(data)
     }
   };
@@ -254,16 +255,17 @@ function Projects() {
               <TableRow key={index}>
         <TableCell>
         <Autocomplete
-  options={resources}
-  getOptionLabel={(option) => option.recurso}
-  renderInput={(params) => <TextField {...params} label="Miembros" />}
-  className='members-select'
-  onChange={(event, newValue) => {
-    console.log('Autocomplete New Value:', newValue); // Agrega este console.log
-    handleMemberChange(index, newValue);
-  }}
-  disableCloseOnSelect
-/>
+          options={resources}
+          getOptionLabel={(option) => option.recurso}
+          renderInput={(params) => <TextField {...params} label="Miembros" />}
+          className='members-select'
+          onChange={(event, newValue) => {
+            console.log('Autocomplete New Value:', newValue); // Agrega este console.log
+            handleMemberChange(index, newValue);
+          }}
+          disableCloseOnSelect
+          isOptionEqualToValue={(option, value) => option.cedula === value.cedula}
+        />
 
 
 

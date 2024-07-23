@@ -14,7 +14,7 @@
     "createProject": "INSERT INTO proyecto (nom_proyecto, id_estado, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_proyecto",
     "getMembers": "",
     "delete_persona": "DELETE FROM persona WHERE id_persona = $1",
-    "addObjective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2)",
+    "addObjective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2) RETURNING id_objetivo",
     "getStateId": "SELECT id_estado FROM estado WHERE des_estado = $1", 
     "addOwner": "INSERT INTO miembro (id_proyecto, id_persona, id_perfil) VALUES ($1, $2, 1)",
     "getEstados": "SELECT des_estado AS status FROM estado",
@@ -26,5 +26,8 @@
     "getUsersProfile": "",
     "deleteObjectiveProject": "DELETE FROM objetivo WHERE id_proyecto = $1",
     "deleteProjectMembers": "DELETE FROM miembro WHERE id_proyecto = $1",
-    "deleteProject": "DELETE FROM proyecto WHERE id_proyecto = $1"
+    "deleteProject": "DELETE FROM proyecto WHERE id_proyecto = $1",
+    "addActivity": "INSERT INTO actividad (id_objetivo, des_actividad, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_actividad",
+    "asignateResource": "INSERT INTO asignacion (id_objetivo, id_miembro) VALUES ($1, $2)",
+    "addPrelation": "INSERT INTO prelacion_actividad (id_actividad_prela, id_actividad) VALUES ($1, $2)"
 }

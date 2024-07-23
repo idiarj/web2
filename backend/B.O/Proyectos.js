@@ -87,7 +87,8 @@ export class Proyectos{
             const [{id_proyecto}] = await iPgHandler.exeQuery({key: 'createProject', params: [projectName, id_estado, startDate, endDate], client})
             
             await iPgHandler.exeQuery({key: 'addObjective', params: [id_proyecto, objective], client})
-            await iPgHandler.exeQuery({key: 'addOwner', params: [id_proyecto, owner], client}) 
+            let [{id_persona}] = await iPgHandler.exeQuery({key: 'getPerson', params: [owner], client})
+            await iPgHandler.exeQuery({key: 'addOwner', params: [id_proyecto, id_persona], client}) 
 
             console.log(`por ahora todo bien, creare ${projectName, id_proyecto} con el estado ${state} y el objetivo ${objective}`)
             console.log(`la fecha de inicio es ${startDate} y la de final es ${endDate}`)

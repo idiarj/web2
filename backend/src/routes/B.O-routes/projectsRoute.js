@@ -3,7 +3,7 @@ import { ProyectosController } from '../../controllers/B.O-controllers/projectsC
 
 export const ProyectosRouter = Router()
 
-ProyectosRouter.post('/crearProyecto', ProyectosController.crearProyecto)
+ProyectosRouter.post('/', ProyectosController.crearProyecto)
 ProyectosRouter.delete('/:projectId', ProyectosController.eliminarProyecto)
 ProyectosRouter.get('/:id', ProyectosController.detalleProyecto)
 ProyectosRouter.get('/', ProyectosController.verProyectos)

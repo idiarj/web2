@@ -82,3 +82,14 @@ DELETE http://localhost:3000/recursos/10
 
 ### Ver estados
 GET http://localhost:3000/status
+
+### Crear actividad
+POST http://localhost:3000/actividades/13
+Content-Type: application/json
+
+{
+    "activityName": "Reunión de inicio",
+    "objective": "Planificar el proyecto",
+    "startDate": "2024-05-07",
+    "endDate": "2024-05-07",
+}
