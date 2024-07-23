@@ -61,11 +61,27 @@ export class ProyectosController{
 
         static async detalleProyecto(req, res){
             try {
-                const {projectId} = req.params
+                const { projectId } = req.params
                 console.log(projectId)
-                const project = await Proyectos.getProject({id: projectId})
+                console.log(`asincronia paralela go brr`)
+                const [projectInfo, members, objectives] = await Promise.all([
+                    Proyectos.getProject({projectId}), 
+                    Proyectos.getMembers({projectId}),
+                    Proyectos.getObjectives({projectId}),
+                ])
+                console.log('project',projectInfo.resultSet)
+                console.log('members',members)
+                console.log('objetivos',objectives)
+                if(!projectInfo.success || !members.success || !objectives.success) return res.status(500).json({mensaje: 'Error interno.'})
+                return res.status(200).json({
+                    projectInfo: projectInfo.resultSet,
+                    members: members.resultSet,
+                    objectives: objectives.resultSet
+                })
             } catch (error) {
-                
+                return res.status(500).json({
+                    error: error.message
+                })
             }
         
         }
