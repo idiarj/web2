@@ -21,10 +21,9 @@ function Projects() {
   const [projectStatus, setProjectStatus] = useState('activo');
   const [savedProjects, setSavedProjects] = useState([]);
   const [states, setStates] = useState([])
+  const [reloadProjects, setReloadProjects] = useState(false)
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchResourcesAndRolesAndProjectsAndStates = async () => {
+      const fetchResourcesAndRolesAndProjectsAndStates = async () => {
       try {
         const fetchResources = ifetchWrapper.fetchMethod({
           endpoint: 'recursos',
@@ -64,8 +63,9 @@ function Projects() {
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };
+    }
 
+  useEffect(() => {
     fetchResourcesAndRolesAndProjectsAndStates();
   }, []);
 
