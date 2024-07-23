@@ -1,0 +1,23 @@
+.project-view-container {
+    padding: 20px;
+  }
+  
+  .resource-section, .activity-section {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .resource-item, .activity-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+  }
+  
+  .resource-item > .MuiTypography-root, .activity-item > .MuiTypography-root {
+    flex: 1;
+  }
+  
+  .resource-item > .MuiIconButton-root, .activity-item > .MuiIconButton-root {
+    margin-left: 10px;
+  }
+  
