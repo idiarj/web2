@@ -82,7 +82,9 @@ export class Proyectos{
 
     static async createProject({owner, projectName, members, objective, startDate, endDate, state}) {
         const client = await iPgHandler.beginTransaction()
+        console.log('toy aki')
         try {
+            console.log('estoy en el try create project')
             const [{id_estado}] = await iPgHandler.exeQuery({key: 'getStateId', params: [state], client})
             const [{id_proyecto}] = await iPgHandler.exeQuery({key: 'createProject', params: [projectName, id_estado, startDate, endDate], client})
             
@@ -96,7 +98,7 @@ export class Proyectos{
             if(members.length > 0){
                 members.forEach(async (m) => {
                     console.log(m)
-                    let [{id_persona}] = await iPgHandler.exeQuery({key: 'getPerson', params: [m.cedula], client})
+                    let [{id_persona}] = await iPgHandler.exeQuery({key: 'getPersonByCedula', params: [m.cedula], client})
                     m.profiles.forEach( async (p)=>{
                         console.log(p)
                         let [{id_perfil}] = await iPgHandler.exeQuery({key: 'getProfileId', params: [p]})
@@ -108,9 +110,9 @@ export class Proyectos{
             await iPgHandler.commitTransaction(client)
             return {success: true, message: `Proyecto ${projectName} creado con exito por ${owner}`}
         } catch (error) {
-
+            console.log(error)
             await iPgHandler.rollbackTransaction(client)
-            return { succes: false, message: 'Error al crear el proyecto'}
+            return { success: false, message: 'Error al crear el proyecto'}
         }
     }
 

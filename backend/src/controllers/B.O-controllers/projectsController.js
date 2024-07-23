@@ -18,6 +18,7 @@ export class ProyectosController{
             const owner = req.session.userid
             console.log(`el id de usuario del creador del proyecto es ${owner}`)
             const response = await Proyectos.createProject({owner, projectName, members, objective, startDate, endDate, state})
+            console.log(response)
             if(!response.success) return res.status(400).json({ error: response.message})
             return res.status(200).json({ mensaje: response.message})
         } catch (error) {

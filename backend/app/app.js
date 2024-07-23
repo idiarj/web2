@@ -37,7 +37,7 @@ app.use('/changePassword', changePassRouter)
 
 app.use('/forgot-password',passResetRouter);
 
-app.use('/projects', isAuthMiddleware, ProyectosRouter)
+app.use('/projects', ProyectosRouter)
 
 app.use('/actividades', ActividadesRouter)
 
