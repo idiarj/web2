@@ -19,11 +19,11 @@ function Projects() {
   const [resources, setResources] = useState([]);
   const [roles, setRoles] = useState([]);
   const [projectStatus, setProjectStatus] = useState('');
-  const [savedProjects, setSavedProjects] = useState([]);
+  const [savedProjects, setSavedProjects] = useState([]); // Inicializado como array vacío
   const [states, setStates] = useState([]);
   const [reloadProjects, setReloadProjects] = useState(false);
   const navigate = useNavigate();
-      
+  
   useEffect(() => {
     const fetchResourcesAndRolesAndProjectsAndStates = async () => {
       try {
@@ -55,8 +55,15 @@ function Projects() {
         if (resourcesResponse.ok && rolesResponse.ok && projectsResponse.ok && statesResponse.ok) {
           setResources(resourcesData.recursos);
           setRoles(rolesData.perfiles);
-          setSavedProjects(projectsData.projects);
           setStates(statesData.status);
+
+          // Verifica la estructura de projectsData
+          if (projectsData && Array.isArray(projectsData.projects)) {
+            setSavedProjects(projectsData.projects);
+          } else {
+            console.error('Data format error: projectsData.projects is not an array or projectsData is undefined');
+            setSavedProjects([]);
+          }
         } else {
           console.error('Error fetching data:', resourcesData, rolesData, projectsData, statesData);
         }
@@ -241,9 +248,9 @@ function Projects() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Recurso</TableCell>
-                  <TableCell>Rol</TableCell>
-                  <TableCell align="center">Acciones</TableCell>
+                  <TableCell>Miembros</TableCell>
+                  <TableCell>Roles</TableCell>
+                  <TableCell>Acciones</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
