@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, TextField, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Select, MenuItem } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
-import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import { AddCircleOutline, ArrowBack, RemoveCircleOutline } from '@mui/icons-material';
 import './ProjectView.css'; // Usa tu archivo CSS existente
 import { ifetchWrapper } from '../../../fetchWrapper';
+import arrow from '../../assets/arrowBack.png'
 
 function ProjectView() {
   const { projectId } = useParams();
@@ -102,127 +103,43 @@ function ProjectView() {
 
   return (
     <div className="dashboard-container">
-     { project ? (
-      <><aside className="dashboard-nav">
-          {/* Similar a tu navegación existente */}
-        </aside><main className="dashboard-content">
+      
+      {project ? (
+        <>
+          <aside className="dashboard-nav">
+          <IconButton>
+              <ArrowBack onClick={() => navigate('/projects')} /> 
+          </IconButton>
+            {/* Similar a tu navegación existente */}
+          </aside>
+          <main className="dashboard-content">
             <h1>Detalles del Proyecto</h1>
-            {/* <TextField
-              margin="dense"
-              label="Nombre del Proyecto"
-              type="text"
-              fullWidth
-              value={project.projectName}
-              disabled />
-            <TextField
-              margin="dense"
-              label="Descripción del Proyecto"
-              type="text"
-              fullWidth
-              value={objectives.objetivo}
-              disabled />
-            <div className="date-fields">
-              <TextField
-                margin="dense"
-                label="Fecha de Inicio"
-                type="date"
-                InputLabelProps={{ shrink: true }}
-                value={project.startDate}
-                disabled />
-              <TextField
-                margin="dense"
-                label="Fecha de Fin"
-                type="date"
-                InputLabelProps={{ shrink: true }}
-                value={project.endDate}
-                disabled />
+
+            <h2 className='project-title'>Título: {project.projectname}</h2>
+            <div className='objectives'>
+              <h3>Objetivos</h3>
+              {Array.isArray(objectives) ? (
+                objectives.map((o, index) => (
+                  <p key={index}>{o.objetivo}</p>
+                ))
+              ) : (
+                <p>No hay objetivos disponibles</p>
+              )}
             </div>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Recurso</TableCell>
-                  <TableCell>Rol</TableCell>
-                  <TableCell>Acciones</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {resources.map((member, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Autocomplete
-                        options={resources}
-                        getOptionLabel={(option) => option.nombre_completo}
-                        renderInput={(params) => <TextField {...params} label="Recurso" />}
-                        value={member.resource}
-                        onChange={(event, newValue) => handleResourceChange(index, newValue)} />
-                    </TableCell>
-                    <TableCell>
-                      <Select
-                        multiple
-                        value={member.roles}
-                        onChange={(event) => handleRoleChange(index, event)}
-                        renderValue={(selected) => selected.join(', ')}
-                      >
-                        {roles.map((role, roleIndex) => (
-                          <MenuItem key={roleIndex} value={role}>
-                            {role}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton onClick={() => handleRemoveMember(index)}>
-                        <RemoveCircleOutline />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <div>
-              <h2>Actividades</h2>
-              <div>
-                <TextField
-                  margin="dense"
-                  label="Nueva Actividad"
-                  type="text"
-                  value={newActivity}
-                  onChange={(e) => setNewActivity(e.target.value)} />
-                <Button onClick={handleAddActivity}>Agregar Actividad</Button>
-              </div>
-              <ul>
-                {activities.map((activity, index) => (
-                  <li key={index}>
-                    {activity}
-                    <IconButton onClick={() => handleRemoveActivity(index)}>
-                      <RemoveCircleOutline />
-                    </IconButton>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <Button onClick={handleSaveChanges}>Guardar Cambios</Button> */}
-            <h2>Titulo: {project.projectname}</h2>
-            <div>
-              <h3 style={{color: 'black'}}>Objetivos</h3>
-              {
-                Array.isArray(objectives) ? objectives.map((o)=>{
-                  return <p>{o.objetivo}</p>
-                }) : <p>No objectives available</p>
-              }
-            </div>
-            <section style={{backgroundColor: 'black'}}>
-              Miembros
+            <section className='member-container'>
+              <h3>Miembros</h3>
               <ul>
                 {resources.map((member) => (
                   <li key={member.id_persona}>
                     {member.nombre_completo}
                   </li>
                 ))}
-                </ul>
+              </ul>
             </section>
-          </main></>) : (
-      <div>No project data available</div>
+          </main>
+        </>
+      ) : (
+        <div className="no-project-data">No hay datos del proyecto disponibles</div>
       )}
     </div>
   );
