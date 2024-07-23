@@ -58,20 +58,21 @@ export class Proyectos{
             const key = 'getPreInfoProjects'
             const params = [userId]
             const resultSet = await iPgHandler.exeQuery({key, params})
-            return resultSet
+            return {success: true, resultSet}
         } catch (error) {
             console.log(error)
             return {error}
         }
     }
 
-    static async deleteProject({project}){
+    static async deleteProject({projectId}){
         const client = await iPgHandler.beginTransaction()
         // console.log('el cliente es', client)
         try {
-            await iPgHandler.exeQuery({key: "deleteObjectiveProject", params: [project], client})
-            await iPgHandler.exeQuery({key: "deleteProjectMembers", params: [project], client})
-            await iPgHandler.exeQuery({key: "deleteProject", params: [project], client})
+            const params = [projectId]
+            await iPgHandler.exeQuery({key: "deleteObjectiveProject", params, client})
+            await iPgHandler.exeQuery({key: "deleteProjectMembers", params, client})
+            await iPgHandler.exeQuery({key: "deleteProject", params, client})
             await iPgHandler.commitTransaction(client)
             return {success: true}
         } catch (error) {
@@ -116,14 +117,36 @@ export class Proyectos{
         }
     }
 
-    static async getMembers({project}){
+    static async getMembers({projectId}){
         try {
             const key = 'getMembers'
-            const params = [project]
-            const members = await iPgHandler.exeQuery({key, params})
-            return members
+            const params = [projectId]
+            const resultSet = await iPgHandler.exeQuery({key, params})
+            return {success: true, resultSet}
         } catch (error) {
-            return {error}
+            return {success: false, error}
+        }
+    }
+
+    static async getObjectives({projectId}){
+        try {
+            const key = 'getObjectives'
+            const params = [projectId]
+            const resultSet = await iPgHandler.exeQuery({key, params})
+            return {success: true, resultSet}
+        } catch (error) {
+            return {success: false, error}
+        }
+    }
+
+    static async getProject({projectId}){
+        try {
+            const key = 'getProject'
+            const params = [projectId]
+            const resultSet = await iPgHandler.exeQuery({key, params})
+            return {success: true, resultSet}
+        } catch (error) {
+            return {success: false, error}
         }
     }
 
@@ -140,4 +163,6 @@ export class Proyectos{
             return {error}
         }
     }
+
+
 }

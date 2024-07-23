@@ -93,3 +93,6 @@ Content-Type: application/json
     "startDate": "2024-05-07",
     "endDate": "2024-05-07"
 }
+
+### Ver detalle proyecto
+GET http://localhost:3000/projects/13
