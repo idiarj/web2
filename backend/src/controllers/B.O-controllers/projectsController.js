@@ -60,6 +60,13 @@ export class ProyectosController{
         }
 
         static async detalleProyecto(req, res){
+            try {
+                const {projectId} = req.params
+                console.log(projectId)
+                const project = await Proyectos.getProject({id: projectId})
+            } catch (error) {
+                
+            }
         
         }
 

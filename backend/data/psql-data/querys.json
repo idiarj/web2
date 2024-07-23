@@ -12,7 +12,7 @@
     "getUserId": "SELECT id_usuario FROM usuario WHERE nom_usuario = $1",
     "getPerson": "SELECT p.id_persona FROM persona p INNER JOIN usuario u ON p.id_persona = u.id_usuario WHERE u.id_usuario = $1",
     "createProject": "INSERT INTO proyecto (nom_proyecto, id_estado, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_proyecto",
-    "getMembers": "",
+    "getMembers": "SELECT DISTINCT m.id_persona, CONCAT(p.nom_persona, ' ', p.ape_persona) AS nombre_completo FROM miembro m INNER JOIN persona p ON m.id_persona = p.id_persona WHERE m.id_proyecto = $1;",
     "getPersonByCedula":"SELECT id_persona FROM persona WHERE cedu_persona = $1",
     "delete_persona": "DELETE FROM persona WHERE id_persona = $1",
     "addObjective": "INSERT INTO objetivo (id_proyecto, des_objetivo) VALUES ($1, $2) RETURNING id_objetivo",
@@ -31,5 +31,6 @@
     "addActivity": "INSERT INTO actividad (id_objetivo, des_actividad, fecha_inicio, fecha_fin) VALUES ($1, $2, $3, $4) RETURNING id_actividad",
     "asignateResource": "INSERT INTO asignacion (id_objetivo, id_miembro) VALUES ($1, $2)",
     "addPrelation": "INSERT INTO prelacion_actividad (id_actividad_prela, id_actividad) VALUES ($1, $2)",
-    "getActivities": "SELECT a.id_actividad as id, a.des_actividad AS actividad, o.des_objetivo AS objetivo FROM actividad a INNER JOIN objetivo o ON a.id_objetivo = o.id_objetivo WHERE id_proyecto = $1"
+    "getActivities": "SELECT a.id_actividad as id, a.des_actividad AS actividad, o.des_objetivo AS objetivo FROM actividad a INNER JOIN objetivo o ON a.id_objetivo = o.id_objetivo WHERE id_proyecto = $1",
+    "getObjectives": "SELECT des_objetivo as objetivo FROM objetivo WHERE id_proyecto = $1"
 }

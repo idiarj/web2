@@ -120,10 +120,7 @@ export class Proyectos{
         try {
             const key = 'getMembers'
             const params = [project]
-            const resultSet = await iPgHandler.exeQuery({key, params})
-            const members = resultSet.map((e)=>{
-                return e.member
-            })
+            const members = await iPgHandler.exeQuery({key, params})
             return members
         } catch (error) {
             return {error}

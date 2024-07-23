@@ -5,5 +5,5 @@ export const ProyectosRouter = Router()
 
 ProyectosRouter.post('/', ProyectosController.crearProyecto)
 ProyectosRouter.delete('/:projectId', ProyectosController.eliminarProyecto)
-ProyectosRouter.get('/:id', ProyectosController.detalleProyecto)
+ProyectosRouter.get('/:projectId', ProyectosController.detalleProyecto)
 ProyectosRouter.get('/', ProyectosController.verProyectos)
