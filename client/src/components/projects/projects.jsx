@@ -11,14 +11,14 @@ import ProjectsPreview from '../projects_preview/projects-preview.jsx';
 function Projects() {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
-  const [projectDescription, setProjectDescription] = useState('');
+  const [projectDescription, setProjectDescription] = useState('Creado');
   const [projectObjective, setProjectObjective] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [members, setMembers] = useState([{ resource: '', roles: [] }]);
   const [resources, setResources] = useState([]);
   const [roles, setRoles] = useState([]);
-  const [projectStatus, setProjectStatus] = useState('activo');
+  const [projectStatus, setProjectStatus] = useState('');
   const [savedProjects, setSavedProjects] = useState([]);
   const [states, setStates] = useState([])
   const [reloadProjects, setReloadProjects] = useState(false)
